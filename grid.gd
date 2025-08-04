@@ -1,7 +1,7 @@
 extends Node2D
 
 # Grid configuration
-const GRID_SIZE = 15
+const GRID_SIZE = 10
 const PATHNODE_SCENE = preload("res://pathnode.tscn")
 
 # Grid data structure
@@ -11,16 +11,16 @@ func _ready():
 	generate_grid()
 
 func generate_grid():
-	# Get viewport size
-	var viewport_size = get_viewport().get_visible_rect().size
-	var grid_height = viewport_size.y * 0.5  # Half the viewport height
+	var grid_height = 500
 	
 	# Calculate spacing between nodes
 	var spacing = grid_height / (GRID_SIZE - 1)
 	
+	var LEFT_MARGIN = 500
+	var TOP_MARGIN = 350
 	# Calculate starting position to center the grid
-	var start_x = -spacing * (GRID_SIZE - 1) * 0.5
-	var start_y = -grid_height * 0.5
+	var start_x = -spacing * (GRID_SIZE - 1) * 0.5 + LEFT_MARGIN
+	var start_y = -grid_height * 0.5 + TOP_MARGIN
 	
 	# Generate grid positions and create nodes
 	for row in range(GRID_SIZE):
