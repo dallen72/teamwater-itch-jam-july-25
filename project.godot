@@ -11,8 +11,17 @@ config_version=5
 [application]
 
 config/name="team-water-july-25"
+run/main_scene="uid://cmjrl4sm5my2p"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GDAIMCPRuntime="*res://addons/gdai-mcp-plugin-godot/gdai_mcp_runtime.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdai-mcp-plugin-godot/plugin.cfg")
 
 [rendering]
 
