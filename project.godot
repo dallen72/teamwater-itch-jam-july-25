@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 GDAIMCPRuntime="*res://addons/gdai-mcp-plugin-godot/gdai_mcp_runtime.gd"
 
+[display]
+
+window/size/mode=3
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gdai-mcp-plugin-godot/plugin.cfg")
