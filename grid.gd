@@ -6,14 +6,17 @@ const PATHNODE_SCENE = preload("res://pathnode.tscn")
 
 # Grid data structure
 var grid_nodes = []
+var selected_node
 
 func _ready():
 	generate_grid()
+
 
 func generate_grid():
 	var grid_height = 500
 	
 	# Calculate spacing between nodes
+	@warning_ignore("integer_division")
 	var spacing = grid_height / (GRID_SIZE - 1)
 	
 	var LEFT_MARGIN = 500
@@ -43,3 +46,38 @@ func generate_grid():
 	print("Grid dimensions: ", GRID_SIZE, "x", GRID_SIZE)
 	print("Grid height: ", grid_height, " pixels")
 	print("Node spacing: ", spacing, " pixels")
+
+
+# when the mouse is clicked on the node within the click area, toggle the selection
+func _input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		select_new_node(event.position)
+		
+# selects the node closes to where is clicked, or toggles the selected node to unselected
+func select_new_node(clicked_pos):
+	var target_node = get_closest_node(clicked_pos)
+	if (selected_node == null):
+		selected_node = target_node
+		selected_node.toggle_selection()
+	elif (selected_node != null):
+		selected_node.toggle_selection()
+		if (selected_node == target_node):
+			selected_node = null
+		else:
+			selected_node = target_node
+			selected_node.toggle_selection()
+
+
+
+
+
+func get_closest_node(click_pos):
+	var closest_node = null
+	var closest_distance = 1000000
+	for row in grid_nodes:
+		for node in row:
+			var distance = click_pos.distance_to(node.position)
+			if distance < closest_distance:
+				closest_distance = distance
+				closest_node = node
+	return closest_node

@@ -1,15 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxiex2equwoh1"]
+[gd_scene load_steps=3 format=3 uid="uid://dxiex2equwoh1"]
+
+[ext_resource type="Script" uid="uid://bldv0jqlji7qj" path="res://pathnode.gd" id="1_f5btf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_728un"]
-radius = 9.0
+radius = 9.21954
 
 [node name="PathNode" type="Node2D"]
-
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_728un")
+script = ExtResource("1_f5btf")
 
 [node name="VisibleShape" type="Polygon2D" parent="."]
 position = Vector2(-1.19209e-07, -1.19209e-07)
 scale = Vector2(0.5625, 0.5625)
 color = Color(0.2, 0.8, 0.2, 1)
 polygon = PackedVector2Array(0, -16, 8, -13.86, 13.86, -8, 16, 0, 13.86, 8, 8, 13.86, 0, 16, -8, 13.86, -13.86, 8, -16, 0, -13.86, -8, -8, -13.86)
+
+[node name="ClickArea" type="Area2D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="ClickArea"]
+shape = SubResource("CircleShape2D_728un")
