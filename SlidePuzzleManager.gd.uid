@@ -1,0 +1,43 @@
+extends Control  # or Node2D, depending on your scene structure
+
+# Grid size
+const GRID_SIZE = 3
+const TILE_SIZE = 100
+
+# Grid data - 0 represents empty space
+var grid = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 0]
+]
+
+var empty_pos = Vector2(2, 2)
+var tile_instances = []
+
+@onready var grid_container = $GridContainer
+
+func _ready():
+    setup_puzzle()
+
+func setup_puzzle():
+    # Create tiles using your Tile.tscn
+    for y in range(GRID_SIZE):
+        for x in range(GRID_SIZE):
+            var tile_scene = preload("res://Tile.tscn")
+            var tile = tile_scene.instantiate()
+            var value = grid[y][x]
+            tile.setup(value, Vector2(x, y), TILE_SIZE, self)
+            tile_instances.append(tile)
+            grid_container.add_child(tile)
+
+func try_move_tile(tile_pos: Vector2) -> bool:
+    if is_adjacent_to_empty(tile_pos):
+        # Swap logic here
+        return true
+    return false
+
+func is_adjacent_to_empty(pos: Vector2) -> bool:
+    var distance = abs(pos.x - empty_pos.x) + abs(pos.y - empty_pos.y)
+    return distance == 1
+
+# ... rest of puzzle logic

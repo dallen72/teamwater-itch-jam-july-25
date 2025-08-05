@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://vv8w56lo3xyd"]
+
+[ext_resource type="Script" uid="uid://co526x5xhfjhj" path="res://Tile.gd" id="1_j13wd"]
+
+[node name="TextureRect" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_j13wd")

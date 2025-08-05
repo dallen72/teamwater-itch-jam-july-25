@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ffu4p6i0qfsx"]
+
+[ext_resource type="Script" uid="uid://bnsoefvr5pe50" path="res://line_puzzle.gd" id="1_q16lx"]
+
+[node name="LinePuzzle" type="Node2D"]
+script = ExtResource("1_q16lx")

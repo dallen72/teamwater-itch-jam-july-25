@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqerc3lfrvb14"]
+
+[ext_resource type="Script" uid="uid://bh5n1qjpyhmdy" path="res://SlidePuzzleManager.gd" id="1_r0du0"]
+[ext_resource type="PackedScene" uid="uid://vv8w56lo3xyd" path="res://Tile.tscn" id="1_uu6xs"]
+[ext_resource type="Texture2D" uid="uid://bi7kcc35uexco" path="res://river.png" id="2_r0du0"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r0du0")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect3" parent="GridContainer" instance=ExtResource("1_uu6xs")]
+layout_mode = 2
+texture = ExtResource("2_r0du0")
+expand_mode = 2
+
+[node name="TextureRect8" parent="GridContainer" instance=ExtResource("1_uu6xs")]
+layout_mode = 2
+texture = ExtResource("2_r0du0")
+expand_mode = 2
+
+[node name="TextureRect" parent="GridContainer" instance=ExtResource("1_uu6xs")]
+layout_mode = 2
+texture = ExtResource("2_r0du0")
+expand_mode = 2
+
+[node name="TextureRect7" parent="GridContainer" instance=ExtResource("1_uu6xs")]
+layout_mode = 2
+texture = ExtResource("2_r0du0")
+expand_mode = 2
+
+[node name="TextureRect2" parent="GridContainer" instance=ExtResource("1_uu6xs")]
+layout_mode = 2
+texture = ExtResource("2_r0du0")
+expand_mode = 2
+
+[node name="TextureRect4" parent="GridContainer" instance=ExtResource("1_uu6xs")]
+layout_mode = 2
+texture = ExtResource("2_r0du0")
+expand_mode = 2
+
+[node name="TextureRect6" parent="GridContainer" instance=ExtResource("1_uu6xs")]
+layout_mode = 2
+texture = ExtResource("2_r0du0")
+expand_mode = 2
+
+[node name="TextureRect5" parent="GridContainer" instance=ExtResource("1_uu6xs")]
+layout_mode = 2
+texture = ExtResource("2_r0du0")
+expand_mode = 2
