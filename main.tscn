@@ -13,3 +13,5 @@ color = Color(0.364706, 0.482353, 1, 1)
 
 [node name="Grid" type="Node2D" parent="."]
 script = ExtResource("2_0xm2m")
+
+[node name="PathLines" type="Node" parent="Grid"]
