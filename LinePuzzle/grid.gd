@@ -97,20 +97,37 @@ func drawNodePath():
 		$PathLines.add_child(line)
 
 
-# selects the node closes to where is clicked, or toggles the selected node to unselected
+# selects the node closest to where is clicked, or toggles the selected node to unselected
 func select_new_node(clicked_pos):
 	var closest_node = get_closest_node(clicked_pos)
+
 	if (selected_path.size() == 0):
 		selected_node = closest_node
 		selected_node.toggle_selection()
-	else:
-		selected_node.make_invisible()
-		selected_node.toggle_selection()
-		if (selected_node != closest_node):
-			selected_node = closest_node
-			selected_node.make_visible()
-			selected_node.toggle_selection()
+	elif (not new_path_segment_obstructed(closest_node)):
+		add_another_node_to_path(closest_node)	
 		
+# if the new node is in the area of an obstacle, return true. obstaces are defined by collision.
+func new_path_segment_obstructed(closest_node):
+	var space_state = get_world_2d().direct_space_state
+	# use global coordinates, not local to node
+	var query = PhysicsRayQueryParameters2D.create(selected_node.position, closest_node.position)
+	var result = space_state.intersect_ray(query)
+	if (result.size() > 0):
+		return true
+	return false
+
+
+
+
+func add_another_node_to_path(closest_node):
+	selected_node.make_invisible()
+	selected_node.toggle_selection()
+	if (selected_node != closest_node):
+		selected_node = closest_node
+		selected_node.make_visible()
+		selected_node.toggle_selection()
+
 
 func get_closest_node(click_pos):
 	var closest_node = null
