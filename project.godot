@@ -27,3 +27,7 @@ window/stretch/mode="viewport"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gdai-mcp-plugin-godot/plugin.cfg")
+
+[physics]
+
+2d/default_gravity=0.0
