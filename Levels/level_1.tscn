@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://qg1utbyfltkt"]
+
+[ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_rf6l5"]
+[ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_a0j4s"]
+[ext_resource type="PackedScene" uid="uid://d2h2q4tuy1qvu" path="res://Dialogue/DialogueSystem.tscn" id="3_jikk4"]
+[ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="4_rf6l5"]
+
+[node name="Root" type="Node2D"]
+script = ExtResource("1_rf6l5")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.364706, 0.482353, 1, 1)
+
+[node name="Grid" type="Node2D" parent="."]
+script = ExtResource("2_a0j4s")
+
+[node name="PathLines" type="Node" parent="Grid"]
+
+[node name="Dialogue" parent="." instance=ExtResource("3_jikk4")]
+
+[node name="Tree" parent="." instance=ExtResource("4_rf6l5")]
+position = Vector2(446, 283)

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://3yppwi2aecmh"]
+
+[ext_resource type="Texture2D" uid="uid://bpg0caf3krs1n" path="res://Assets/fadingtree.png" id="1_jkar0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkar0"]
+size = Vector2(147.5, 149.5)
+
+[node name="Tree" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jkar0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.75, 1.25)
+shape = SubResource("RectangleShape2D_jkar0")

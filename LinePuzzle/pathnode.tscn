@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxiex2equwoh1"]
 
-[ext_resource type="Script" uid="uid://bldv0jqlji7qj" path="res://pathnode.gd" id="1_f5btf"]
+[ext_resource type="Script" uid="uid://bldv0jqlji7qj" path="res://LinePuzzle/pathnode.gd" id="1_ha05m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_728un"]
 radius = 9.21954
 
 [node name="PathNode" type="Node2D"]
-script = ExtResource("1_f5btf")
+script = ExtResource("1_ha05m")
 
 [node name="VisibleShape" type="Polygon2D" parent="."]
 visible = false

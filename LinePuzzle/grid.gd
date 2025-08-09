@@ -2,7 +2,7 @@ extends Node2D
 
 # Grid configuration
 const GRID_SIZE = 10
-const PATHNODE_SCENE = preload("res://pathnode.tscn")
+const PATHNODE_SCENE = preload("res://LinePuzzle/pathnode.tscn")
 
 # Grid data structure
 var grid_nodes = []
