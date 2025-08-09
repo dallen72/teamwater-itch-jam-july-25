@@ -77,6 +77,8 @@ func calculatePath():
 			selected_path.remove_at(selected_path.size() - 1)
 			if (selected_path.size() > 0):
 				selected_node = selected_path[selected_path.size() - 1]
+				selected_path[selected_path.size()-1].make_visible()
+				selected_node.toggle_selection()
 			else:
 				selected_node = null
 	else:
@@ -97,16 +99,18 @@ func drawNodePath():
 
 # selects the node closes to where is clicked, or toggles the selected node to unselected
 func select_new_node(clicked_pos):
-	var target_node = get_closest_node(clicked_pos)
+	var closest_node = get_closest_node(clicked_pos)
 	if (selected_path.size() == 0):
-		selected_node = target_node
+		selected_node = closest_node
 		selected_node.toggle_selection()
 	else:
+		selected_node.make_invisible()
 		selected_node.toggle_selection()
-		if (selected_node != target_node):
-			selected_node = target_node
+		if (selected_node != closest_node):
+			selected_node = closest_node
+			selected_node.make_visible()
 			selected_node.toggle_selection()
-
+		
 
 func get_closest_node(click_pos):
 	var closest_node = null
