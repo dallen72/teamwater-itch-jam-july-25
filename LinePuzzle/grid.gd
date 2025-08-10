@@ -10,6 +10,8 @@ var selected_node
 
 # the path is a stack of nodes, with the top node being the last node added
 var selected_path = []
+# a dict of nodes that the selected path visibly traverses
+var nodes_along_selected_path = []
 
 func _ready():
 	generate_grid()
@@ -66,10 +68,35 @@ func handleNodeSelection(event_pos):
 		if (not new_path_segment_obstructed(closest_node)):
 			if (closest_node == selected_node):
 				remove_node_from_path()
+			elif (node_intersects_selected_path(closest_node)):
+				return
 			else:
 				select_new_node(closest_node)				
-				
 			drawNodePath()
+			calculate_nodes_along_selected_path()
+
+
+func node_intersects_selected_path(node):
+	return nodes_along_selected_path.has(node)
+
+
+# for every node in the selected path, find the raycast between the node and the next node in the path
+# if the raycast intersects with a node in the grid, add it to the nodes_along_selected_path dict
+func calculate_nodes_along_selected_path():
+	var space_state = get_world_2d().direct_space_state
+	# iterate through every node in the selected_path
+	for i in range(selected_path.size() - 1):
+		nodes_along_selected_path.append(selected_path[i])
+	for i in range(selected_path.size() - 1):
+		var node1 = selected_path[i]
+		var node2 = selected_path[i + 1]
+		var query = PhysicsRayQueryParameters2D.create(node1.position, node2.position)
+		var result = space_state.intersect_ray(query)
+		if (result.size() > 0):
+			# for every thing in the result, if it belongs to the GridNode group, add it to the nodes_along_selected_path dict
+			for thing in result:
+				if (thing.collider.is_in_group("GridNode")):
+					nodes_along_selected_path.append(thing.collider)
 
 
 func remove_node_from_path():
