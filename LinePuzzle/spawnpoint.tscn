@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn58kqp8bpey6"]
+
+[ext_resource type="Script" uid="uid://ba1tmgx1xojd4" path="res://LinePuzzle/spawnpoint.gd" id="1_f1yvl"]
+
+[node name="Spawnpoint" type="Node2D"]
+script = ExtResource("1_f1yvl")
+
+[node name="Marker2D" type="Marker2D" parent="."]

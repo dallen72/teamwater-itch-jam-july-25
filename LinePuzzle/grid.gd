@@ -15,6 +15,18 @@ var nodes_along_selected_path = []
 
 func _ready():
 	generate_grid()
+	init_spawn_point()
+
+
+func init_spawn_point():
+	var spawn_point = get_node_or_null("SpawnPoint")
+	if spawn_point != null:
+		var true_spawn_point = get_closest_node(spawn_point.position)
+		spawn_point.show_closest_node_as_spawn_point(true_spawn_point)
+		selected_path.append(true_spawn_point)
+		selected_node = true_spawn_point
+	else:
+		print("ERROR: No spawn point found")
 
 
 func generate_grid():
@@ -66,7 +78,7 @@ func handleNodeSelection(event_pos):
 		select_new_node(closest_node)
 	else:
 		if (not new_path_segment_obstructed(closest_node)):
-			if (closest_node == selected_node):
+			if (closest_node == selected_node and selected_path.size() > 1):
 				remove_node_from_path()
 			elif (node_intersects_selected_path(closest_node)):
 				return
