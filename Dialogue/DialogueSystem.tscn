@@ -14,14 +14,16 @@ grow_vertical = 2
 script = ExtResource("1_ix2o0")
 
 [node name="DialogueBox" parent="." instance=ExtResource("2_6uqi0")]
-offset_right = 252.0
+offset_left = 26.0
+offset_top = 10.0
+offset_right = 248.0
 offset_bottom = 135.0
 script = ExtResource("3_4sefn")
 
 [node name="ContinueButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 151.0
-offset_top = 86.0
-offset_right = 230.0
-offset_bottom = 117.0
+offset_left = 216.0
+offset_top = 134.0
+offset_right = 295.0
+offset_bottom = 165.0
 text = "Continue"
