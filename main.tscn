@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cmjrl4sm5my2p"]
 
-[ext_resource type="Script" uid="uid://cx2t4lykh51c7" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://bewfu8wbppd7t" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://d2h2q4tuy1qvu" path="res://Dialogue/DialogueSystem.tscn" id="3_h2yge"]
 

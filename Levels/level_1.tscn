@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_rf6l5"]
 [ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_a0j4s"]
 [ext_resource type="PackedScene" uid="uid://d2h2q4tuy1qvu" path="res://Dialogue/DialogueSystem.tscn" id="3_jikk4"]
-[ext_resource type="PackedScene" uid="uid://cn58kqp8bpey6" path="res://LinePuzzle/spawnpoint.tscn" id="3_syshm"]
+[ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="3_syshm"]
 [ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="4_rf6l5"]
 
 [node name="Root" type="Node2D"]

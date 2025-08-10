@@ -14,9 +14,15 @@ var selected_path = []
 # a dict of nodes that the selected path visibly traverses
 var nodes_along_selected_path = []
 
+# Energy system integration - PlayerEnergy is now a global singleton
+
 func _ready():
 	generate_grid()
 	init_spawn_point()
+	# Connect to energy depleted signal
+	PlayerEnergy.energy_depleted.connect(_on_energy_depleted)
+	# Debug: Show initial energy
+	print("Initial player energy: ", PlayerEnergy.get_energy())
 
 
 func init_spawn_point():
@@ -93,7 +99,12 @@ func handleNodeSelection(event_pos):
 			elif (node_intersects_selected_path(closest_node)):
 				return
 			else:
-				select_new_node(closest_node)				
+				# Check if we have enough energy to add this node to the path
+				var distance = selected_node.position.distance_to(closest_node.position)
+				if not PlayerEnergy.can_decrease_energy(distance):
+					print("Not enough energy! Need ", distance, " but only have ", PlayerEnergy.get_energy())
+					return
+				select_new_node(closest_node)	
 			drawNodePath()
 			calculate_nodes_along_selected_path()
 
@@ -122,9 +133,20 @@ func calculate_nodes_along_selected_path():
 
 
 func remove_node_from_path():
+	# Calculate the distance of the line segment being removed
+	var removed_node = selected_node
+	var previous_node = selected_path[selected_path.size() - 2] if selected_path.size() > 1 else null
+	
 	selected_node.make_invisible()
 	selected_node.toggle_selection()
 	selected_path.remove_at(selected_path.size() - 1)
+	
+	# Increase energy based on the distance of the removed line segment
+	if previous_node != null:
+		var distance = previous_node.position.distance_to(removed_node.position)
+		PlayerEnergy.increase_energy(distance)
+		print("Energy increased by ", distance, ". Current energy: ", PlayerEnergy.get_energy())
+	
 	if (selected_path.size() == 0):
 		selected_node = null
 	else:
@@ -149,6 +171,11 @@ func select_new_node(closest_node):
 	if (selected_node != null):
 		selected_node.make_invisible()
 		selected_node.toggle_selection()
+		# Decrease energy based on the distance to the new node
+		var distance = selected_node.position.distance_to(closest_node.position)
+		PlayerEnergy.decrease_energy(distance)
+		print("Energy decreased by ", distance, ". Remaining energy: ", PlayerEnergy.get_energy())
+	
 	selected_node = closest_node
 	selected_path.append(selected_node)
 	selected_node.make_visible()
@@ -176,3 +203,15 @@ func get_closest_node(click_pos):
 				closest_distance = distance
 				closest_node = node
 	return closest_node
+
+# Called when energy is depleted
+func _on_energy_depleted():
+	print("Energy depleted! Cannot draw more paths.")
+	# You could add visual feedback here, like disabling node selection
+	# or showing a game over message
+
+# Get the energy cost for a potential path to a node
+func get_path_energy_cost(target_node):
+	if selected_node == null:
+		return 0
+	return selected_node.position.distance_to(target_node.position)
