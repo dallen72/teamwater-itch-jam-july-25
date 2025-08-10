@@ -59,31 +59,29 @@ func _input(event):
 
 # selected the node, then re-draws the path that the selected path makes
 func handleNodeSelection(event_pos):
-	select_new_node(event_pos)		
-	calculatePath()
-	drawNodePath()
-
-
-# the path is a stack of nodes, with the top node being the last node added
-# if the selected node is a node not in the path, add it to the path
-# if the selected node is the top node in the path, remove it from the path
-func calculatePath():
+	var closest_node = get_closest_node(event_pos)
 	if (selected_node == null):
-		return
-
-	if (selected_path.has(selected_node)):
-		# if the selected node is the top node in the path, remove it from the path
-		if (selected_path[selected_path.size() - 1] == selected_node):
-			selected_path.remove_at(selected_path.size() - 1)
-			if (selected_path.size() > 0):
-				selected_node = selected_path[selected_path.size() - 1]
-				selected_path[selected_path.size()-1].make_visible()
-				selected_node.toggle_selection()
-			else:
-				selected_node = null
+		select_new_node(closest_node)
 	else:
-		# if the selected node is not in the path, add it to the path
-		selected_path.append(selected_node)
+		if (not new_path_segment_obstructed(closest_node)):
+			if (closest_node == selected_node):
+				remove_node_from_path()
+			else:
+				select_new_node(closest_node)				
+				
+			drawNodePath()
+
+
+func remove_node_from_path():
+	selected_node.make_invisible()
+	selected_node.toggle_selection()
+	selected_path.remove_at(selected_path.size() - 1)
+	if (selected_path.size() == 0):
+		selected_node = null
+	else:
+		selected_node = selected_path[selected_path.size() - 1]
+		selected_node.make_visible()
+		selected_node.toggle_selection()
 
 
 # iterate through the selected path and draw a line between each node
@@ -98,15 +96,16 @@ func drawNodePath():
 
 
 # selects the node closest to where is clicked, or toggles the selected node to unselected
-func select_new_node(clicked_pos):
-	var closest_node = get_closest_node(clicked_pos)
-
-	if (selected_path.size() == 0):
-		selected_node = closest_node
+func select_new_node(closest_node):
+	if (selected_node != null):
+		selected_node.make_invisible()
 		selected_node.toggle_selection()
-	elif (not new_path_segment_obstructed(closest_node)):
-		add_another_node_to_path(closest_node)	
-		
+	selected_node = closest_node
+	selected_path.append(selected_node)
+	selected_node.make_visible()
+	selected_node.toggle_selection()
+
+			
 # if the new node is in the area of an obstacle, return true. obstaces are defined by collision.
 func new_path_segment_obstructed(closest_node):
 	var space_state = get_world_2d().direct_space_state
@@ -116,17 +115,6 @@ func new_path_segment_obstructed(closest_node):
 	if (result.size() > 0):
 		return true
 	return false
-
-
-
-
-func add_another_node_to_path(closest_node):
-	selected_node.make_invisible()
-	selected_node.toggle_selection()
-	if (selected_node != closest_node):
-		selected_node = closest_node
-		selected_node.make_visible()
-		selected_node.toggle_selection()
 
 
 func get_closest_node(click_pos):
