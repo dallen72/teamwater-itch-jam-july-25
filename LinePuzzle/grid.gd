@@ -7,17 +7,36 @@ const PATHNODE_SCENE = preload("res://LinePuzzle/pathnode.tscn")
 # Grid data structure
 var grid_nodes = []
 var selected_node
+var grid_height = 500
 
 # the path is a stack of nodes, with the top node being the last node added
 var selected_path = []
+# a dict of nodes that the selected path visibly traverses
+var nodes_along_selected_path = []
+
+# Energy system integration - PlayerEnergy is now a global singleton
 
 func _ready():
 	generate_grid()
+	init_spawn_point()
+	# Connect to energy depleted signal
+	PlayerEnergy.energy_depleted.connect(_on_energy_depleted)
+	# Debug: Show initial energy
+	print("Initial player energy: ", PlayerEnergy.get_energy())
+
+
+func init_spawn_point():
+	var spawn_point = get_node_or_null("SpawnPoint")
+	if spawn_point != null:
+		var true_spawn_point = get_closest_node(spawn_point.position)
+		spawn_point.show_closest_node_as_spawn_point(true_spawn_point)
+		selected_path.append(true_spawn_point)
+		selected_node = true_spawn_point
+	else:
+		print("ERROR: No spawn point found")
 
 
 func generate_grid():
-	var grid_height = 500
-	
 	# Calculate spacing between nodes
 	@warning_ignore("integer_division")
 	var spacing = grid_height / (GRID_SIZE - 1)
@@ -50,6 +69,17 @@ func generate_grid():
 	print("Grid height: ", grid_height, " pixels")
 	print("Node spacing: ", spacing, " pixels")
 
+	draw_grid_border(start_x, start_y, spacing * GRID_SIZE, grid_height)
+
+# draw a border around the grid. this should not have a collision shape, but should be visible
+func draw_grid_border(start_x, start_y, width, height):
+	var shape = Line2D.new()
+	shape.points = [Vector2(start_x, start_y), Vector2(start_x + width, start_y), Vector2(start_x + width, start_y + height), Vector2(start_x, start_y + height), Vector2(start_x, start_y)]
+	shape.width = 2
+	# line2d color
+	shape.default_color = Color.PINK
+	add_child(shape)
+
 
 # when the mouse is clicked on the node within the click area, toggle the selection
 func _input(event):
@@ -59,31 +89,70 @@ func _input(event):
 
 # selected the node, then re-draws the path that the selected path makes
 func handleNodeSelection(event_pos):
-	select_new_node(event_pos)		
-	calculatePath()
-	drawNodePath()
-
-
-# the path is a stack of nodes, with the top node being the last node added
-# if the selected node is a node not in the path, add it to the path
-# if the selected node is the top node in the path, remove it from the path
-func calculatePath():
+	var closest_node = get_closest_node(event_pos)
 	if (selected_node == null):
-		return
-
-	if (selected_path.has(selected_node)):
-		# if the selected node is the top node in the path, remove it from the path
-		if (selected_path[selected_path.size() - 1] == selected_node):
-			selected_path.remove_at(selected_path.size() - 1)
-			if (selected_path.size() > 0):
-				selected_node = selected_path[selected_path.size() - 1]
-				selected_path[selected_path.size()-1].make_visible()
-				selected_node.toggle_selection()
-			else:
-				selected_node = null
+		select_new_node(closest_node)
 	else:
-		# if the selected node is not in the path, add it to the path
-		selected_path.append(selected_node)
+		if (not new_path_segment_obstructed(closest_node)):
+			if (closest_node == selected_node and selected_path.size() > 1):
+				remove_node_from_path()
+			elif (node_intersects_selected_path(closest_node)):
+				return
+			else:
+				# Check if we have enough energy to add this node to the path
+				var distance = selected_node.position.distance_to(closest_node.position)
+				if not PlayerEnergy.can_decrease_energy(distance):
+					print("Not enough energy! Need ", distance, " but only have ", PlayerEnergy.get_energy())
+					return
+				select_new_node(closest_node)	
+			drawNodePath()
+			calculate_nodes_along_selected_path()
+
+
+func node_intersects_selected_path(node):
+	return nodes_along_selected_path.has(node)
+
+
+# for every node in the selected path, find the raycast between the node and the next node in the path
+# if the raycast intersects with a node in the grid, add it to the nodes_along_selected_path dict
+func calculate_nodes_along_selected_path():
+	var space_state = get_world_2d().direct_space_state
+	# iterate through every node in the selected_path
+	for i in range(selected_path.size() - 1):
+		nodes_along_selected_path.append(selected_path[i])
+	for i in range(selected_path.size() - 1):
+		var node1 = selected_path[i]
+		var node2 = selected_path[i + 1]
+		var query = PhysicsRayQueryParameters2D.create(node1.position, node2.position)
+		var result = space_state.intersect_ray(query)
+		if (result.size() > 0):
+			# for every thing in the result, if it belongs to the GridNode group, add it to the nodes_along_selected_path dict
+			for thing in result:
+				if (thing.collider.is_in_group("GridNode")):
+					nodes_along_selected_path.append(thing.collider)
+
+
+func remove_node_from_path():
+	# Calculate the distance of the line segment being removed
+	var removed_node = selected_node
+	var previous_node = selected_path[selected_path.size() - 2] if selected_path.size() > 1 else null
+	
+	selected_node.make_invisible()
+	selected_node.toggle_selection()
+	selected_path.remove_at(selected_path.size() - 1)
+	
+	# Increase energy based on the distance of the removed line segment
+	if previous_node != null:
+		var distance = previous_node.position.distance_to(removed_node.position)
+		PlayerEnergy.increase_energy(distance)
+		print("Energy increased by ", distance, ". Current energy: ", PlayerEnergy.get_energy())
+	
+	if (selected_path.size() == 0):
+		selected_node = null
+	else:
+		selected_node = selected_path[selected_path.size() - 1]
+		selected_node.make_visible()
+		selected_node.toggle_selection()
 
 
 # iterate through the selected path and draw a line between each node
@@ -97,20 +166,32 @@ func drawNodePath():
 		$PathLines.add_child(line)
 
 
-# selects the node closes to where is clicked, or toggles the selected node to unselected
-func select_new_node(clicked_pos):
-	var closest_node = get_closest_node(clicked_pos)
-	if (selected_path.size() == 0):
-		selected_node = closest_node
-		selected_node.toggle_selection()
-	else:
+# selects the node closest to where is clicked, or toggles the selected node to unselected
+func select_new_node(closest_node):
+	if (selected_node != null):
 		selected_node.make_invisible()
 		selected_node.toggle_selection()
-		if (selected_node != closest_node):
-			selected_node = closest_node
-			selected_node.make_visible()
-			selected_node.toggle_selection()
-		
+		# Decrease energy based on the distance to the new node
+		var distance = selected_node.position.distance_to(closest_node.position)
+		PlayerEnergy.decrease_energy(distance)
+		print("Energy decreased by ", distance, ". Remaining energy: ", PlayerEnergy.get_energy())
+	
+	selected_node = closest_node
+	selected_path.append(selected_node)
+	selected_node.make_visible()
+	selected_node.toggle_selection()
+
+			
+# if the new node is in the area of an obstacle, return true. obstaces are defined by collision.
+func new_path_segment_obstructed(closest_node):
+	var space_state = get_world_2d().direct_space_state
+	# use global coordinates, not local to node
+	var query = PhysicsRayQueryParameters2D.create(selected_node.position, closest_node.position)
+	var result = space_state.intersect_ray(query)
+	if (result.size() > 0):
+		return true
+	return false
+
 
 func get_closest_node(click_pos):
 	var closest_node = null
@@ -122,3 +203,15 @@ func get_closest_node(click_pos):
 				closest_distance = distance
 				closest_node = node
 	return closest_node
+
+# Called when energy is depleted
+func _on_energy_depleted():
+	print("Energy depleted! Cannot draw more paths.")
+	# You could add visual feedback here, like disabling node selection
+	# or showing a game over message
+
+# Get the energy cost for a potential path to a node
+func get_path_energy_cost(target_node):
+	if selected_node == null:
+		return 0
+	return selected_node.position.distance_to(target_node.position)

@@ -2,6 +2,8 @@ extends Node2D
 
 var is_selected = false
 
+func _ready():
+	add_to_group("GridNode")
 
 func toggle_selection():
 	is_selected = !is_selected
