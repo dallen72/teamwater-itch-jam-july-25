@@ -18,10 +18,11 @@ func _ready():
 	# Or use JSON file in future for dialogue
 	dialogue_output.append("Hello let us start")
 	dialogue_output.append("You are creating a river, where water will run through.")
-	dialogue_output.append("Start by clicking a node three squares to the right"
-)
-	dialogue_output.append("You cannot go through the tree, so you will have to go around."
-)
+	dialogue_output.append("Start by clicking a node three squares to the right")
+	dialogue_output.append("You cannot go through the tree, so you will have to go around.")
+	dialogue_output.append("Your goal is to make it to the cow.")
+	dialogue_output.append("Using the energy you have available to you.")
+	dialogue_output.append("Good luck, see you soon.")
 
 	start_dialogue(current_character, testtexture, dialogue_output)
 	$ContinueButton.pressed.connect(_on_continue_pressed)

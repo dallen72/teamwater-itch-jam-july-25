@@ -22,8 +22,8 @@ script = ExtResource("3_4sefn")
 
 [node name="ContinueButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 216.0
-offset_top = 134.0
-offset_right = 295.0
-offset_bottom = 165.0
+offset_left = 266.0
+offset_top = 120.0
+offset_right = 345.0
+offset_bottom = 151.0
 text = "Continue"
