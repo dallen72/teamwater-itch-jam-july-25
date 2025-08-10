@@ -7,6 +7,7 @@ const PATHNODE_SCENE = preload("res://LinePuzzle/pathnode.tscn")
 # Grid data structure
 var grid_nodes = []
 var selected_node
+var grid_height = 500
 
 # the path is a stack of nodes, with the top node being the last node added
 var selected_path = []
@@ -30,8 +31,6 @@ func init_spawn_point():
 
 
 func generate_grid():
-	var grid_height = 500
-	
 	# Calculate spacing between nodes
 	@warning_ignore("integer_division")
 	var spacing = grid_height / (GRID_SIZE - 1)
@@ -63,6 +62,17 @@ func generate_grid():
 	print("Grid dimensions: ", GRID_SIZE, "x", GRID_SIZE)
 	print("Grid height: ", grid_height, " pixels")
 	print("Node spacing: ", spacing, " pixels")
+
+	draw_grid_border(start_x, start_y, spacing * GRID_SIZE, grid_height)
+
+# draw a border around the grid. this should not have a collision shape, but should be visible
+func draw_grid_border(start_x, start_y, width, height):
+	var shape = Line2D.new()
+	shape.points = [Vector2(start_x, start_y), Vector2(start_x + width, start_y), Vector2(start_x + width, start_y + height), Vector2(start_x, start_y + height), Vector2(start_x, start_y)]
+	shape.width = 2
+	# line2d color
+	shape.default_color = Color.PINK
+	add_child(shape)
 
 
 # when the mouse is clicked on the node within the click area, toggle the selection
