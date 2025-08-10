@@ -4,7 +4,8 @@ extends Control
 
 var dialogue_output = []
 var current_dialogue_index = 0
-var current_character = ""
+var current_character = "John"
+
 
 # Signal for when dialogue ends
 signal dialogue_finished
@@ -13,10 +14,21 @@ signal dialogue_finished
 var testtexture = load("res://Assets/guy.png") #TODO: fallback
 
 func _ready():
-	start_dialogue("debug", testtexture, ["debug", "debug"])
+	# Make Function that appends all strings from JSON file
+	# Or use JSON file in future for dialogue
+	dialogue_output.append("Hello let us start")
+	dialogue_output.append("You are creating a river, where water will run through.")
+	dialogue_output.append("Start by clicking a node three squares to the right")
+	dialogue_output.append("You cannot go through the tree, so you will have to go around.")
+	dialogue_output.append("Your goal is to make it to the cow.")
+	dialogue_output.append("Using the energy you have available to you.")
+	dialogue_output.append("Good luck, see you soon.")
+
+	start_dialogue(current_character, testtexture, dialogue_output)
 	$ContinueButton.pressed.connect(_on_continue_pressed)
 	#hide_dialogue()
 
+	
 # Method 1: Using individual parameters (your current approach)
 func start_dialogue(character_name: String, portrait_texture: Texture2D, dialogue_lines: Array):
 	current_character = character_name

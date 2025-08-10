@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmjrl4sm5my2p"]
+[gd_scene load_steps=6 format=3 uid="uid://cmjrl4sm5my2p"]
 
-[ext_resource type="Script" uid="uid://bewfu8wbppd7t" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://besedv8383kmo" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://2txk0cqh3xi4" path="res://Assets/woodborderbox.png" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://d2h2q4tuy1qvu" path="res://Dialogue/DialogueSystem.tscn" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://1puxneny4qoh" path="res://Assets/woodbox2.png" id="3_lquwl"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0xm2m")
@@ -18,33 +20,40 @@ script = ExtResource("2_0xm2m")
 
 [node name="PathLines" type="Node" parent="Grid"]
 
-[node name="LineEnergyBackground" type="ColorRect" parent="."]
-offset_left = 917.0
-offset_top = -3.0
-offset_right = 1154.0
-offset_bottom = 127.0
-color = Color(0.0146973, 0.0068666, 1.65528e-05, 1)
+[node name="NinePatchRect2" type="NinePatchRect" parent="."]
+offset_left = 1026.0
+offset_top = -15.0
+offset_right = 1165.0
+offset_bottom = 134.0
+texture = ExtResource("3_lquwl")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="LineEnergyBackground"]
-layout_mode = 0
-offset_left = 27.0
-offset_top = 25.0
-offset_right = 221.0
-offset_bottom = 58.0
-text = "Line Energy Count # 3"
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 1085.0
+offset_top = 44.0
+offset_right = 1099.0
+offset_bottom = 70.0
+text = "3"
 
-[node name="ColorRect" type="ColorRect" parent="."]
-z_index = -1
-offset_left = -1.0
-offset_right = 225.0
-offset_bottom = 121.0
-color = Color(0.00960463, 0.00960463, 0.00960463, 1)
+[node name="Panel" type="Panel" parent="."]
+offset_left = 17.0
+offset_top = 9.0
+offset_right = 330.0
+offset_bottom = 182.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_left = -78.0
+offset_top = -48.0
+offset_right = 496.0
+offset_bottom = 237.0
+texture = ExtResource("3_1bvp3")
 
 [node name="Dialogue" parent="." instance=ExtResource("3_h2yge")]
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -8.0
-offset_right = -8.0
+offset_left = 29.0
+offset_top = 12.0
+offset_right = 29.0
+offset_bottom = 12.0
 grow_horizontal = 1
 grow_vertical = 1
