@@ -6,5 +6,5 @@ func _ready():
 	
 	
 func show_closest_node_as_spawn_point(node):
-	node.get_node("VisibleShape").color = Color.GREEN
+	node.get_node("VisibleShape").color = Color.BLUE
 	node.get_node("VisibleShape").show()

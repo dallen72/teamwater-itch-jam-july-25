@@ -1,5 +1,8 @@
 extends Node2D
 
+# Signal emitted when a checkpoint is reached
+signal checkpoint_reached(checkpoint_name)
+
 # Grid configuration
 const GRID_SIZE = 10
 const PATHNODE_SCENE = preload("res://LinePuzzle/pathnode.tscn")
@@ -19,6 +22,7 @@ var nodes_along_selected_path = []
 func _ready():
 	generate_grid()
 	init_spawn_point()
+	init_end_point()
 	# Connect to energy depleted signal
 	PlayerEnergy.energy_depleted.connect(_on_energy_depleted)
 	# Debug: Show initial energy
@@ -34,6 +38,18 @@ func init_spawn_point():
 		selected_node = true_spawn_point
 	else:
 		print("ERROR: No spawn point found")
+
+
+func init_end_point():
+	var end_point = get_node_or_null("EndPoint")
+	if end_point != null:
+		var true_end_point = get_closest_node(end_point.position)
+		end_point.show_closest_node_as_end_point(true_end_point)
+		#TODO: this is done for every checkpoint in the future
+		checkpoint_reached.connect(_on_checkpoint_reached)
+	else:
+		print("ERROR: No end point found")
+
 
 
 func generate_grid():
@@ -181,6 +197,9 @@ func select_new_node(closest_node):
 	selected_node.make_visible()
 	selected_node.toggle_selection()
 
+	# Check if the added node is an endpoint and emit signal
+	if selected_node.checkpoint:
+		checkpoint_reached.emit(selected_node.checkpoint_name)
 			
 # if the new node is in the area of an obstacle, return true. obstaces are defined by collision.
 func new_path_segment_obstructed(closest_node):
@@ -204,11 +223,18 @@ func get_closest_node(click_pos):
 				closest_node = node
 	return closest_node
 
+
 # Called when energy is depleted
 func _on_energy_depleted():
 	print("Energy depleted! Cannot draw more paths.")
 	# You could add visual feedback here, like disabling node selection
 	# or showing a game over message
+
+
+# Called when a checkpoint is reached
+func _on_checkpoint_reached(checkpoint_name):
+	$TemporaryWinText.show() #TODO: for multiple levels, move to a signal handler for a signal that is stored in a global/singleton file
+
 
 # Get the energy cost for a potential path to a node
 func get_path_energy_cost(target_node):

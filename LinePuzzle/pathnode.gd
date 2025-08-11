@@ -1,6 +1,8 @@
 extends Node2D
 
 var is_selected = false
+var checkpoint = false
+var checkpoint_name = ""
 
 func _ready():
 	add_to_group("GridNode")
