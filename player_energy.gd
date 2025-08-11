@@ -3,7 +3,7 @@ extends Node
 # Global player energy singleton
 # This script should be added as an AutoLoad in Project Settings
 
-const STARTING_ENERGY = 350
+const STARTING_ENERGY = 400
 var player_energy: int = STARTING_ENERGY
 
 # Signal emitted when energy changes
