@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://dv5cwnrtxejt3"]
+
+[ext_resource type="Script" uid="uid://bau3blpebhe87" path="res://Levels/win_popup_ui.gd" id="1_13ss4"]
+
+[node name="WinPopupUI" type="Control"]
+visible = false
+z_index = 50
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_13ss4")
+
+[node name="EndGameDisplay" type="RichTextLabel" parent="."]
+visible = false
+offset_left = 318.0
+offset_top = 128.0
+offset_right = 1155.0
+offset_bottom = 678.0
+theme_override_font_sizes/normal_font_size = 100
+text = "YOU WON THE GAME !"
+horizontal_alignment = 1
+
+[node name="TemporaryWinText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 64.0
+offset_right = 996.0
+offset_bottom = 614.0
+theme_override_font_sizes/normal_font_size = 200
+text = "You Won!"
+horizontal_alignment = 1
+
+[node name="TemporaryNextLevelButton" type="Button" parent="."]
+z_index = 50
+layout_mode = 0
+offset_left = 510.0
+offset_top = 439.0
+offset_right = 965.0
+offset_bottom = 554.0
+theme_override_font_sizes/font_size = 50
+text = "Go to Next Level"
+
+[connection signal="pressed" from="TemporaryNextLevelButton" to="." method="_on_temporary_next_level_button_pressed"]

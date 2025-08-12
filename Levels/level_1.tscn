@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://qg1utbyfltkt"]
+[gd_scene load_steps=10 format=3 uid="uid://qg1utbyfltkt"]
 
 [ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_rf6l5"]
 [ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_a0j4s"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="3_syshm"]
 [ext_resource type="PackedScene" uid="uid://cgwas5m20s4rl" path="res://LinePuzzle/endpoint.tscn" id="4_0urlm"]
 [ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="4_rf6l5"]
+[ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://win_popup_ui.tscn" id="5_xoyoh"]
 [ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="6_rfktq"]
 [ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="8_77x7w"]
 
@@ -28,15 +29,7 @@ position = Vector2(617, 211)
 [node name="EndPoint" parent="Grid" instance=ExtResource("4_0urlm")]
 position = Vector2(485, 467)
 
-[node name="TemporaryWinText" type="RichTextLabel" parent="Grid"]
-visible = false
-offset_left = 159.0
-offset_top = 64.0
-offset_right = 996.0
-offset_bottom = 614.0
-theme_override_font_sizes/normal_font_size = 200
-text = "You Won!"
-horizontal_alignment = 1
+[node name="WinPopupUI" parent="Grid" instance=ExtResource("5_xoyoh")]
 
 [node name="Dialogue" parent="." instance=ExtResource("3_jikk4")]
 

@@ -5,7 +5,6 @@ TODO:
 	- make sure menue is showing up correctly on the dialog box on the level  
 	- make sure the energy is showing for the user (Shawn)  
 	- make sure the user knows what the energy does and where it is located (Shawn)  
-	- show the user that they won, when they won (David)  
 	- Add a second level (David)  with a simple transition to the next level  
 
 #Secondary:  

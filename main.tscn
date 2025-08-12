@@ -13,12 +13,14 @@ script = ExtResource("1_0xm2m")
 
 [node name="Background" type="ColorRect" parent="."]
 z_index = -2
+layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0.364706, 0.482353, 1, 1)
 
 [node name="StartGame" type="Button" parent="."]
 material = SubResource("ShaderMaterial_ig7tw")
+layout_mode = 0
 offset_left = 379.0
 offset_top = 296.0
 offset_right = 741.0

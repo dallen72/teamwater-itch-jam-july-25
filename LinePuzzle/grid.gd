@@ -233,7 +233,7 @@ func _on_energy_depleted():
 
 # Called when a checkpoint is reached
 func _on_checkpoint_reached(checkpoint_name):
-	$TemporaryWinText.show() #TODO: for multiple levels, move to a signal handler for a signal that is stored in a global/singleton file
+	$WinPopupUI.show() #TODO: for multiple levels, move to a signal handler for a signal that is stored in a global/singleton file (for checkpoints)
 
 
 # Get the energy cost for a potential path to a node
