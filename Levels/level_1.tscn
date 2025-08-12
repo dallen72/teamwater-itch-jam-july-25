@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://qg1utbyfltkt"]
+[gd_scene load_steps=9 format=3 uid="uid://qg1utbyfltkt"]
 
 [ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_rf6l5"]
 [ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_a0j4s"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cgwas5m20s4rl" path="res://LinePuzzle/endpoint.tscn" id="4_0urlm"]
 [ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="4_rf6l5"]
 [ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="6_rfktq"]
+[ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="8_77x7w"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_rf6l5")
@@ -44,3 +45,5 @@ position = Vector2(490, 268)
 
 [node name="Cow" parent="." instance=ExtResource("6_rfktq")]
 position = Vector2(398, 472)
+
+[node name="UI" parent="." instance=ExtResource("8_77x7w")]

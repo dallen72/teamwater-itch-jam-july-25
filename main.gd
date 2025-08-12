@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
@@ -13,20 +13,11 @@ func _process(_delta):
 
 # on ready, call a function that shows a button in the ui that says "click to start game"
 func _ready():
-	show_main_menu_popup()
+	$StartGame.connect("pressed", start_game)
 	# Connect to energy system and update UI
 	PlayerEnergy.energy_changed.connect(_on_energy_changed)
 	# Set initial energy display
 	update_energy_display()
-
-
-func show_main_menu_popup():
-	var button = Button.new()
-	button.text = "Click to start game"
-	button.connect("pressed", start_game)
-	add_child(button)
-	# center the button in the screen
-	button.position = Vector2(get_viewport_rect().size.x / 2, get_viewport_rect().size.y / 2)
 
 
 # when the "click to start game" button is confirmed, the scene is changed to the level_1 scene in the Levels directory
