@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="6_rfktq"]
 [ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="8_77x7w"]
 
-[node name="Root" type="Node2D"]
+[node name="Root2" type="Node2D"]
 script = ExtResource("1_rf6l5")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -30,6 +30,11 @@ position = Vector2(617, 211)
 position = Vector2(485, 467)
 
 [node name="WinPopupUI" parent="Grid" instance=ExtResource("5_xoyoh")]
+
+[node name="GridBorder" type="Line2D" parent="Grid"]
+points = PackedVector2Array(250, 100, 805.6, 100, 805.6, 600, 250, 600, 250, 100)
+width = 2.0
+default_color = Color(1, 0.5, 0.8, 1)
 
 [node name="Dialogue" parent="." instance=ExtResource("3_jikk4")]
 

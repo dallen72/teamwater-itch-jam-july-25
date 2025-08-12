@@ -85,16 +85,9 @@ func generate_grid():
 	print("Grid height: ", grid_height, " pixels")
 	print("Node spacing: ", spacing, " pixels")
 
-	draw_grid_border(start_x, start_y, spacing * GRID_SIZE, grid_height)
 
-# draw a border around the grid. this should not have a collision shape, but should be visible
-func draw_grid_border(start_x, start_y, width, height):
-	var shape = Line2D.new()
-	shape.points = [Vector2(start_x, start_y), Vector2(start_x + width, start_y), Vector2(start_x + width, start_y + height), Vector2(start_x, start_y + height), Vector2(start_x, start_y)]
-	shape.width = 2
-	# line2d color
-	shape.default_color = Color.PINK
-	add_child(shape)
+
+
 
 
 # when the mouse is clicked on the node within the click area, toggle the selection
