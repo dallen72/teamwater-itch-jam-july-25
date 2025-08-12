@@ -25,7 +25,8 @@ func start_game():
 	# Reset energy to starting value
 	PlayerEnergy.reset_energy()
 	# not working, should be godot 4 syntax
-	get_tree().change_scene_to_file("res://Levels/level_1.tscn")
+	Global.change_level(1)
+
 
 # Update energy display in the UI
 func update_energy_display():

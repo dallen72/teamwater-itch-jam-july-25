@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cnoa1u5odc5em"]
+[gd_scene load_steps=9 format=3 uid="uid://cnoa1u5odc5em"]
 
 [ext_resource type="Script" uid="uid://dp27pqsua1jv2" path="res://Levels/level_2.gd" id="1_s275v"]
 [ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_pml6m"]
 [ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="3_vltsr"]
 [ext_resource type="PackedScene" uid="uid://cgwas5m20s4rl" path="res://LinePuzzle/endpoint.tscn" id="4_rp5ft"]
 [ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://win_popup_ui.tscn" id="5_pml6m"]
-[ext_resource type="PackedScene" uid="uid://d2h2q4tuy1qvu" path="res://Dialogue/DialogueSystem.tscn" id="5_qeqk5"]
 [ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="6_1soli"]
 [ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="7_4pbjs"]
 [ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="9_vltsr"]
@@ -35,8 +34,6 @@ position = Vector2(704, 532)
 points = PackedVector2Array(250, 100, 805.6, 100, 805.6, 600, 250, 600, 250, 100)
 width = 2.0
 default_color = Color(1, 0.5, 0.8, 1)
-
-[node name="Dialogue" parent="." instance=ExtResource("5_qeqk5")]
 
 [node name="Tree" parent="." instance=ExtResource("6_1soli")]
 position = Vector2(676, 327)

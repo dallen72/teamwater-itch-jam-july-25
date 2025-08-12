@@ -3,7 +3,8 @@ extends Node2D
 
 
 func _ready():
-	Global.level_num += 1
+	# TODO: cutscenes
+	pass
 
 
 func _input(event):
