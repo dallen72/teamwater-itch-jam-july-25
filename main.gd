@@ -15,7 +15,7 @@ func _process(_delta):
 func _ready():
 	$StartGame.connect("pressed", start_game)
 	# Connect to energy system and update UI
-	PlayerEnergy.energy_changed.connect(_on_energy_changed)
+	Global.energy_changed.connect(_on_energy_changed)
 	# Set initial energy display
 	update_energy_display()
 

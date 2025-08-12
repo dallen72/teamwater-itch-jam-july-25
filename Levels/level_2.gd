@@ -2,6 +2,7 @@ extends 'res://Levels/level.gd'
 
 # need to call super
 func _ready():
+	PlayerEnergy.player_energy = 800
+	Global.energy_changed.emit(800)
 	super()
-	PlayerEnergy.player_energy = 1750
-			
+	$UI.init_hud()

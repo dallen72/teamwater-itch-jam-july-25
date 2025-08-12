@@ -7,7 +7,6 @@ const STARTING_ENERGY = 400
 var player_energy: int = STARTING_ENERGY
 
 # Signal emitted when energy changes
-signal energy_changed(new_energy: int)
 signal energy_depleted
 
 # Function to decrease energy by a given amount
@@ -16,7 +15,7 @@ func decrease_energy(amount: int) -> bool:
 		return false  # Cannot decrease below zero
 	
 	player_energy -= amount
-	energy_changed.emit(player_energy)
+	Global.energy_changed.emit(player_energy)
 	
 	if player_energy <= 0:
 		energy_depleted.emit()
@@ -26,7 +25,7 @@ func decrease_energy(amount: int) -> bool:
 # Function to increase energy by a given amount
 func increase_energy(amount: int):
 	player_energy += amount
-	energy_changed.emit(player_energy)
+	Global.energy_changed.emit(player_energy)
 
 # Function to check if energy can be decreased by a given amount
 func can_decrease_energy(amount: int) -> bool:
@@ -39,4 +38,4 @@ func get_energy() -> int:
 # Function to reset energy (useful for restarting levels)
 func reset_energy():
 	player_energy = STARTING_ENERGY
-	energy_changed.emit(player_energy) 
+	Global.energy_changed.emit(player_energy) 

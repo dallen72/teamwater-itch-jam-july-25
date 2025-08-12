@@ -3,7 +3,7 @@ extends Node
 var level_num : int = 0
 
 signal dialogue_finished
-
+signal energy_changed(new_energy: int)
 
 func handle_input(event):
 	if event is InputEventKey and event.pressed:
