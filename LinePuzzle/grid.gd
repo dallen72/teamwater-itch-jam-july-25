@@ -2,6 +2,8 @@ extends Node2D
 
 # Signal emitted when a checkpoint is reached
 signal checkpoint_reached(checkpoint_name)
+# Signal emitted when a checkpoint is reset (unselected)
+signal checkpoint_reset(checkpoint_name)
 
 # Grid configuration
 const GRID_SIZE = 10
@@ -67,6 +69,7 @@ func init_checkpoints():
 			else:
 				print("ERROR: Could not find closest node for checkpoint ", i)
 		checkpoint_reached.connect(_on_checkpoint_reached)
+		checkpoint_reset.connect(_on_checkpoint_reset)
 		# Initialize checkpoint tracking
 		reached_checkpoints = {}
 		for i in range(checkpoints.size()):
@@ -178,6 +181,8 @@ func remove_node_from_path():
 	# Restore checkpoint appearance if the removed node was a checkpoint
 	if removed_node.checkpoint:
 		removed_node.restore_checkpoint_appearance()
+		# Emit checkpoint reset signal to update tracking
+		checkpoint_reset.emit(removed_node.checkpoint_name)
 	
 	# Increase energy based on the distance of the removed line segment
 	if previous_node != null:
@@ -278,6 +283,17 @@ func _on_checkpoint_reached(_checkpoint_name):
 			$WinPopupUI.show()
 		else:
 			print("Checkpoint reached! ", reached_checkpoints.size() - reached_checkpoints.values().count(false), " of ", reached_checkpoints.size(), " checkpoints completed.")
+
+# Called when a checkpoint is reset (unselected)
+func _on_checkpoint_reset(_checkpoint_name):
+	# Mark this checkpoint as unreached
+	if reached_checkpoints.has(_checkpoint_name):
+		reached_checkpoints[_checkpoint_name] = false
+		print("Checkpoint reset: ", _checkpoint_name)
+		
+		# Update progress display
+		var completed_count = reached_checkpoints.size() - reached_checkpoints.values().count(false)
+		print("Checkpoint progress: ", completed_count, " of ", reached_checkpoints.size(), " checkpoints completed.")
 
 
 # Get the energy cost for a potential path to a node
