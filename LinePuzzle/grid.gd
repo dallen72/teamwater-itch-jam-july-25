@@ -175,6 +175,10 @@ func remove_node_from_path():
 	selected_node.toggle_selection()
 	selected_path.remove_at(selected_path.size() - 1)
 	
+	# Restore checkpoint appearance if the removed node was a checkpoint
+	if removed_node.checkpoint:
+		removed_node.restore_checkpoint_appearance()
+	
 	# Increase energy based on the distance of the removed line segment
 	if previous_node != null:
 		var distance = previous_node.position.distance_to(removed_node.position)
@@ -205,6 +209,11 @@ func select_new_node(closest_node):
 	if (selected_node != null):
 		selected_node.make_invisible()
 		selected_node.toggle_selection()
+		
+		# Restore checkpoint appearance if the deselected node was a checkpoint
+		if selected_node.checkpoint:
+			selected_node.restore_checkpoint_appearance()
+		
 		# Decrease energy based on the distance to the new node
 		var distance = selected_node.position.distance_to(closest_node.position)
 		PlayerEnergy.decrease_energy(distance)
