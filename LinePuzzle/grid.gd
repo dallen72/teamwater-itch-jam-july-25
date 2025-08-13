@@ -16,13 +16,17 @@ var grid_height = 500
 var selected_path = []
 # a dict of nodes that the selected path visibly traverses
 var nodes_along_selected_path = []
+# Track which checkpoints have been reached
+var reached_checkpoints = {}
 
 # Energy system integration - PlayerEnergy is now a global singleton
 
 func _ready():
 	generate_grid()
 	init_spawn_point()
-	init_end_point()
+	# Wait a frame to ensure all nodes are properly initialized
+	await get_tree().process_frame
+	init_checkpoints()
 	# Connect to energy depleted signal
 	PlayerEnergy.energy_depleted.connect(_on_energy_depleted)
 	# Debug: Show initial energy
@@ -40,15 +44,36 @@ func init_spawn_point():
 		print("ERROR: No spawn point found")
 
 
-func init_end_point():
-	var end_point = get_node_or_null("EndPoint")
-	if end_point != null:
-		var true_end_point = get_closest_node(end_point.position)
-		end_point.show_closest_node_as_end_point(true_end_point)
-		#TODO: this is done for every checkpoint in the future
+func init_checkpoints():
+	var checkpoints = get_tree().get_nodes_in_group("CheckPoint")
+	print("Found ", checkpoints.size(), " checkpoints in group")
+	
+	# Fallback: if no checkpoints found in group, try to find them by name
+	if checkpoints.size() == 0:
+		checkpoints = []
+		for child in get_children():
+			if "CheckPoint" in child.name:
+				checkpoints.append(child)
+				print("Found checkpoint by name: ", child.name)
+	
+	if checkpoints.size() > 0:
+		for i in range(checkpoints.size()):
+			var checkpoint = checkpoints[i]
+			print("Processing checkpoint ", i, " at position ", checkpoint.position)
+			var true_checkpoint = get_closest_node(checkpoint.position)
+			if true_checkpoint != null:
+				print("Setting up checkpoint ", i, " on node at ", true_checkpoint.position)
+				checkpoint.show_closest_node_as_checkpoint(true_checkpoint, i)
+			else:
+				print("ERROR: Could not find closest node for checkpoint ", i)
 		checkpoint_reached.connect(_on_checkpoint_reached)
+		# Initialize checkpoint tracking
+		reached_checkpoints = {}
+		for i in range(checkpoints.size()):
+			reached_checkpoints["checkpoint_" + str(i)] = false
+		print("Initialized checkpoint tracking for ", reached_checkpoints.size(), " checkpoints")
 	else:
-		print("ERROR: No end point found")
+		print("ERROR: No checkpoints found")
 
 
 
@@ -190,7 +215,7 @@ func select_new_node(closest_node):
 	selected_node.make_visible()
 	selected_node.toggle_selection()
 
-	# Check if the added node is an endpoint and emit signal
+	# Check if the added node is a checkpoint and emit signal
 	if selected_node.checkpoint:
 		checkpoint_reached.emit(selected_node.checkpoint_name)
 			
@@ -225,8 +250,25 @@ func _on_energy_depleted():
 
 
 # Called when a checkpoint is reached
-func _on_checkpoint_reached(checkpoint_name):
-	$WinPopupUI.show() #TODO: for multiple levels, move to a signal handler for a signal that is stored in a global/singleton file (for checkpoints)
+func _on_checkpoint_reached(_checkpoint_name):
+	# Mark this checkpoint as reached
+	if reached_checkpoints.has(_checkpoint_name):
+		reached_checkpoints[_checkpoint_name] = true
+		print("Checkpoint reached: ", _checkpoint_name)
+		
+		# Check if all checkpoints have been reached
+		var all_reached = true
+		for checkpoint in reached_checkpoints.values():
+			if not checkpoint:
+				all_reached = false
+				break
+		
+		# Show win popup only when all checkpoints are reached
+		if all_reached:
+			print("All checkpoints reached! Level complete!")
+			$WinPopupUI.show()
+		else:
+			print("Checkpoint reached! ", reached_checkpoints.size() - reached_checkpoints.values().count(false), " of ", reached_checkpoints.size(), " checkpoints completed.")
 
 
 # Get the energy cost for a potential path to a node

@@ -7,7 +7,7 @@ func init_hud():
 	Global.dialogue_finished.connect(hide_dialogue)
 	
 	update_energy_display(PlayerEnergy.player_energy)
-	Global.energy_changed.connect(update_energy_display, PlayerEnergy.player_energy)
+	Global.energy_changed.connect(update_energy_display)
 
 
 func show_dialogue():

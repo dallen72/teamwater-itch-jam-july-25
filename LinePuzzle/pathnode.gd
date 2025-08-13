@@ -1,8 +1,10 @@
+class_name PathNode
 extends Node2D
 
 var is_selected = false
 var checkpoint = false
 var checkpoint_name = ""
+var checkpoint_id = -1
 
 func _ready():
 	add_to_group("GridNode")

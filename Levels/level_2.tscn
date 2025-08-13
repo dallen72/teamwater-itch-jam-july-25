@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dp27pqsua1jv2" path="res://Levels/level_2.gd" id="1_s275v"]
 [ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_pml6m"]
 [ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="3_vltsr"]
-[ext_resource type="PackedScene" uid="uid://cgwas5m20s4rl" path="res://LinePuzzle/endpoint.tscn" id="4_rp5ft"]
+[ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/checkpoint.tscn" id="4_rp5ft"]
 [ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://win_popup_ui.tscn" id="5_pml6m"]
 [ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="6_1soli"]
 [ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="7_4pbjs"]
@@ -25,8 +25,11 @@ script = ExtResource("2_pml6m")
 [node name="SpawnPoint" parent="Grid" instance=ExtResource("3_vltsr")]
 position = Vector2(617, 211)
 
-[node name="EndPoint" parent="Grid" instance=ExtResource("4_rp5ft")]
+[node name="CheckPoint" parent="Grid" instance=ExtResource("4_rp5ft")]
 position = Vector2(675, 520)
+
+[node name="CheckPoint2" parent="Grid" instance=ExtResource("4_rp5ft")]
+position = Vector2(407, 390)
 
 [node name="WinPopupUI" parent="Grid" instance=ExtResource("5_pml6m")]
 
@@ -40,5 +43,8 @@ position = Vector2(654, 321)
 
 [node name="Cow" parent="." instance=ExtResource("7_4pbjs")]
 position = Vector2(610, 532)
+
+[node name="Cow2" parent="." instance=ExtResource("7_4pbjs")]
+position = Vector2(336, 396)
 
 [node name="UI" parent="." instance=ExtResource("9_vltsr")]
