@@ -14,6 +14,7 @@ func toggle_selection():
 	
 	if is_selected:
 		$VisibleShape.color = Color.WHITE
+		$VisibleShape.show()
 	else:
 		# If this is a checkpoint, restore checkpoint appearance
 		if checkpoint:

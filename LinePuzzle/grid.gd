@@ -232,6 +232,10 @@ func select_new_node(closest_node):
 	# Check if the added node is a checkpoint and emit signal
 	if selected_node.checkpoint:
 		checkpoint_reached.emit(selected_node.checkpoint_name)
+	
+	# Clear and recalculate the nodes along the selected path
+	nodes_along_selected_path.clear()
+	calculate_nodes_along_selected_path()
 			
 # if the new node is in the area of an obstacle, return true. obstaces are defined by collision.
 func new_path_segment_obstructed(closest_node):

@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://v8kouyum04ny"]
+
+[ext_resource type="Script" uid="uid://difa44jj5e80n" path="res://Levels/level_5.gd" id="1_kgnlk"]
+[ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_xagau"]
+[ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="3_ytgun"]
+[ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/checkpoint.tscn" id="4_rpnhq"]
+[ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://win_popup_ui.tscn" id="5_hu0ol"]
+[ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="6_m47b0"]
+[ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="7_x7gsr"]
+[ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="8_uk1uv"]
+
+[node name="Root" type="Node2D"]
+script = ExtResource("1_kgnlk")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.364706, 0.482353, 1, 1)
+
+[node name="Grid" type="Node2D" parent="."]
+script = ExtResource("2_xagau")
+
+[node name="PathLines" type="Node" parent="Grid"]
+
+[node name="SpawnPoint" parent="Grid" instance=ExtResource("3_ytgun")]
+position = Vector2(281, 122)
+
+[node name="CheckPoint" parent="Grid" instance=ExtResource("4_rpnhq")]
+position = Vector2(777, 252)
+
+[node name="CheckPoint2" parent="Grid" instance=ExtResource("4_rpnhq")]
+position = Vector2(613, 351)
+
+[node name="CheckPoint3" parent="Grid" instance=ExtResource("4_rpnhq")]
+position = Vector2(378, 364)
+
+[node name="WinPopupUI" parent="Grid" instance=ExtResource("5_hu0ol")]
+
+[node name="GridBorder" type="Line2D" parent="Grid"]
+points = PackedVector2Array(250, 100, 805.6, 100, 805.6, 600, 250, 600, 250, 100)
+width = 2.0
+default_color = Color(1, 0.5, 0.8, 1)
+
+[node name="Tree" parent="." instance=ExtResource("6_m47b0")]
+position = Vector2(351, 210)
+
+[node name="Tree2" parent="." instance=ExtResource("6_m47b0")]
+position = Vector2(351, 210)
+
+[node name="Tree3" parent="." instance=ExtResource("6_m47b0")]
+position = Vector2(454, 166)
+
+[node name="Tree4" parent="." instance=ExtResource("6_m47b0")]
+position = Vector2(452, 243)
+
+[node name="Tree5" parent="." instance=ExtResource("6_m47b0")]
+position = Vector2(452, 365)
+
+[node name="Tree6" parent="." instance=ExtResource("6_m47b0")]
+position = Vector2(571, 448)
+
+[node name="Tree7" parent="." instance=ExtResource("6_m47b0")]
+position = Vector2(453, 441)
+
+[node name="Cow" parent="." instance=ExtResource("7_x7gsr")]
+position = Vector2(705, 263)
+
+[node name="Cow2" parent="." instance=ExtResource("7_x7gsr")]
+position = Vector2(554, 354)
+
+[node name="Cow3" parent="." instance=ExtResource("7_x7gsr")]
+position = Vector2(323, 368)
+
+[node name="UI" parent="." instance=ExtResource("8_uk1uv")]
