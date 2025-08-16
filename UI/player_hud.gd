@@ -15,17 +15,13 @@ func _ready():
 	# Register this UI area with the global click handler
 	Global.register_ui_area(self, size)
 
-func _gui_input(event):
-	# Consume all input events to prevent them from reaching the level below
-	if event is InputEventMouseButton or event is InputEventMouseMotion:
-		accept_event()
-		return
-
 func show_dialogue():
-	$PortraitBox.show()
+	$DialogueBox.show()
+	# Load tutorial dialogue from JSON file
+	$DialogueBox.load_dialogue_from_json("res://Dialogue/tutorial_dialogue.json")
 
 func hide_dialogue():
-	$PortraitBox.hide()
+	$DialogueBox.hide()
 	
 func update_energy_display(_energy_level):
 	$EnergyBox/RichTextLabel.text = str(_energy_level)	

@@ -1,0 +1,44 @@
+{
+	"dialogue_entries": [
+		{
+			"character_name": "John",
+			"portrait_path": "res://Assets/guy.png",
+			"dialogue_text": "Hello let us start"
+		},
+		{
+			"character_name": "John",
+			"portrait_path": "res://Assets/guy.png",
+			"dialogue_text": "You are creating a river, where water will run through."
+		},
+		{
+			"character_name": "John",
+			"portrait_path": "res://Assets/guy.png",
+			"dialogue_text": "Start by clicking the blue circle"
+		},
+		{
+			"character_name": "John",
+			"portrait_path": "res://Assets/guy.png",
+			"dialogue_text": "You cannot go through the tree, so you will have to go around."
+		},
+		{
+			"character_name": "John",
+			"portrait_path": "res://Assets/guy.png",
+			"dialogue_text": "Your goal is to make it to the cow."
+		},
+		{
+			"character_name": "John",
+			"portrait_path": "res://Assets/guy.png",
+			"dialogue_text": "Using the energy you have available to you."
+		},
+		{
+			"character_name": "John",
+			"portrait_path": "res://Assets/guy.png",
+			"dialogue_text": "To undo a selection, click the last node you selected (the white circle)."
+		},
+		{
+			"character_name": "John",
+			"portrait_path": "res://Assets/guy.png",
+			"dialogue_text": "Good luck, see you soon."
+		}
+	]
+} 

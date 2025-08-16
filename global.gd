@@ -19,18 +19,24 @@ func handle_input(event):
 		if event.keycode == KEY_ESCAPE:
 			get_tree().quit()
 	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		handle_mouse_click(event.position)
+		# Check if this click is in a UI area first
+		if is_click_in_ui_area(event.position):
+			print("UI click detected at: ", event.position)
+			# For UI clicks, just emit the signal and let the UI handle it
+			ui_clicked.emit(event.position)
+			# Don't consume the event - let the UI elements handle their own input
+			return
+		else:
+			print("Level click detected at: ", event.position)
+			# Only emit level_clicked if not in UI area
+			level_clicked.emit(event.position)
 
-# Handle mouse clicks and determine if they're in UI areas
-func handle_mouse_click(click_position: Vector2):
-	# Check if click is in any UI area
+# Check if a click position is within any registered UI area
+func is_click_in_ui_area(click_position: Vector2) -> bool:
 	for ui_area in ui_areas:
 		if is_point_in_ui_area(click_position, ui_area):
-			ui_clicked.emit(click_position)
-			return
-	
-	# If not in UI area, emit level click signal
-	level_clicked.emit(click_position)
+			return true
+	return false
 
 # Check if a point is within a UI area
 func is_point_in_ui_area(point: Vector2, ui_area: Dictionary) -> bool:
@@ -50,6 +56,8 @@ func register_ui_area(ui_area: Control, rect: Vector2):
 		"global_position": ui_area.global_position
 	}
 	ui_areas.append(area_data)
+	print("Registered UI area: ", ui_area.name, " with size: ", rect, " at global pos: ", ui_area.global_position)
+	print("Total UI areas registered: ", ui_areas.size())
 
 # Unregister a UI area
 func unregister_ui_area(ui_area: Control):
