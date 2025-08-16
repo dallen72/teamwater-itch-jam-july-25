@@ -14,9 +14,9 @@ script = ExtResource("1_m1p1h")
 
 [node name="EnergyBox" type="NinePatchRect" parent="."]
 layout_mode = 0
-offset_left = 1026.0
+offset_left = 879.0
 offset_top = -15.0
-offset_right = 1165.0
+offset_right = 1018.0
 offset_bottom = 134.0
 texture = ExtResource("1_l5xav")
 
