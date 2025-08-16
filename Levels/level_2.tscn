@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://cnoa1u5odc5em"]
 
 [ext_resource type="Script" uid="uid://dp27pqsua1jv2" path="res://Levels/level_2.gd" id="1_s275v"]
-[ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_pml6m"]
-[ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="3_vltsr"]
-[ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/checkpoint.tscn" id="4_rp5ft"]
-[ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://win_popup_ui.tscn" id="5_pml6m"]
-[ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="6_1soli"]
-[ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="7_4pbjs"]
-[ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="9_vltsr"]
+[ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/pathsystem.gd" id="2_a0j4s"]
+[ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="3_syshm"]
+[ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/checkpoint.tscn" id="4_0urlm"]
+[ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="4_rf6l5"]
+[ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://win_popup_ui.tscn" id="5_xoyoh"]
+[ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="6_rfktq"]
+[ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="8_77x7w"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_s275v")
@@ -17,34 +17,31 @@ offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0.364706, 0.482353, 1, 1)
 
-[node name="Grid" type="Node2D" parent="."]
-script = ExtResource("2_pml6m")
+[node name="PathSystem" type="Node2D" parent="."]
+script = ExtResource("2_a0j4s")
 
-[node name="PathLines" type="Node" parent="Grid"]
+[node name="PathLines" type="Node" parent="PathSystem"]
 
-[node name="SpawnPoint" parent="Grid" instance=ExtResource("3_vltsr")]
+[node name="SpawnPoint" parent="PathSystem" instance=ExtResource("3_syshm")]
 position = Vector2(617, 211)
 
-[node name="CheckPoint" parent="Grid" instance=ExtResource("4_rp5ft")]
-position = Vector2(675, 520)
+[node name="CheckPoint1" parent="PathSystem" instance=ExtResource("4_0urlm")]
+position = Vector2(452, 467)
 
-[node name="CheckPoint2" parent="Grid" instance=ExtResource("4_rp5ft")]
-position = Vector2(407, 390)
+[node name="CheckPoint2" parent="PathSystem" instance=ExtResource("4_0urlm")]
+position = Vector2(500, 500)
 
-[node name="WinPopupUI" parent="Grid" instance=ExtResource("5_pml6m")]
+[node name="WinPopupUI" parent="PathSystem" instance=ExtResource("5_xoyoh")]
 
-[node name="GridBorder" type="Line2D" parent="Grid"]
+[node name="GridBorder" type="Line2D" parent="PathSystem"]
 points = PackedVector2Array(250, 100, 805.6, 100, 805.6, 600, 250, 600, 250, 100)
 width = 2.0
 default_color = Color(1, 0.5, 0.8, 1)
 
-[node name="Tree" parent="." instance=ExtResource("6_1soli")]
-position = Vector2(654, 321)
+[node name="Tree" parent="." instance=ExtResource("4_rf6l5")]
+position = Vector2(490, 268)
 
-[node name="Cow" parent="." instance=ExtResource("7_4pbjs")]
-position = Vector2(610, 532)
+[node name="Cow" parent="." instance=ExtResource("6_rfktq")]
+position = Vector2(398, 472)
 
-[node name="Cow2" parent="." instance=ExtResource("7_4pbjs")]
-position = Vector2(336, 396)
-
-[node name="UI" parent="." instance=ExtResource("9_vltsr")]
+[node name="UI" parent="." instance=ExtResource("8_77x7w")]

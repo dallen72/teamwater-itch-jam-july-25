@@ -14,8 +14,17 @@ func _ready():
 	_load_with_tutorial_text()
 	load_dialogue_data(current_character, testtexture, dialogue_output)
 	$ContinueButton.pressed.connect(_on_continue_pressed)
+	# Wait for the first frame to ensure size is available
+	await get_tree().process_frame
+	# Register this UI area with the global click handler
+	Global.register_ui_area(self, size)
 	#hide_dialogue()
 
+func _gui_input(event):
+	# Consume all input events to prevent them from reaching the level below
+	if event is InputEventMouseButton or event is InputEventMouseMotion:
+		accept_event()
+		return
 
 func _load_with_tutorial_text():
 		# Make Function that appends all strings from JSON file

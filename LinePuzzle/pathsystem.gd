@@ -32,13 +32,11 @@ func init_spawn_point():
 	if spawn_point != null:
 		# Create a visual node at spawn point location
 		var spawn_node = create_node_at_position(spawn_point.position)
-		spawn_point.show_closest_node_as_spawn_point(spawn_node)
+		spawn_point.show_as_spawn_point(spawn_node)
 		selected_path.append(spawn_node)
 		selected_node = spawn_node
 		placed_nodes.append(spawn_node)
 		
-		# Connect to spawn point click signal
-		spawn_point.spawn_point_clicked.connect(_on_spawn_point_clicked)
 	else:
 		print("ERROR: No spawn point found")
 
@@ -114,19 +112,11 @@ func get_node_at_position(pos: Vector2) -> PathNode:
 
 # Place a new node at the clicked position
 func place_new_node(pos: Vector2):
-	# Check if we have enough energy to place a node
-	var energy_cost = 10  # Base cost for placing a node
-	if PlayerEnergy.get_energy() < energy_cost:
-		print("Not enough energy to place node! Need ", energy_cost, " but only have ", PlayerEnergy.get_energy())
-		return
-	
 	# Create and place the node
 	var new_node = create_node_at_position(pos)
 	placed_nodes.append(new_node)
 	
-	# Decrease energy
-	PlayerEnergy.decrease_energy(energy_cost)
-	print("Node placed! Energy decreased by ", energy_cost, ". Remaining energy: ", PlayerEnergy.get_energy())
+	print("Node placed! No energy cost.")
 	
 	# If we have a selected node, connect to it
 	if selected_node != null:
@@ -216,8 +206,7 @@ func remove_node_from_path():
 	var removed_node = selected_node
 	var previous_node = selected_path[selected_path.size() - 2]
 	
-	selected_node.make_invisible()
-	selected_node.toggle_selection()
+	# Remove the node from the path
 	selected_path.remove_at(selected_path.size() - 1)
 	
 	# Restore checkpoint appearance if the removed node was a checkpoint
@@ -230,6 +219,10 @@ func remove_node_from_path():
 	var distance = previous_node.position.distance_to(removed_node.position)
 	PlayerEnergy.increase_energy(distance)
 	print("Energy increased by ", distance, ". Current energy: ", PlayerEnergy.get_energy())
+	
+	# Remove the node from placed_nodes and the scene
+	placed_nodes.erase(removed_node)
+	removed_node.queue_free()
 	
 	if (selected_path.size() == 0):
 		selected_node = null

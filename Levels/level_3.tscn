@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://26yj8ejvcjue"]
 
 [ext_resource type="Script" uid="uid://d0ca8anp176ty" path="res://Levels/level_3.gd" id="1_fa81k"]
-[ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_ck3gp"]
+[ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/pathsystem.gd" id="2_ck3gp"]
 [ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="3_trpa2"]
 [ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/checkpoint.tscn" id="4_4t7ew"]
 [ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://win_popup_ui.tscn" id="5_oojpf"]

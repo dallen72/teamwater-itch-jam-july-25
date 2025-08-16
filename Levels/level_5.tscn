@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://v8kouyum04ny"]
 
 [ext_resource type="Script" uid="uid://difa44jj5e80n" path="res://Levels/level_5.gd" id="1_kgnlk"]
-[ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/grid.gd" id="2_xagau"]
+[ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/pathsystem.gd" id="2_xagau"]
 [ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="3_ytgun"]
 [ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/checkpoint.tscn" id="4_rpnhq"]
 [ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://win_popup_ui.tscn" id="5_hu0ol"]
@@ -17,26 +17,26 @@ offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0.364706, 0.482353, 1, 1)
 
-[node name="Grid" type="Node2D" parent="."]
+[node name="PathSystem" type="Node2D" parent="."]
 script = ExtResource("2_xagau")
 
-[node name="PathLines" type="Node" parent="Grid"]
+[node name="PathLines" type="Node" parent="PathSystem"]
 
-[node name="SpawnPoint" parent="Grid" instance=ExtResource("3_ytgun")]
+[node name="SpawnPoint" parent="PathSystem" instance=ExtResource("3_ytgun")]
 position = Vector2(281, 122)
 
-[node name="CheckPoint" parent="Grid" instance=ExtResource("4_rpnhq")]
+[node name="CheckPoint" parent="PathSystem" instance=ExtResource("4_rpnhq")]
 position = Vector2(777, 252)
 
-[node name="CheckPoint2" parent="Grid" instance=ExtResource("4_rpnhq")]
+[node name="CheckPoint2" parent="PathSystem" instance=ExtResource("4_rpnhq")]
 position = Vector2(613, 351)
 
-[node name="CheckPoint3" parent="Grid" instance=ExtResource("4_rpnhq")]
+[node name="CheckPoint3" parent="PathSystem" instance=ExtResource("4_rpnhq")]
 position = Vector2(378, 364)
 
-[node name="WinPopupUI" parent="Grid" instance=ExtResource("5_hu0ol")]
+[node name="WinPopupUI" parent="PathSystem" instance=ExtResource("5_hu0ol")]
 
-[node name="GridBorder" type="Line2D" parent="Grid"]
+[node name="GridBorder" type="Line2D" parent="PathSystem"]
 points = PackedVector2Array(250, 100, 805.6, 100, 805.6, 600, 250, 600, 250, 100)
 width = 2.0
 default_color = Color(1, 0.5, 0.8, 1)

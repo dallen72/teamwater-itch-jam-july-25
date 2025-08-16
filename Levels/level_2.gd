@@ -1,8 +1,10 @@
 extends 'res://Levels/level.gd'
 
+const STARTING_ENERGY = 700
+
 # need to call super
 func _ready():
-	PlayerEnergy.player_energy = 700
-	Global.energy_changed.emit(700)
+	PlayerEnergy.player_energy = STARTING_ENERGY
+	Global.energy_changed.emit(STARTING_ENERGY)
 	super()
 	$UI.init_hud()

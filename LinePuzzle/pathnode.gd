@@ -7,7 +7,7 @@ var checkpoint_name = ""
 var checkpoint_id = -1
 
 func _ready():
-	add_to_group("GridNode")
+	add_to_group("PathNode")
 
 func toggle_selection():
 	is_selected = !is_selected
@@ -23,10 +23,8 @@ func toggle_selection():
 		else:
 			$VisibleShape.color = Color(0.2, 0.8, 0.2, 1)  # Default green color
 
-
 func make_visible():
 	$VisibleShape.show()
-	
 	
 func make_invisible():
 	$VisibleShape.hide()
