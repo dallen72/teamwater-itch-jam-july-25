@@ -26,19 +26,16 @@ script = ExtResource("2_path_manager")
 [node name="PathLines" type="Node" parent="PathManager"]
 
 [node name="SpawnPoint" parent="PathManager" instance=ExtResource("4_syshm")]
-position = Vector2(617, 211)
+position = Vector2(616, 134)
 
-[node name="CheckPoint1" parent="PathManager" instance=ExtResource("5_0urlm")]
-position = Vector2(452, 467)
+[node name="CheckPoint" parent="PathManager" instance=ExtResource("5_0urlm")]
+position = Vector2(724, 481)
 
 [node name="CheckPoint2" parent="PathManager" instance=ExtResource("5_0urlm")]
-position = Vector2(500, 500)
+position = Vector2(422, 328)
 
 [node name="CheckPoint3" parent="PathManager" instance=ExtResource("5_0urlm")]
-position = Vector2(600, 400)
-
-[node name="CheckPoint4" parent="PathManager" instance=ExtResource("5_0urlm")]
-position = Vector2(700, 300)
+position = Vector2(474, 525)
 
 [node name="GridBorder" type="Line2D" parent="PathManager"]
 points = PackedVector2Array(250, 100, 805.6, 100, 805.6, 600, 250, 600, 250, 100)
@@ -51,9 +48,21 @@ script = ExtResource("3_checkpoint_manager")
 [node name="WinPopupUI" parent="." instance=ExtResource("7_xoyoh")]
 
 [node name="Tree" parent="." instance=ExtResource("6_rf6l5")]
-position = Vector2(490, 268)
+position = Vector2(612, 258)
+
+[node name="Tree2" parent="." instance=ExtResource("6_rf6l5")]
+position = Vector2(481, 430)
+
+[node name="Tree3" parent="." instance=ExtResource("6_rf6l5")]
+position = Vector2(377, 209)
 
 [node name="Cow" parent="." instance=ExtResource("8_rfktq")]
-position = Vector2(398, 472)
+position = Vector2(667, 486)
+
+[node name="Cow2" parent="." instance=ExtResource("8_rfktq")]
+position = Vector2(350, 327)
+
+[node name="Cow3" parent="." instance=ExtResource("8_rfktq")]
+position = Vector2(410, 540)
 
 [node name="UI" parent="." instance=ExtResource("9_77x7w")]
