@@ -10,26 +10,48 @@ signal energy_changed(new_energy: int)
 signal level_clicked(click_position: Vector2)
 @warning_ignore("unused_signal")
 signal ui_clicked(click_position: Vector2)
+@warning_ignore("unused_signal")
+signal right_clicked(click_position: Vector2)
 
 # Global click handler
 var ui_areas = []
 
+func _ready():
+	# Connect to input events to ensure escape key works
+	set_process_input(true)
+	print("Global autoload ready - input processing enabled")
+
+func _input(event):
+	# Handle escape key directly here as a fallback
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_ESCAPE:
+			print("Escape key pressed in Global - exiting game")
+			get_tree().quit()
+			return
+
 func handle_input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
+			print("Escape key pressed - exiting game")
 			get_tree().quit()
-	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		# Check if this click is in a UI area first
-		if is_click_in_ui_area(event.position):
-			print("UI click detected at: ", event.position)
-			# For UI clicks, just emit the signal and let the UI handle it
-			ui_clicked.emit(event.position)
-			# Don't consume the event - let the UI elements handle their own input
-			return
-		else:
-			print("Level click detected at: ", event.position)
-			# Only emit level_clicked if not in UI area
-			level_clicked.emit(event.position)
+	elif event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			print("Mouse left-click detected at: ", event.position)
+			# Check if this click is in a UI area first
+			if is_click_in_ui_area(event.position):
+				print("UI click detected at: ", event.position)
+				# For UI clicks, just emit the signal and let the UI handle it
+				ui_clicked.emit(event.position)
+				# Don't consume the event - let the UI elements handle their own input
+				return
+			else:
+				print("Level click detected at: ", event.position)
+				# Only emit level_clicked if not in UI area
+				level_clicked.emit(event.position)
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			print("Mouse right-click detected at: ", event.position)
+			# Right-clicks always go to the level (not UI)
+			right_clicked.emit(event.position)
 
 # Check if a click position is within any registered UI area
 func is_click_in_ui_area(click_position: Vector2) -> bool:

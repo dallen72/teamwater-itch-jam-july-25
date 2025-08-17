@@ -1,62 +1,59 @@
-[gd_scene load_steps=9 format=3 uid="uid://lgbs7bky3q5w"]
+[gd_scene load_steps=10 format=3 uid="uid://lgbs7bky3q5w"]
 
-[ext_resource type="Script" uid="uid://bh0mjxuettboo" path="res://Levels/level_4.gd" id="1_fqog2"]
-[ext_resource type="Script" uid="uid://dyfftxaanwsj2" path="res://LinePuzzle/pathsystem.gd" id="2_max8c"]
-[ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="3_65qo8"]
-[ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/checkpoint.tscn" id="4_uoj6q"]
-[ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://win_popup_ui.tscn" id="5_nwdxs"]
-[ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="6_ayvc1"]
-[ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="7_5glh4"]
-[ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="8_ulih8"]
+[ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_ben3k"]
+[ext_resource type="Script" uid="uid://0hxpbyho137r" path="res://LinePuzzle/path_manager.gd" id="2_path_manager"]
+[ext_resource type="Script" uid="uid://bnkjabhcsq7w8" path="res://LinePuzzle/checkpoint_manager.gd" id="3_checkpoint_manager"]
+[ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="4_syshm"]
+[ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/checkpoint.tscn" id="5_0urlm"]
+[ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="6_rf6l5"]
+[ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://win_popup_ui.tscn" id="7_xoyoh"]
+[ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="8_rfktq"]
+[ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="9_77x7w"]
 
-[node name="Root" type="Node2D"]
-script = ExtResource("1_fqog2")
+[node name="Root2" type="Node2D"]
+script = ExtResource("1_ben3k")
+level_number = 4
+starting_energy = 900
 
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0.364706, 0.482353, 1, 1)
 
-[node name="PathSystem" type="Node2D" parent="."]
-script = ExtResource("2_max8c")
+[node name="PathManager" type="Node2D" parent="."]
+script = ExtResource("2_path_manager")
 
-[node name="PathLines" type="Node" parent="PathSystem"]
+[node name="PathLines" type="Node" parent="PathManager"]
 
-[node name="SpawnPoint" parent="PathSystem" instance=ExtResource("3_65qo8")]
-position = Vector2(616, 134)
+[node name="SpawnPoint" parent="PathManager" instance=ExtResource("4_syshm")]
+position = Vector2(617, 211)
 
-[node name="CheckPoint" parent="PathSystem" instance=ExtResource("4_uoj6q")]
-position = Vector2(724, 481)
+[node name="CheckPoint1" parent="PathManager" instance=ExtResource("5_0urlm")]
+position = Vector2(452, 467)
 
-[node name="CheckPoint2" parent="PathSystem" instance=ExtResource("4_uoj6q")]
-position = Vector2(422, 328)
+[node name="CheckPoint2" parent="PathManager" instance=ExtResource("5_0urlm")]
+position = Vector2(500, 500)
 
-[node name="CheckPoint3" parent="PathSystem" instance=ExtResource("4_uoj6q")]
-position = Vector2(474, 525)
+[node name="CheckPoint3" parent="PathManager" instance=ExtResource("5_0urlm")]
+position = Vector2(600, 400)
 
-[node name="WinPopupUI" parent="PathSystem" instance=ExtResource("5_nwdxs")]
+[node name="CheckPoint4" parent="PathManager" instance=ExtResource("5_0urlm")]
+position = Vector2(700, 300)
 
-[node name="GridBorder" type="Line2D" parent="PathSystem"]
+[node name="GridBorder" type="Line2D" parent="PathManager"]
 points = PackedVector2Array(250, 100, 805.6, 100, 805.6, 600, 250, 600, 250, 100)
 width = 2.0
 default_color = Color(1, 0.5, 0.8, 1)
 
-[node name="Tree" parent="." instance=ExtResource("6_ayvc1")]
-position = Vector2(612, 258)
+[node name="CheckpointManager" type="Node2D" parent="."]
+script = ExtResource("3_checkpoint_manager")
 
-[node name="Tree2" parent="." instance=ExtResource("6_ayvc1")]
-position = Vector2(481, 430)
+[node name="WinPopupUI" parent="." instance=ExtResource("7_xoyoh")]
 
-[node name="Tree3" parent="." instance=ExtResource("6_ayvc1")]
-position = Vector2(377, 209)
+[node name="Tree" parent="." instance=ExtResource("6_rf6l5")]
+position = Vector2(490, 268)
 
-[node name="Cow" parent="." instance=ExtResource("7_5glh4")]
-position = Vector2(667, 486)
+[node name="Cow" parent="." instance=ExtResource("8_rfktq")]
+position = Vector2(398, 472)
 
-[node name="Cow2" parent="." instance=ExtResource("7_5glh4")]
-position = Vector2(350, 327)
-
-[node name="Cow3" parent="." instance=ExtResource("7_5glh4")]
-position = Vector2(410, 540)
-
-[node name="UI" parent="." instance=ExtResource("8_ulih8")]
+[node name="UI" parent="." instance=ExtResource("9_77x7w")]

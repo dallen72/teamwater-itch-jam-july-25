@@ -1,7 +1,7 @@
 extends Control
 
-func init_hud():
-	if (Global.level_num == 1): 
+func init_hud(level_num: int):
+	if (level_num == 1): 
 		# show tutorial instructions
 		show_dialogue()
 	Global.dialogue_finished.connect(hide_dialogue)
