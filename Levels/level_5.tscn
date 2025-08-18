@@ -37,11 +37,6 @@ position = Vector2(613, 351)
 [node name="CheckPoint3" parent="PathManager" instance=ExtResource("5_0urlm")]
 position = Vector2(378, 364)
 
-[node name="GridBorder" type="Line2D" parent="PathManager"]
-points = PackedVector2Array(250, 100, 805.6, 100, 805.6, 600, 250, 600, 250, 100)
-width = 2.0
-default_color = Color(1, 0.5, 0.8, 1)
-
 [node name="CheckpointManager" type="Node2D" parent="."]
 script = ExtResource("3_checkpoint_manager")
 
