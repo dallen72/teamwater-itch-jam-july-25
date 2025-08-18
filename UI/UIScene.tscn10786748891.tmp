@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://de8drvsfcoe3b"]
+
+[ext_resource type="Texture2D" uid="uid://1puxneny4qoh" path="res://Assets/woodbox2.png" id="1_l5xav"]
+[ext_resource type="Texture2D" uid="uid://2txk0cqh3xi4" path="res://Assets/woodborderbox.png" id="2_wqann"]
+[ext_resource type="PackedScene" uid="uid://d2h2q4tuy1qvu" path="res://Dialogue/DialogueSystem.tscn" id="3_bxp07"]
+[ext_resource type="Script" uid="uid://kd68anq2c7vi" path="res://dialogue_system_01.gd" id="3_m1p1h"]
+
+[node name="Control2" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EnergyBox" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 1026.0
+offset_top = -15.0
+offset_right = 1165.0
+offset_bottom = 134.0
+texture = ExtResource("1_l5xav")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EnergyBox"]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 59.0
+offset_right = 73.0
+offset_bottom = 85.0
+text = "3"
+
+[node name="PortraitBox" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = -78.0
+offset_top = -48.0
+offset_right = 496.0
+offset_bottom = 237.0
+texture = ExtResource("2_wqann")
+script = ExtResource("3_m1p1h")
+
+[node name="helpButton" type="Button" parent="PortraitBox"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Help"
+
+[node name="Dialogue" parent="PortraitBox" instance=ExtResource("3_bxp07")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 107.0
+offset_top = 60.0
+offset_right = 107.0
+offset_bottom = 60.0
+grow_horizontal = 1
+grow_vertical = 1
