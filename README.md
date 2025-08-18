@@ -1,15 +1,13 @@
-TODO: 
+ 
 
-#Primary:  
-	- fix the bug with nodes disappearing from the graph when clicked multiple times
-	- need to have an explanation for multiple cows (explained to the user)
-	- Need to fix the bug where nodes that are deselected cannot always be selected again
-	- the main circle needs to be blue (David) 
-	- we need to indicate that the area can be clicked on (get rid of the grid) (David)
-	
-#Secondary:  
+# TODO:  
+	- fix the bug where user can't click many places in the map. there are places they should be able to click but can't.
+	- show to the user where the user can click in the map
+	- Show animations to the user what they should do to the map, click and such, to go along with the text explanation
+	- need to have an explanation for multiple cows (explained to the user)  
 	- add a character to the first node  
 	- Make sure the user cannot add a line path segment that Crosses the existing lines (David)  
+
 
 ## Feedback from playtest 8/13:  
 	- The simple ui and tutorial is great. the interactive map on the phone could be bigger. consider doing away with the saure map, allowing the entire screen open to play.  
@@ -19,6 +17,6 @@ TODO:
 	- maybe have white line change color as energy lowers  
 	- reminds someone of Yoshi's fruit cart from Nintendoland Wii    
 	- the last puzzle is a little too tricky  
-	- have a line show that previews the line that will be drawn 
-	- maybe have a circle that shows the radius of how far the line can be drawn   
+	- have a line show that previews the line that will be drawn  
+	- maybe have a circle that shows the radius of how far the line can be  drawn   
 	- do a better job of showing where the energy is  
