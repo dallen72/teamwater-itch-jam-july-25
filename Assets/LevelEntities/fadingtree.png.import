@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nsspc47ctnka"
-path="res://.godot/imported/nomadright.png-4ebcc805d9a0b2009028e2bbeaa26506.ctex"
+uid="uid://bpg0caf3krs1n"
+path="res://.godot/imported/fadingtree.png-6859b535bbdfcae546ed92b1e2a3e780.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/nomadright.png"
-dest_files=["res://.godot/imported/nomadright.png-4ebcc805d9a0b2009028e2bbeaa26506.ctex"]
+source_file="res://Assets/LevelEntities/fadingtree.png"
+dest_files=["res://.godot/imported/fadingtree.png-6859b535bbdfcae546ed92b1e2a3e780.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjrwwkbql1uvk"
-path="res://.godot/imported/mountain2.png-813eb1521ddaa8d346dbbfc273bee728.ctex"
+uid="uid://ci42dk4g382pg"
+path="res://.godot/imported/nomadleft.png-fd22428016b7cb7ac96112aea11ff1aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/mountain2.png"
-dest_files=["res://.godot/imported/mountain2.png-813eb1521ddaa8d346dbbfc273bee728.ctex"]
+source_file="res://Assets/nomad/nomadleft.png"
+dest_files=["res://.godot/imported/nomadleft.png-fd22428016b7cb7ac96112aea11ff1aa.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2txk0cqh3xi4"
-path="res://.godot/imported/woodborderbox.png-9debf2fb14cc254f62a82a20923633c4.ctex"
+uid="uid://bur2r7pavyqex"
+path="res://.godot/imported/cow.png-bec2781f6d19a3586c29bcf49c7c7f14.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/woodborderbox.png"
-dest_files=["res://.godot/imported/woodborderbox.png-9debf2fb14cc254f62a82a20923633c4.ctex"]
+source_file="res://Assets/LevelEntities/cow.png"
+dest_files=["res://.godot/imported/cow.png-bec2781f6d19a3586c29bcf49c7c7f14.ctex"]
 
 [params]
 

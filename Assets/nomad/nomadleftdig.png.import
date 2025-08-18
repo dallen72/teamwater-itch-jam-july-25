@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bur2r7pavyqex"
-path="res://.godot/imported/cow.png-656777a54f1417fcd6d9d8cc7ce18984.ctex"
+uid="uid://chynimf1tn3fa"
+path="res://.godot/imported/nomadleftdig.png-98f60ac8964065be21b4ef408487cdc7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/cow.png"
-dest_files=["res://.godot/imported/cow.png-656777a54f1417fcd6d9d8cc7ce18984.ctex"]
+source_file="res://Assets/nomad/nomadleftdig.png"
+dest_files=["res://.godot/imported/nomadleftdig.png-98f60ac8964065be21b4ef408487cdc7.ctex"]
 
 [params]
 

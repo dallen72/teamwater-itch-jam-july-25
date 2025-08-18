@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci42dk4g382pg"
-path="res://.godot/imported/nomadleft.png-0b8dc0877aa1dc25afc474d810bcc2b6.ctex"
+uid="uid://d4jhtw2w5d55r"
+path="res://.godot/imported/nomadrightdig.png-d5fba1102730f634d7d9c8bd642601fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/nomadleft.png"
-dest_files=["res://.godot/imported/nomadleft.png-0b8dc0877aa1dc25afc474d810bcc2b6.ctex"]
+source_file="res://Assets/nomad/nomadrightdig.png"
+dest_files=["res://.godot/imported/nomadrightdig.png-d5fba1102730f634d7d9c8bd642601fd.ctex"]
 
 [params]
 

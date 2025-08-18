@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpg0caf3krs1n"
-path="res://.godot/imported/fadingtree.png-c77646857d95bbf7d9cb7380e2711359.ctex"
+uid="uid://1puxneny4qoh"
+path="res://.godot/imported/woodbox2.png-69a47b19bc6591577d64c30211df9ad3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/fadingtree.png"
-dest_files=["res://.godot/imported/fadingtree.png-c77646857d95bbf7d9cb7380e2711359.ctex"]
+source_file="res://Assets/ui/woodbox2.png"
+dest_files=["res://.godot/imported/woodbox2.png-69a47b19bc6591577d64c30211df9ad3.ctex"]
 
 [params]
 

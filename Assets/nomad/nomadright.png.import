@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1puxneny4qoh"
-path="res://.godot/imported/woodbox2.png-5e06d1731ae814d01c1428827c923fd7.ctex"
+uid="uid://nsspc47ctnka"
+path="res://.godot/imported/nomadright.png-517ca70f0fcb0c49c015add7ad2f949d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/woodbox2.png"
-dest_files=["res://.godot/imported/woodbox2.png-5e06d1731ae814d01c1428827c923fd7.ctex"]
+source_file="res://Assets/nomad/nomadright.png"
+dest_files=["res://.godot/imported/nomadright.png-517ca70f0fcb0c49c015add7ad2f949d.ctex"]
 
 [params]
 
