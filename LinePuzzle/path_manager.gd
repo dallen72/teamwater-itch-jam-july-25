@@ -24,9 +24,9 @@ func _ready():
 	Global.right_clicked.connect(handle_right_click)
 	print("PathManager connected to Global.level_clicked and Global.right_clicked signals")
 
+#initialize the spawn point as a node that is part of the selected path
 func init_spawn_point():
-	# IMPORTANT: The spawn point is the permanent starting point of the path
-	# It should never be removed from the path and serves as the anchor for all connections
+	# The spawn point is the permanent starting point of the path. It should never be removed from the path and serves as the anchor for all connections
 	var spawn_point = get_node_or_null("SpawnPoint")
 	if spawn_point != null:
 		# Make sure spawn point is visible
@@ -42,10 +42,6 @@ func init_spawn_point():
 	else:
 		print("ERROR: No spawn point found")
 
-# Handle spawn point clicks
-func _on_spawn_point_clicked(spawn_point):
-	print("Spawn point clicked!")
-	# Handle spawn point logic here if needed
 
 # Create a new node at the specified position
 func create_node_at_position(pos: Vector2) -> PathNode:
@@ -53,6 +49,7 @@ func create_node_at_position(pos: Vector2) -> PathNode:
 	pathnode.position = pos
 	add_child(pathnode)
 	return pathnode
+
 
 # Handle level clicks from global click handler
 func handle_level_click(click_position: Vector2):
@@ -65,17 +62,16 @@ func handle_level_click(click_position: Vector2):
 		handle_checkpoint_click(clicked_checkpoint)
 		return
 	
-	# Check if we clicked on an existing node
-	var clicked_node = get_node_at_position(click_position)
-	
-	if clicked_node != null:
+
+	if node_is_at_position(click_position):
 		print("Clicked on existing node")
 		# Clicked on existing node - handle selection
-		handle_node_selection(clicked_node)
+		handle_node_selection(get_node_at_position(click_position))
 	else:
 		print("Clicked on empty space, placing new node")
 		# Clicked on empty space - place new node
 		place_new_node(click_position)
+
 
 # Handle right-clicks from global click handler
 func handle_right_click(click_position: Vector2):
@@ -105,6 +101,14 @@ func get_checkpoint_at_position(pos: Vector2):
 	return null
 
 # Check if there's a node at the given position
+func node_is_at_position(pos: Vector2) -> bool:
+	for node in placed_nodes:
+		if node.position.distance_to(pos) < 20:  # Click tolerance
+			return true
+	return false
+
+
+# Get the node at the given position
 func get_node_at_position(pos: Vector2) -> PathNode:
 	for node in placed_nodes:
 		if node.position.distance_to(pos) < 20:  # Click tolerance
@@ -337,6 +341,7 @@ func handle_node_selection(node: PathNode):
 				print("Not enough energy! Need ", distance, " but only have ", PlayerEnergy.get_energy())
 				return
 			connect_nodes(selected_node, node)
+
 
 func node_intersects_selected_path(node):
 	return nodes_along_selected_path.has(node)
