@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxiex2equwoh1"]
 
-[ext_resource type="Script" uid="uid://bldv0jqlji7qj" path="res://LinePuzzle/pathnode.gd" id="1_ha05m"]
+[ext_resource type="Script" uid="uid://bldv0jqlji7qj" path="res://LinePuzzle/Path/pathnode.gd" id="1_ha05m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_728un"]
 radius = 9.21954

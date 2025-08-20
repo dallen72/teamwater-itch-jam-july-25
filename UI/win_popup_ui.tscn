@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dv5cwnrtxejt3"]
 
-[ext_resource type="Script" uid="uid://bau3blpebhe87" path="res://Levels/win_popup_ui.gd" id="1_13ss4"]
+[ext_resource type="Script" uid="uid://bau3blpebhe87" path="res://UI/win_popup_ui.gd" id="1_13ss4"]
 
 [node name="WinPopupUI" type="Control"]
 visible = false
@@ -13,6 +13,7 @@ script = ExtResource("1_13ss4")
 
 [node name="EndGameDisplay" type="RichTextLabel" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 318.0
 offset_top = 128.0
 offset_right = 1155.0

@@ -1,16 +1,16 @@
 [gd_scene load_steps=12 format=3 uid="uid://26yj8ejvcjue"]
 
 [ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_ck3gp"]
-[ext_resource type="Script" uid="uid://0hxpbyho137r" path="res://LinePuzzle/path_manager.gd" id="2_path_manager"]
-[ext_resource type="PackedScene" uid="uid://rxg16ok3dg35" path="res://BasicBackground.tscn" id="2_trpa2"]
-[ext_resource type="Script" uid="uid://bnkjabhcsq7w8" path="res://LinePuzzle/checkpoint_manager.gd" id="3_checkpoint_manager"]
-[ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/spawnpoint.tscn" id="4_syshm"]
-[ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/checkpoint.tscn" id="5_0urlm"]
+[ext_resource type="Script" uid="uid://0hxpbyho137r" path="res://LinePuzzle/Path/path_manager.gd" id="2_path_manager"]
+[ext_resource type="PackedScene" uid="uid://rxg16ok3dg35" path="res://Levels/BasicBackground.tscn" id="2_trpa2"]
+[ext_resource type="Script" uid="uid://bnkjabhcsq7w8" path="res://LinePuzzle/Path/checkpoint_manager.gd" id="3_checkpoint_manager"]
+[ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/Path/spawnpoint.tscn" id="4_syshm"]
+[ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/Path/checkpoint.tscn" id="5_0urlm"]
 [ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="6_rf6l5"]
-[ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://win_popup_ui.tscn" id="7_xoyoh"]
+[ext_resource type="PackedScene" uid="uid://dv5cwnrtxejt3" path="res://UI/win_popup_ui.tscn" id="7_xoyoh"]
 [ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="8_rfktq"]
 [ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="9_77x7w"]
-[ext_resource type="PackedScene" uid="uid://cb1bsff0b1s34" path="res://river.tscn" id="11_4t7ew"]
+[ext_resource type="PackedScene" uid="uid://cb1bsff0b1s34" path="res://Levels/river.tscn" id="11_4t7ew"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_ck3gp")

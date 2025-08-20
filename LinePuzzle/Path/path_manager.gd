@@ -2,7 +2,7 @@ class_name PathManager
 extends Node2D
 
 # Dynamic node placement system
-const PATHNODE_SCENE = preload("res://LinePuzzle/pathnode.tscn")
+const PATHNODE_SCENE = preload("res://LinePuzzle/Path/pathnode.tscn")
 
 # Dynamic node management
 var placed_nodes = []
