@@ -95,4 +95,5 @@ func unregister_ui_area(ui_area: Control):
 # optional parameter for level number
 func change_level(_next_level):
 	level_num = _next_level
+	ui_areas = []
 	get_tree().change_scene_to_file("res://Levels/level_" + str(level_num) + ".tscn")

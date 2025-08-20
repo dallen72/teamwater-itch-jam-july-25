@@ -25,19 +25,17 @@ func _ready():
 	init_ui()
 	$River.position = $PathManager/SpawnPoint.position
 	
+
+
+func init_ui():
 	# Show tutorial dialogue for level 1
 	if level_number == 1:
 		await get_tree().process_frame
 		var ui = get_node_or_null("UI")
 		if ui:
 			ui.show_dialogue()
-
-func init_ui():
-	# Initialize HUD if UI node exists
-	var ui = get_node_or_null("UI")
-	if ui:
-		ui.init_hud(level_number)
-
+			
+			
 func _input(event):
 	print("Level _input called with event: ", event)
 	Global.handle_input(event)

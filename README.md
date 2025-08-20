@@ -1,7 +1,6 @@
  
 
 # TODO:  
-	- fix the bug where user can't click many places in the map. there are places they should be able to click but can't.
 	- show to the user where the user can click in the map
 	- Show animations to the user what they should do to the map, click and such, to go along with the text explanation
 	- need to have an explanation for multiple cows (explained to the user)  
@@ -11,7 +10,7 @@
 	- need to make the input disabled when the win animation is being played  
 	- need to make the win message, put the continue button in a UI box  
 	- style the start button on the main menu screen with the UI we have  
-	
+	- Make the UI node not have margins, so the size is the same size as the actual visible area (with brown wood theme)
 
 ## Feedback from playtest 8/13:  
 	- The simple ui and tutorial is great. the interactive map on the phone could be bigger. consider doing away with the saure map, allowing the entire screen open to play.  

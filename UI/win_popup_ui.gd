@@ -3,8 +3,17 @@ extends Control
 func _ready():
 	# Wait for the first frame to ensure size is available
 	await get_tree().process_frame
-	# Register this UI area with the global click handler
+	$NextLevelPromptBox.connect("show", _on_show)
+
+
+func _on_show():
 	Global.register_ui_area(self, size)
+	$NextLevelPromptBox.connect("hide", _on_hide)
+
+
+func _on_hide():
+	Global.unregister_ui_area(self)
+
 
 # change the scene to the next level
 func _on_temporary_next_level_button_pressed():
@@ -14,5 +23,5 @@ func _on_temporary_next_level_button_pressed():
 	# if the level doesn't exist, show the end game display
 	else:
 		$EndGameDisplay.show()
-		$TemporaryNextLevelButton.hide()
-		$TemporaryWinText.hide()
+		$NextLevelPromptBox.hide()
+		Global.unregister_ui_area(self)

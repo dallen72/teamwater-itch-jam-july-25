@@ -30,11 +30,3 @@ func display_dialogue_entry(entry: DialogueEntry):
 func _on_continue_pressed():
 	# Emit signal to notify parent dialogue manager
 	get_parent().next_line()
-
-# Show the dialogue UI
-func show_dialogue():
-	visible = true
-
-# Hide the dialogue UI
-func hide_dialogue():
-	visible = false 

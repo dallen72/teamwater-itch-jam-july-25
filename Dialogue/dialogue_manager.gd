@@ -14,7 +14,7 @@ func _ready():
 	visible = false
 	# Register this UI area with the global click handler (after first frame)
 	await get_tree().process_frame
-	Global.register_ui_area(self, size)
+	
 
 # Load dialogue from a JSON file
 func load_dialogue_from_json(json_file_path: String):
@@ -99,6 +99,7 @@ func end_dialogue():
 	is_dialogue_active = false
 	visible = false
 	Global.dialogue_finished.emit()
+	Global.unregister_ui_area(self)
 
 # Check if dialogue is currently active
 func is_active() -> bool:
