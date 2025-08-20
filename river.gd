@@ -2,6 +2,7 @@ extends Node2D
 
 # Function to draw a river with multiple splash nodes between pathnodes,
 # over time to look like a river flowing.
+# this function is awaited on in level.gd, so it must be async
 func draw_river(pathnodes: Array) -> void:
 	# Clear existing splash nodes (except the original one)
 	for child in $GeneratedSprites.get_children():
@@ -58,3 +59,11 @@ func draw_river(pathnodes: Array) -> void:
 		$GeneratedSprites.add_child(final_splash)
 	
 	print("River drawn with splash nodes between ", pathnodes.size(), " pathnodes")
+	Global.level_win_animation_finished.emit()
+	
+
+	
+func _on_timer_timeout() -> void:
+	# for every spash node, rotate it 90 degrees
+	for child in $GeneratedSprites.get_children():
+		child.rotation += 90

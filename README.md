@@ -7,7 +7,11 @@
 	- need to have an explanation for multiple cows (explained to the user)  
 	- add a character to the first node  
 	- Make sure the user cannot add a line path segment that Crosses the existing lines (David)  
-
+	- need to make the line disappear when the animation plays for the river (the node path)  
+	- need to make the input disabled when the win animation is being played  
+	- need to make the win message, put the continue button in a UI box  
+	- style the start button on the main menu screen with the UI we have  
+	
 
 ## Feedback from playtest 8/13:  
 	- The simple ui and tutorial is great. the interactive map on the phone could be bigger. consider doing away with the saure map, allowing the entire screen open to play.  

@@ -43,11 +43,12 @@ func _input(event):
 	Global.handle_input(event)
 
 
+# play the animations, and when they are done, show the win popup
 func _on_level_completed():
-	print("Level completed!")
+	$River.visible = true
+	$River.draw_river($PathManager.selected_path)
+	await Global.level_win_animation_finished
 	# show win popup
 	var win_popup = get_node_or_null("WinPopupUI")
 	if win_popup:
-		$River.visible = true
-		$River.draw_river($PathManager.selected_path)
 		win_popup.show()

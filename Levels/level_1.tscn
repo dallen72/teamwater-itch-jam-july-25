@@ -42,3 +42,4 @@ position = Vector2(398, 472)
 [node name="UI" parent="." instance=ExtResource("9_77x7w")]
 
 [node name="River" parent="." instance=ExtResource("10_f4pg2")]
+visible = false
