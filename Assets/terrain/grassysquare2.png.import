@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cq0fehe7r0ldk"
-path="res://.godot/imported/grassysquare2.png-218e3082a2ed548604953284f67cb448.ctex"
+path="res://.godot/imported/grassysquare2.png-4fca0aef497cec46834fb79e0552c452.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/grassysquare2.png"
-dest_files=["res://.godot/imported/grassysquare2.png-218e3082a2ed548604953284f67cb448.ctex"]
+source_file="res://Assets/terrain/grassysquare2.png"
+dest_files=["res://.godot/imported/grassysquare2.png-4fca0aef497cec46834fb79e0552c452.ctex"]
 
 [params]
 

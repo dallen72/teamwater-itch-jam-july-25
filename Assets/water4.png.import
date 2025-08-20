@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bur2r7pavyqex"
-path="res://.godot/imported/cow.png-bec2781f6d19a3586c29bcf49c7c7f14.ctex"
+uid="uid://0d45rnuno2fk"
+path="res://.godot/imported/water4.png-ad8a29aafbc460986afbc779a3ab3b56.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/LevelEntities/cow.png"
-dest_files=["res://.godot/imported/cow.png-bec2781f6d19a3586c29bcf49c7c7f14.ctex"]
+source_file="res://Assets/water4.png"
+dest_files=["res://.godot/imported/water4.png-ad8a29aafbc460986afbc779a3ab3b56.ctex"]
 
 [params]
 
@@ -20,10 +20,10 @@ compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=1
-mipmaps/generate=true
+compress/channel_pack=0
+mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=1
+roughness/mode=0
 roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

@@ -12,6 +12,8 @@ signal level_clicked(click_position: Vector2)
 signal ui_clicked(click_position: Vector2)
 @warning_ignore("unused_signal")
 signal right_clicked(click_position: Vector2)
+@warning_ignore("unused_signal")
+signal level_completed
 
 # Global click handler
 var ui_areas = []

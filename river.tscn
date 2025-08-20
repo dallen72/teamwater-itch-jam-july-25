@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb1bsff0b1s34"]
+
+[ext_resource type="Script" uid="uid://dhudvv8ilypok" path="res://river.gd" id="1_iiml5"]
+[ext_resource type="Texture2D" uid="uid://0d45rnuno2fk" path="res://Assets/water4.png" id="2_iiml5"]
+
+[node name="River" type="Node2D"]
+script = ExtResource("1_iiml5")
+
+[node name="Splash" type="Sprite2D" parent="."]
+scale = Vector2(0.0767857, 0.0767857)
+texture = ExtResource("2_iiml5")
+
+[node name="GeneratedSprites" type="Node" parent="."]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dg7vw5egeisul"]
 
-[ext_resource type="Texture2D" uid="uid://bur2r7pavyqex" path="res://Assets/LevelEntities/cow.png" id="1_r311s"]
+[ext_resource type="Texture2D" uid="uid://c2v2e3ephaeht" path="res://Assets/LevelEntities/cow_embedded.svg" id="1_r311s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkar0"]
 size = Vector2(147.5, 149.5)
@@ -8,10 +8,12 @@ size = Vector2(147.5, 149.5)
 [node name="Cow" type="RigidBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 4
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_r311s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.75, 1.25)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_jkar0")

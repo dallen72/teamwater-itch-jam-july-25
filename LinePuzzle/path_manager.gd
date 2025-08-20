@@ -16,8 +16,6 @@ var nodes_along_selected_path = []
 func _ready():
 	print("PathManager _ready() called")
 	init_spawn_point()
-	# Connect to energy depleted signal
-	PlayerEnergy.energy_depleted.connect(_on_energy_depleted)
 	# Connect to global level click signal
 	Global.level_clicked.connect(handle_level_click)
 	# Connect to global right-click signal
@@ -62,32 +60,23 @@ func handle_level_click(click_position: Vector2):
 		handle_checkpoint_click(clicked_checkpoint)
 		return
 	
-
 	if node_is_at_position(click_position):
 		print("Clicked on existing node")
 		# Clicked on existing node - handle selection
 		handle_node_selection(get_node_at_position(click_position))
-	else:
-		print("Clicked on empty space, placing new node")
-		# Clicked on empty space - place new node
+	elif (not is_obstacle_at_position(click_position)):
 		place_new_node(click_position)
 
 
 # Handle right-clicks from global click handler
 func handle_right_click(click_position: Vector2):
 	print("PathManager received right-click at: ", click_position)
-	# Right-click always removes the last node from the path
-	# IMPORTANT: The spawn point (first node) should never be removed from the path
-	if selected_path.size() > 1:  # Need at least 2 nodes to remove one (preserve spawn point)
-		var last_node = selected_path[selected_path.size() - 1]
-		print("Right-click: removing last node from path")
-		if last_node.checkpoint:
-			print("Last node is checkpoint: ", last_node.checkpoint_name)
-		else:
-			print("Last node is regular PathNode")
+	# Right-click removes the last node from the path, except for the spawn point
+	if selected_path.size() > 1:
 		remove_node_from_path()
 	else:
 		print("Right-click: cannot remove node - spawn point must remain in path")
+
 
 # Check if there's a checkpoint at the given position
 func get_checkpoint_at_position(pos: Vector2):
@@ -197,6 +186,7 @@ func path_intersects_obstacles_alternative(start_pos: Vector2, end_pos: Vector2)
 	print("Alternative raycast hit nothing")
 	return false
 
+
 # Handle checkpoint clicks
 func handle_checkpoint_click(checkpoint):
 	# Check if there's an obstacle at the checkpoint position
@@ -214,48 +204,25 @@ func handle_checkpoint_click(checkpoint):
 	
 	var checkpoint_name = "checkpoint_" + str(checkpoint_index)
 	
-	# If we have a selected node, try to connect to the checkpoint
-	if selected_node != null:
-		# Check if we have enough energy to connect
-		var distance = selected_node.position.distance_to(checkpoint.position)
-		if PlayerEnergy.get_energy() < distance:
-			print("Not enough energy! Need ", distance, " but only have ", PlayerEnergy.get_energy())
-			return
-		
-		# Create a visual node at checkpoint location and connect
-		var checkpoint_node = create_node_at_position(checkpoint.position)
-		checkpoint_node.checkpoint = true
-		checkpoint_node.checkpoint_name = checkpoint_name
-		
-		# Connect the nodes
-		connect_nodes(selected_node, checkpoint_node)
-	else:
-		# Start new path with checkpoint
-		var checkpoint_node = create_node_at_position(checkpoint.position)
-		checkpoint_node.checkpoint = true
-		checkpoint_node.checkpoint_name = checkpoint_name
-		
-		selected_node = checkpoint_node
-		selected_path = [checkpoint_node]
-		checkpoint_node.make_visible()
-		checkpoint_node.toggle_selection()
-		placed_nodes.append(checkpoint_node)
-		
-		# Check if the selected node is a checkpoint and emit signal
-		if checkpoint_manager and checkpoint_manager.is_checkpoint(checkpoint_node):
-			checkpoint_manager.checkpoint_reached.emit(checkpoint_manager.get_checkpoint_name(checkpoint_node))
-		
-		draw_node_path()
-		calculate_nodes_along_selected_path()
+
+	# Check if we have enough energy to connect
+	var distance = selected_node.position.distance_to(checkpoint.position)
+	if PlayerEnergy.get_energy() < distance:
+		print("Not enough energy! Need ", distance, " but only have ", PlayerEnergy.get_energy())
+		return
+	
+	# Create a visual node at checkpoint location and connect
+	var checkpoint_node = create_node_at_position(checkpoint.position)
+	checkpoint_node.checkpoint = true
+	checkpoint_node.checkpoint_name = checkpoint_name
+	
+	# Connect the nodes
+	connect_nodes(selected_node, checkpoint_node)
+
 
 # Place a new node at the clicked position
 func place_new_node(pos: Vector2):
-	print("Creating new node at position: ", pos)
-	
-	# Check if there's an obstacle at this position
-	if is_obstacle_at_position(pos):
-		print("Cannot place node - obstacle detected!")
-		return
+	print("Creating new node at position: ", pos)	
 	
 	# Create and place the node
 	var new_node = create_node_at_position(pos)
@@ -276,6 +243,7 @@ func place_new_node(pos: Vector2):
 		new_node.toggle_selection()
 		draw_node_path()
 		calculate_nodes_along_selected_path()
+
 
 # Connect two nodes with a path
 func connect_nodes(node1: PathNode, node2: PathNode):
@@ -309,8 +277,12 @@ func connect_nodes(node1: PathNode, node2: PathNode):
 	draw_node_path()
 	calculate_nodes_along_selected_path()
 
+
 # Handle selection of existing nodes
 func handle_node_selection(node: PathNode):
+#TODO: this check should be done next to the check for
+# the line being drawn. Or at least, try to put those two checks together.
+
 	# Check if the node is on an obstacle
 	if is_obstacle_at_position(node.position):
 		print("Cannot select node - it's on an obstacle!")
@@ -346,6 +318,7 @@ func handle_node_selection(node: PathNode):
 func node_intersects_selected_path(node):
 	return nodes_along_selected_path.has(node)
 
+
 # Calculate nodes along the selected path
 func calculate_nodes_along_selected_path():
 	nodes_along_selected_path.clear()
@@ -354,58 +327,48 @@ func calculate_nodes_along_selected_path():
 	for node in selected_path:
 		nodes_along_selected_path.append(node)
 
+
+
+# TODO: there is a lot of redundant code here. remove the unnecessary branches.
 func remove_node_from_path():
-	# Allow deselection even if there's only one node
-	# IMPORTANT: The spawn point (first node) should never be removed from the path
-	# This function is only called when selected_path.size() > 1, so spawn point is safe
-	if selected_path.size() == 0:
+	if (not checkpoint_manager):
+		print("No checkpoint manager found")
 		return
-		
+
 	# Calculate the distance of the line segment being removed
 	var removed_node = selected_node
-	var previous_node = null
-	
-	# If there are multiple nodes, get the previous one
-	if selected_path.size() > 1:
-		previous_node = selected_path[selected_path.size() - 2]
-	
-	# Remove the node from the path
-	selected_path.remove_at(selected_path.size() - 1)
-	
+	var previous_node = selected_path[selected_path.size() - 2]
+		
 	# For checkpoint nodes, we need to handle them specially
 	# The PathNode gets removed, but the actual checkpoint remains
 	if removed_node.checkpoint == true:
-		print("Removing checkpoint PathNode - actual checkpoint remains")
-		print("Checkpoint name: ", removed_node.checkpoint_name)
-		# Emit checkpoint reset signal to update tracking
-		if checkpoint_manager:
-			checkpoint_manager.checkpoint_reset.emit(removed_node.checkpoint_name)
-			print("Emitted checkpoint reset signal for: ", removed_node.checkpoint_name)
-	else:
-		print("Removing regular PathNode")
+		checkpoint_manager.checkpoint_reset.emit(removed_node.checkpoint_name)
+		print("Emitted checkpoint reset signal for: ", removed_node.checkpoint_name)
+
+	_update_energy_for_node_removal(previous_node, removed_node)	
 	
-	# Increase energy based on the distance of the removed line segment (if there was a previous node)
-	if previous_node != null:
-		var distance = previous_node.position.distance_to(removed_node.position)
-		PlayerEnergy.increase_energy(distance)
-		print("Energy increased by ", distance, ". Current energy: ", PlayerEnergy.get_energy())
-	
-	# Remove the node from placed_nodes and the scene
+	# Remove the nodes from the scene
+	selected_path.remove_at(selected_path.size() - 1)
 	placed_nodes.erase(removed_node)
 	removed_node.queue_free()
 	
-	if (selected_path.size() == 0):
-		selected_node = null
-		print("Path cleared - no more selected nodes")
-	else:
-		selected_node = selected_path[selected_path.size() - 1]
-		selected_node.make_visible()
-		selected_node.toggle_selection()
-		print("New selected node: ", selected_node.name, " at position: ", selected_node.position)
+	#select previous node
+	selected_node = selected_path[selected_path.size() - 1]
+	selected_node.make_visible()
+	selected_node.toggle_selection()
+	print("New selected node: ", selected_node.name, " at position: ", selected_node.position)
 	
 	# Redraw the path after removing the node
 	draw_node_path()
 	calculate_nodes_along_selected_path()
+
+
+# Increase energy based on the distance of the removed line segment (if there was a previous node)
+func _update_energy_for_node_removal(previous_node, removed_node):
+	var distance = previous_node.position.distance_to(removed_node.position)
+	PlayerEnergy.increase_energy(distance)
+	print("Energy increased by ", distance, ". Current energy: ", PlayerEnergy.get_energy())
+
 
 # Draw the path between selected nodes
 func draw_node_path():
@@ -423,14 +386,6 @@ func draw_node_path():
 			line.default_color = Color.WHITE
 			add_child(line)
 
-# Get the energy cost for a potential path to a node
-func get_path_energy_cost(target_node):
-	if selected_node == null:
-		return 0
-	return selected_node.position.distance_to(target_node.position)
-
-# Handle energy depletion
-func _on_energy_depleted():
-	print("Energy depleted! Cannot draw more paths.")
-	# You could add visual feedback here, like disabling node selection
-	# or showing a game over message 
+	# get the river node, then use the function draw_river_path() to draw the river path, using the selected path
+	var river_node = get_tree().get_root().get_node("Root").get_node("River")
+	

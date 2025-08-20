@@ -66,9 +66,8 @@ func _on_checkpoint_reached(_checkpoint_name):
 		
 		# Show win popup only when all checkpoints are reached
 		if all_reached:
-			var win_popup = get_parent().get_node_or_null("WinPopupUI")
-			if win_popup:
-				win_popup.show()
+			# emit level_completed signal
+			Global.level_completed.emit()
 
 # Called when a checkpoint is reset (unselected)
 func _on_checkpoint_reset(_checkpoint_name):

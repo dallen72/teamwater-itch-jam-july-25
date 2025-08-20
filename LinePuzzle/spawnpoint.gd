@@ -1,9 +1,6 @@
 
 extends Node2D
 
-# Signal for spawn point clicks
-signal spawn_point_clicked(spawn_point)
-
 # Click area for spawn point interaction
 var click_area: Area2D
 var collision_shape: CollisionShape2D

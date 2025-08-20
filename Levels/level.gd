@@ -15,6 +15,7 @@ func _ready():
 	
 	# Set global level number for other systems to use (keeping for backward compatibility)
 	Global.level_num = level_number
+	Global.level_completed.connect(_on_level_completed)
 	
 	# Set starting energy for current level
 	PlayerEnergy.player_energy = starting_energy
@@ -22,6 +23,7 @@ func _ready():
 	
 	# Initialize UI
 	init_ui()
+	$River.position = $PathManager/SpawnPoint.position
 	
 	# Show tutorial dialogue for level 1
 	if level_number == 1:
@@ -39,3 +41,13 @@ func init_ui():
 func _input(event):
 	print("Level _input called with event: ", event)
 	Global.handle_input(event)
+
+
+func _on_level_completed():
+	print("Level completed!")
+	# show win popup
+	var win_popup = get_node_or_null("WinPopupUI")
+	if win_popup:
+		$River.visible = true
+		$River.draw_river($PathManager.selected_path)
+		win_popup.show()
