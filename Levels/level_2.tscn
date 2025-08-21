@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cnoa1u5odc5em"]
+[gd_scene load_steps=13 format=3 uid="uid://cnoa1u5odc5em"]
 
 [ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_vltsr"]
 [ext_resource type="Script" uid="uid://0hxpbyho137r" path="res://LinePuzzle/Path/path_manager.gd" id="2_path_manager"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="8_rfktq"]
 [ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="9_77x7w"]
 [ext_resource type="PackedScene" uid="uid://cb1bsff0b1s34" path="res://Levels/river.tscn" id="10_rp5ft"]
+[ext_resource type="PackedScene" uid="uid://dxbx14gx4crye" path="res://Levels/nomad.tscn" id="12_1soli"]
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_vltsr")
@@ -51,3 +52,5 @@ position = Vector2(336, 396)
 
 [node name="River" parent="." instance=ExtResource("10_rp5ft")]
 visible = false
+
+[node name="Nomad" parent="." instance=ExtResource("12_1soli")]

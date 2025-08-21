@@ -55,7 +55,17 @@ func _on_level_completed():
 			child.hide()
 
 	# player digging animation
-	# TODO: play the animation
+	$Nomad/AnimationPlayer.play("dig")
+	
+	# Start nomad path traversal after a short delay to let animation start
+	await get_tree().create_timer(0.1).timeout
+	
+	# Start nomad moving along the selected path
+	var nomad = $Nomad
+	if nomad and nomad.has_method("start_path_traversal"):
+		nomad.start_path_traversal($PathManager.selected_path)
+		# Wait for nomad movement to complete
+		await nomad.nomad_movement_completed
 
 	# play river animation
 	$River.visible = true
