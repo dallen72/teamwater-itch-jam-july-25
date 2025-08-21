@@ -1,10 +1,6 @@
 extends Node2D
 
 # Nomad movement along the selected path
-var is_moving = false
-var current_path_index = 0
-var target_position: Vector2
-var movement_speed = 150.0  # pixels per second
 var path_nodes: Array = []
 
 # Animation player reference
@@ -18,7 +14,7 @@ func _ready():
 	if animation_player:
 		animation_player.animation_finished.connect(_on_animation_finished)
 
-# Start moving along the selected path
+# Start moving along the selected path (like river/ditch system)
 func start_path_traversal(selected_path: Array):
 	if selected_path.size() < 2:
 		print("Nomad: Path too short to traverse")
@@ -29,37 +25,75 @@ func start_path_traversal(selected_path: Array):
 	
 	# Store the path nodes
 	path_nodes = selected_path.duplicate()
-	current_path_index = 0
 	
 	# Start at the first node
 	if path_nodes.size() > 0:
 		position = path_nodes[0].position
-		current_path_index = 1
 		print("Nomad: Starting at position ", position)
 	
-	# Start moving if we have more than one node
-	if path_nodes.size() > 1:
-		is_moving = true
-		_move_to_next_node()
-	else:
-		print("Nomad: Only one node in path, no movement needed")
-		nomad_movement_completed.emit()
+	# Move along the path like the river/ditch system - every 20 pixels
+	_move_along_path_step_by_step()
+	
+	# Signal completion after movement is finished
+	nomad_movement_completed.emit()
 
-# Move to the next node in the path
-func _move_to_next_node():
-	if current_path_index >= path_nodes.size():
-		# Reached the end of the path
-		print("Nomad: Reached end of path")
-		is_moving = false
-		nomad_movement_completed.emit()
+# Move along the path step by step like the river/ditch system
+func _move_along_path_step_by_step():
+	if path_nodes.size() < 2:
 		return
 	
-	# Get the target position
-	target_position = path_nodes[current_path_index].position
-	print("Nomad: Moving to node ", current_path_index, " at position ", target_position)
+	print("Nomad: Moving along path step by step")
 	
-	# Update sprite direction based on movement
-	_update_sprite_direction(target_position)
+	# Get reference to the ditch system for real-time hole placement
+	var ditch_system = get_node_or_null("Ditch")
+	if not ditch_system:
+		print("Nomad: Warning - Ditch system not found, holes won't be placed")
+	
+	# Move along the path between each pair of pathnodes
+	for i in range(path_nodes.size() - 1):
+		var start_node = path_nodes[i]
+		var end_node = path_nodes[i + 1]
+		
+		# Calculate the direction vector between nodes
+		var direction = (end_node.position - start_node.position).normalized()
+		var distance = start_node.position.distance_to(end_node.position)
+		
+		# Move every 20 pixels along the path (like river/ditch spacing)
+		var step_spacing = 20.0
+		var current_distance = 0.0
+		
+		while current_distance < distance:
+			# Calculate position for this step
+			var step_position = start_node.position + (direction * current_distance)
+			
+			# Move the nomad to this position
+			position = step_position
+			
+			# Place a hole at this position (real-time synchronization)
+			if ditch_system and ditch_system.has_method("place_single_hole_at_position"):
+				ditch_system.place_single_hole_at_position(step_position)
+			
+			# Update sprite direction based on movement
+			_update_sprite_direction(step_position)
+			
+			# Small delay to make the movement visible
+			await get_tree().create_timer(0.05).timeout
+			
+			# Move to next step position
+			current_distance += step_spacing
+		
+		# Ensure we end up exactly at the end node
+		position = end_node.position
+		_update_sprite_direction(end_node.position)
+		
+		# Place final hole at the end node
+		if ditch_system and ditch_system.has_method("place_single_hole_at_position"):
+			ditch_system.place_single_hole_at_position(end_node.position)
+	
+	print("Nomad: Completed step-by-step movement along path")
+	# emit the nomad_movement_completed signal
+	nomad_movement_completed.emit()
+
 
 # Update sprite direction based on movement direction
 func _update_sprite_direction(target_pos: Vector2):
@@ -76,30 +110,7 @@ func _update_sprite_direction(target_pos: Vector2):
 		# Vertical movement - keep current horizontal flip
 		pass
 
-# Called every frame during movement
-func _process(delta):
-	if not is_moving:
-		return
-	
-	# Move towards target position
-	var direction = (target_position - position).normalized()
-	var distance_to_target = position.distance_to(target_position)
-	
-	if distance_to_target > 5.0:  # Close enough threshold
-		# Move towards target
-		position += direction * movement_speed * delta
-		
-		# Ensure we don't overshoot the target
-		if position.distance_to(target_position) > distance_to_target:
-			position = target_position
-	else:
-		# Reached the target node
-		position = target_position
-		print("Nomad: Reached node ", current_path_index)
-		
-		# Move to next node
-		current_path_index += 1
-		_move_to_next_node()
+
 
 # Called when the dig animation finishes
 func _on_animation_finished(anim_name: String):
@@ -107,17 +118,3 @@ func _on_animation_finished(anim_name: String):
 		print("Nomad: Dig animation finished, starting path traversal")
 		# The path traversal will be started from the level script
 		# This is just a placeholder for when the animation completes
-
-# Stop all movement
-func stop_movement():
-	is_moving = false
-	current_path_index = 0
-	path_nodes.clear()
-
-# Get current movement status
-func is_currently_moving() -> bool:
-	return is_moving
-
-# Set movement speed
-func set_movement_speed(speed: float):
-	movement_speed = speed

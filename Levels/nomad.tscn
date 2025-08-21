@@ -168,4 +168,3 @@ texture = ExtResource("2_66nx0")
 visible = false
 
 [node name="Ditch" parent="." instance=ExtResource("5_ek8gp")]
-visible = false
