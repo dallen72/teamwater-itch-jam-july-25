@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cer3v7arrf2tv"]
 
-[ext_resource type="Script" path="res://UI/win_popup_ui.gd" id="1_h2eqr"]
+[ext_resource type="Script" uid="uid://bau3blpebhe87" path="res://UI/win_popup_ui.gd" id="1_h2eqr"]
 
 [node name="WinPopupUI" type="Control"]
 visible = false

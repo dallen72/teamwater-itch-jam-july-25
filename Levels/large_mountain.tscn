@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc3u6cq68b4le"]
+
+[ext_resource type="Texture2D" uid="uid://bjrwwkbql1uvk" path="res://Assets/terrain/mountain2.png" id="1_k1h6d"]
+
+[node name="Mountain" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+scale = Vector2(1.05274, 1.13897)
+texture = ExtResource("1_k1h6d")
