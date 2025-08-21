@@ -4,7 +4,7 @@ extends Node2D
 var is_moving = false
 var current_path_index = 0
 var target_position: Vector2
-var movement_speed = 100.0  # pixels per second
+var movement_speed = 150.0  # pixels per second
 var path_nodes: Array = []
 
 # Animation player reference

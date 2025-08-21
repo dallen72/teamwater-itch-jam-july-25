@@ -7,6 +7,7 @@
 	- add a character to the first node  
 	- Make sure the user cannot add a line path segment that Crosses the existing lines (David)  
 	- setup itch page
+	- set z-index for things in scene and guideline for each (a heirarchy)
 
 ## Feedback from playtest 8/13:  
 	- The simple ui and tutorial is great. the interactive map on the phone could be bigger. consider doing away with the saure map, allowing the entire screen open to play.  

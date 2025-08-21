@@ -35,6 +35,7 @@ func draw_river(pathnodes: Array) -> void:
 			new_splash.texture = original_splash.texture
 			new_splash.scale = original_splash.scale
 			new_splash.position = splash_position
+			new_splash.z_index = Global.Z_INDEX_RIVER
 			new_splash.visible = true  # Make it visible
 			#rotate the splash a random amount between 0 and 360 degrees
 			new_splash.rotation = randf_range(0, 360)

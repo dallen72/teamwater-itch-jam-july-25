@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://qg1utbyfltkt"]
+[gd_scene load_steps=13 format=3 uid="uid://qg1utbyfltkt"]
 
 [ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_xoyoh"]
 [ext_resource type="PackedScene" uid="uid://rxg16ok3dg35" path="res://Levels/BasicBackground.tscn" id="2_62b6n"]
@@ -11,10 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://cer3v7arrf2tv" path="res://UI/win_popup_ui.tscn" id="7_xoyoh"]
 [ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="8_rfktq"]
 [ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="9_77x7w"]
-[ext_resource type="PackedScene" uid="uid://cb1bsff0b1s34" path="res://Levels/river.tscn" id="10_f4pg2"]
 [ext_resource type="PackedScene" uid="uid://dxbx14gx4crye" path="res://Levels/nomad.tscn" id="13_lk57d"]
 
-[node name="Root" type="Node2D"]
+[node name="Level" type="Node2D"]
 script = ExtResource("1_xoyoh")
 
 [node name="Background" type="Node2D" parent="."]
@@ -56,9 +55,6 @@ position = Vector2(490, 268)
 position = Vector2(398, 472)
 
 [node name="UI" parent="." instance=ExtResource("9_77x7w")]
-
-[node name="River" parent="." instance=ExtResource("10_f4pg2")]
-visible = false
 
 [node name="Nomad" parent="." instance=ExtResource("13_lk57d")]
 position = Vector2(621, 151)

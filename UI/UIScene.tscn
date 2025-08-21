@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cosu5vsxrdm8m" path="res://UI/dialogue_box.tscn" id="3_dialogue_box"]
 
 [node name="player_hud" type="Control"]
+z_index = 10
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

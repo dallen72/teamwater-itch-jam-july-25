@@ -24,8 +24,12 @@ func _ready():
 	
 	# Initialize UI
 	init_ui()
-	$River.position = $PathManager/SpawnPoint.position
+	$Nomad/River.position = $PathManager/SpawnPoint.position
 	Global.input_enabled = true
+
+	# for every child node that is in the group Scenery, set the z_index to 5
+	for child in get_tree().get_nodes_in_group("Scenery"):
+		child.z_index = Global.Z_INDEX_SCENERY
 
 
 func init_ui():
@@ -56,10 +60,12 @@ func _on_level_completed():
 
 	# player digging animation
 	$Nomad/AnimationPlayer.play("dig")
-	
-	# Start nomad path traversal after a short delay to let animation start
-	await get_tree().create_timer(0.1).timeout
-	
+
+	await get_tree().create_timer(0.1).timeout		
+	# Create ditches along the selected path
+	$Nomad/Ditch.visible = true
+	$Nomad/Ditch.draw_ditch($PathManager.selected_path)		
+
 	# Start nomad moving along the selected path
 	var nomad = $Nomad
 	if nomad and nomad.has_method("start_path_traversal"):
@@ -67,10 +73,15 @@ func _on_level_completed():
 		# Wait for nomad movement to complete
 		await nomad.nomad_movement_completed
 
+	$Nomad/AnimationPlayer.stop()
+	$Nomad/NomadSprite.hide()
+	$Nomad/DirtSprite.hide()
+
 	# play river animation
-	$River.visible = true
-	$River.draw_river($PathManager.selected_path)
+	$Nomad/River.visible = true
+	$Nomad/River.draw_river($PathManager.selected_path)
 	await Global.level_win_animation_finished
+	$Nomad/Ditch.hide()
 	# show win popup
 	var win_popup = get_node_or_null("WinPopupUI")
 	if win_popup:

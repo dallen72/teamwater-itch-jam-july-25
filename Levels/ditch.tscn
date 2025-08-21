@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc6r11fj5kyof"]
+
+[ext_resource type="Script" uid="uid://dte2pvlf3wvcc" path="res://Levels/ditch.gd" id="1_5dnb7"]
+[ext_resource type="Texture2D" uid="uid://dqrmgo0n1qsad" path="res://Assets/hole.png" id="2_5dnb7"]
+
+[node name="Ditch" type="Node2D"]
+script = ExtResource("1_5dnb7")
+
+[node name="Hole" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-1, 0)
+scale = Vector2(0.0767857, 0.0767857)
+texture = ExtResource("2_5dnb7")
+
+[node name="GeneratedSprites" type="Node" parent="."]

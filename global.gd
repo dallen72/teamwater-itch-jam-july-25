@@ -2,6 +2,10 @@ extends Node
 
 var level_num : int = 0
 var input_enabled : bool = true
+var Z_INDEX_RIVER : int = 2
+var Z_INDEX_DITCH : int = 1
+var Z_INDEX_SCENERY : int = 5
+var Z_INDEX_UI : int = 10
 
 @warning_ignore("unused_signal")
 signal dialogue_finished

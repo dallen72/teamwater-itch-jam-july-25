@@ -387,5 +387,5 @@ func draw_node_path():
 			add_child(line)
 
 	# get the river node, then use the function draw_river_path() to draw the river path, using the selected path
-	var river_node = get_tree().get_root().get_node("Root").get_node("River")
+	var river_node = get_tree().get_root().get_node("Level").get_node("River")
 	

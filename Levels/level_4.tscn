@@ -10,9 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://cer3v7arrf2tv" path="res://UI/win_popup_ui.tscn" id="7_xoyoh"]
 [ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="8_rfktq"]
 [ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="9_77x7w"]
-[ext_resource type="PackedScene" uid="uid://cb1bsff0b1s34" path="res://Levels/river.tscn" id="11_m0m22"]
+[ext_resource type="PackedScene" uid="uid://dxbx14gx4crye" path="res://Levels/nomad.tscn" id="11_m0m22"]
 
-[node name="Root" type="Node2D"]
+[node name="Level" type="Node2D"]
 script = ExtResource("1_ben3k")
 level_number = 4
 starting_energy = 900
@@ -61,5 +61,5 @@ position = Vector2(410, 540)
 
 [node name="UI" parent="." instance=ExtResource("9_77x7w")]
 
-[node name="River" parent="." instance=ExtResource("11_m0m22")]
-visible = false
+[node name="Nomad" parent="." instance=ExtResource("11_m0m22")]
+position = Vector2(616, 73)

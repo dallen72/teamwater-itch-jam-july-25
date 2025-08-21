@@ -30,6 +30,10 @@ window/stretch/mode="viewport"
 
 enabled=PackedStringArray()
 
+[global_group]
+
+Scenery=""
+
 [physics]
 
 2d/default_gravity=0.0
