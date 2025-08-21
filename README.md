@@ -1,6 +1,7 @@
  
 
 # TODO:  
+	- refactor the nomad script
 	- show to the user where the user can click in the map
 	- Show animations to the user what they should do to the map, click and such, to go along with the text explanation
 	- need to have an explanation for multiple cows (explained to the user)  
@@ -8,6 +9,7 @@
 	- Make sure the user cannot add a line path segment that Crosses the existing lines (David)  
 	- setup itch page
 	- set z-index for things in scene and guideline for each (a heirarchy)
+	
 
 ## Feedback from playtest 8/13:  
 	- The simple ui and tutorial is great. the interactive map on the phone could be bigger. consider doing away with the saure map, allowing the entire screen open to play.  

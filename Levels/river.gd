@@ -49,6 +49,14 @@ func draw_river(pathnodes: Array) -> void:
 			# wait for 0.1 seconds before drawing the next splash
 			await get_tree().create_timer(0.1).timeout
 
+		var final_splash = Sprite2D.new()
+		final_splash.name = "Splash_" + str(i) + "_final"
+		final_splash.texture = original_splash.texture
+		final_splash.scale = original_splash.scale
+		final_splash.position = end_node.position
+		final_splash.z_index = Global.Z_INDEX_RIVER
+		final_splash.visible = true
+		$GeneratedSprites.add_child(final_splash)
 	
 	print("River drawn with splash nodes between ", pathnodes.size(), " pathnodes")
 	Global.level_win_animation_finished.emit()
