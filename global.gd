@@ -1,6 +1,7 @@
 extends Node
 
 var level_num : int = 0
+var input_enabled : bool = true
 
 @warning_ignore("unused_signal")
 signal dialogue_finished
@@ -34,6 +35,9 @@ func _input(event):
 			return
 
 func handle_input(event):
+	if (not input_enabled):
+		return
+		
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
 			print("Escape key pressed - exiting game")

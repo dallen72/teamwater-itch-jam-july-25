@@ -8,6 +8,7 @@ extends Node2D
 # Export the starting energy for this level
 @export var starting_energy: int = 400
 
+
 func _ready():
 	# Enable input processing for this node
 	set_process_input(true)
@@ -24,7 +25,7 @@ func _ready():
 	# Initialize UI
 	init_ui()
 	$River.position = $PathManager/SpawnPoint.position
-	
+	Global.input_enabled = true
 
 
 func init_ui():
@@ -43,6 +44,20 @@ func _input(event):
 
 # play the animations, and when they are done, show the win popup
 func _on_level_completed():
+	# disable input
+	Global.input_enabled = false
+
+	# hide the lines and nodes
+	$PathManager.hide()
+	# for every child node of the path manager, if it has a "hide" method, call it
+	for child in $PathManager.get_children():
+		if child.has_method("hide"):
+			child.hide()
+
+	# player digging animation
+	# TODO: play the animation
+
+	# play river animation
 	$River.visible = true
 	$River.draw_river($PathManager.selected_path)
 	await Global.level_win_animation_finished
