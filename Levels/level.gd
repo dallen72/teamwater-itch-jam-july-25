@@ -59,12 +59,12 @@ func _on_level_completed():
 			child.hide()
 
 	# player digging animation
+	$Nomad.z_index = Global.Z_INDEX_SCENERY_BEHIND
 	$Nomad/AnimationPlayer.play("dig")
 
 	await get_tree().create_timer(0.1).timeout		
-	# Create ditches along the selected path
-	$Nomad/Ditch.visible = true
-	$Nomad/Ditch.draw_ditch($PathManager.selected_path)		
+	# Make ditch system visible for real-time hole placement
+	$Nomad/Ditch.visible = true		
 
 	# Start nomad moving along the selected path
 	var nomad = $Nomad
@@ -81,7 +81,10 @@ func _on_level_completed():
 	$Nomad/River.visible = true
 	$Nomad/River.draw_river($PathManager.selected_path)
 	await Global.level_win_animation_finished
-	$Nomad/Ditch.hide()
+	$Nomad/Ditch/Hole.hide()
+	$Nomad/River/Splash.hide()
+
+	
 	# show win popup
 	var win_popup = get_node_or_null("WinPopupUI")
 	if win_popup:

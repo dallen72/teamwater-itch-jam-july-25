@@ -27,6 +27,5 @@ func display_dialogue_entry(entry: DialogueEntry):
 		dialogue_text_label.text = entry.dialogue_text
 
 # Handle continue button press
-func _on_continue_pressed():
-	# Emit signal to notify parent dialogue manager
-	get_parent().next_line()
+func _on_continue_pressed():	
+	get_parent().next_line_if_tutorial_done()

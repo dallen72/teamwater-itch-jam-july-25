@@ -54,8 +54,8 @@ position = Vector2(490, 268)
 [node name="Cow" parent="." instance=ExtResource("8_rfktq")]
 position = Vector2(398, 472)
 
-[node name="UI" parent="." instance=ExtResource("9_77x7w")]
-
 [node name="Nomad" parent="." instance=ExtResource("13_lk57d")]
 position = Vector2(621, 151)
 scale = Vector2(1.12443, 1.14227)
+
+[node name="UI" parent="." instance=ExtResource("9_77x7w")]

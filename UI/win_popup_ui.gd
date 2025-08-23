@@ -3,7 +3,6 @@ extends Control
 func _ready():
 	# Wait for the first frame to ensure size is available
 	await get_tree().process_frame
-	$NextLevelPromptBox.connect("show", _on_show)
 
 
 func _on_show():

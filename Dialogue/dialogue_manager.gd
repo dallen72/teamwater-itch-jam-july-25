@@ -5,6 +5,7 @@ extends Control
 var current_dialogue: Array[DialogueEntry] = []
 var current_index: int = 0
 var is_dialogue_active: bool = false
+var right_click_helper_is_showing : bool = false
 
 # UI references
 @onready var dialogue_ui: DialogueUI = $DialogueUI
@@ -86,13 +87,50 @@ func display_current_line():
 		dialogue_ui.display_dialogue_entry(entry)
 
 # Move to next line
-func next_line():
+func next_line_if_tutorial_done():
+	# Emit signal to notify parent dialogue manager
+	if (Global.level_clicked.is_connected(Callable(self, "_stop_left_click_helper"))):
+		return
+	if (right_click_helper_is_showing == true):
+		return
+	
 	current_index += 1
 	
 	if current_index < current_dialogue.size():
 		display_current_line()
 	else:
+		$LightBox.hide()
 		end_dialogue()
+		return
+
+	# check if the array element contains the string "Start by clicking on the ground near the blue circle."
+	if (current_dialogue[current_index].dialogue_text.contains("Start by clicking on the ground near the blue circle.")):
+		$MouseHelper.show()
+		$MouseHelper/AnimationPlayer.play("left_click")
+		# attach left click signal to function stop_left_click_helper
+		Global.level_clicked.connect(_stop_left_click_helper)
+	elif (current_dialogue[current_index].dialogue_text.contains("Now right-click to undo the last circle selection.")):
+		$MouseHelper.show()
+		$MouseHelper/AnimationPlayer.play("right_click")
+		right_click_helper_is_showing = true
+
+
+func _input(event):
+	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed):
+		right_click_helper_is_showing = false
+		_stop_right_click_helper()
+
+# need _pos for the event, see global for proof!
+func _stop_left_click_helper(_pos):
+	$MouseHelper/AnimationPlayer.stop()
+	$MouseHelper.hide()
+	Global.level_clicked.disconnect(_stop_left_click_helper)
+
+
+func _stop_right_click_helper():
+	$MouseHelper/AnimationPlayer.stop()
+	$MouseHelper.hide()
+
 
 # End the current dialogue
 func end_dialogue():
@@ -101,9 +139,11 @@ func end_dialogue():
 	Global.dialogue_finished.emit()
 	Global.unregister_ui_area(self)
 
+
 # Check if dialogue is currently active
 func is_active() -> bool:
 	return is_dialogue_active
+
 
 # Get current dialogue entry
 func get_current_entry() -> DialogueEntry:

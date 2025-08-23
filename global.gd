@@ -2,8 +2,11 @@ extends Node
 
 var level_num : int = 0
 var input_enabled : bool = true
-var Z_INDEX_RIVER : int = 2
+
+
 var Z_INDEX_DITCH : int = 1
+var Z_INDEX_RIVER : int = 2
+var Z_INDEX_SCENERY_BEHIND : int = 3
 var Z_INDEX_SCENERY : int = 5
 var Z_INDEX_UI : int = 10
 
@@ -21,6 +24,8 @@ signal right_clicked(click_position: Vector2)
 signal level_completed
 @warning_ignore("unused_signal")
 signal level_win_animation_finished
+@warning_ignore("unused_signal")
+signal left_click_tutorial_finished
 
 # Global click handler
 var ui_areas = []

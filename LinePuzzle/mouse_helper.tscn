@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://bo3e4i3xpu23b"]
+
+[ext_resource type="Texture2D" uid="uid://dbd56r2opxpl0" path="res://Assets/mouse-spritesheet.png" id="1_14gku"]
+
+[sub_resource type="Animation" id="Animation_vbdgv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_14gku"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_n0yh0"]
+resource_name = "left_click"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_gener"]
+resource_name = "right_click"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l6106"]
+_data = {
+&"RESET": SubResource("Animation_vbdgv"),
+&"idle": SubResource("Animation_14gku"),
+&"left_click": SubResource("Animation_n0yh0"),
+&"right_click": SubResource("Animation_gener")
+}
+
+[node name="MouseHelper" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(90, 5)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_14gku")
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_l6106")
+}

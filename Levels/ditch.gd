@@ -35,6 +35,7 @@ func draw_ditch(pathnodes: Array) -> void:
 			new_hole.texture = original_hole.texture
 			new_hole.scale = original_hole.scale
 			new_hole.position = hole_position
+			new_hole.z_index = Global.Z_INDEX_DITCH
 			new_hole.visible = true  # Make it visible
 			#rotate the hole a random amount between 0 and 360 degrees
 			new_hole.rotation = randf_range(0, 360)
@@ -48,16 +49,31 @@ func draw_ditch(pathnodes: Array) -> void:
 			# wait for 0.1 seconds before drawing the next hole
 			await get_tree().create_timer(0.1).timeout
 
-		# Also place a hole node at the end node position
-		var final_hole = Sprite2D.new()
-		final_hole.name = "Hole_" + str(i) + "_final"
-		final_hole.texture = original_hole.texture
-		final_hole.scale = original_hole.scale
-		final_hole.position = end_node.position
-		final_hole.z_index = Global.Z_INDEX_DITCH
-		final_hole.visible = true
-		
-		$GeneratedSprites.add_child(final_hole)
 	
 	print("Ditch drawn with hole nodes between ", pathnodes.size(), " pathnodes")
 	Global.level_win_animation_finished.emit()
+
+# Place a single hole at a specific position (for real-time synchronization with nomad)
+func place_single_hole_at_position(pos: Vector2) -> void:
+	# Get the original hole node as a template
+	var original_hole = get_node("Hole")
+	if not original_hole:
+		print("Error: Original Hole node not found!")
+		return
+	
+	# Create a new hole node
+	var new_hole = Sprite2D.new()
+	new_hole.name = "Hole_Sync_" + str(randi())  # Unique name
+	new_hole.texture = original_hole.texture
+	new_hole.scale = original_hole.scale
+	new_hole.position = pos
+	new_hole.z_index = Global.Z_INDEX_DITCH
+	new_hole.visible = true
+	
+	# Rotate the hole a random amount between 0 and 360 degrees
+	new_hole.rotation = randf_range(0, 360)
+	
+	# Add the hole node to the scene
+	$GeneratedSprites.add_child(new_hole)
+	
+	print("Ditch: Placed hole at position ", pos)

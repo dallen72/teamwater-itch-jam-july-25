@@ -9,7 +9,6 @@ func _ready():
 	Global.energy_changed.connect(update_energy_display)
 	Global.register_ui_area($EnergyBox, $EnergyBox.size)
 	
-	$DialogueBox.connect("hide", _on_dialogue_box_hide)
 	Global.dialogue_finished.connect(hide_dialogue)
 
 

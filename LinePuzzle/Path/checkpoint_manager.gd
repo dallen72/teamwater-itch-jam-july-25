@@ -29,12 +29,8 @@ func init_checkpoints():
 	if checkpoints.size() > 0:
 		for i in range(checkpoints.size()):
 			var checkpoint = checkpoints[i]
-			
 			# Make sure checkpoint is visible
 			checkpoint.show()
-			
-			# Connect to checkpoint click signal
-			checkpoint.checkpoint_clicked.connect(_on_checkpoint_clicked)
 		
 		checkpoint_reached.connect(_on_checkpoint_reached)
 		checkpoint_reset.connect(_on_checkpoint_reset)
@@ -46,10 +42,6 @@ func init_checkpoints():
 	else:
 		print("ERROR: No checkpoints found")
 
-# Handle checkpoint clicks
-func _on_checkpoint_clicked(checkpoint):
-	# Handle checkpoint logic here if needed
-	pass
 
 # Called when a checkpoint is reached
 func _on_checkpoint_reached(_checkpoint_name):
