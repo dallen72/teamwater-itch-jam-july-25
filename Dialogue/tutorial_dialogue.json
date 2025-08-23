@@ -13,8 +13,23 @@
 		{
 			"character_name": "John",
 			"portrait_path": "res://Assets/guy.png",
-			"dialogue_text": "Start by clicking the blue circle"
+			"dialogue_text": "We have to dig!"
 		},
+		{
+			"character_name": "John",
+			"portrait_path": "res://Assets/guy.png",
+			"dialogue_text": "Start by clicking on the ground near the blue circle."
+		},
+		{
+			"character_name": "John",
+			"portrait_path": "res://Assets/guy.png",
+			"dialogue_text": "Now right-click to undo the last circle selection."
+		},
+		{
+			"character_name": "John",
+			"portrait_path": "res://Assets/guy.png",
+			"dialogue_text": "Let's make a path to the cow that needs water."
+		},	
 		{
 			"character_name": "John",
 			"portrait_path": "res://Assets/guy.png",
@@ -23,7 +38,7 @@
 		{
 			"character_name": "John",
 			"portrait_path": "res://Assets/guy.png",
-			"dialogue_text": "Your goal is to make it to the cow."
+			"dialogue_text": "Your goal is to make it to animals that need water,"
 		},
 		{
 			"character_name": "John",
@@ -33,12 +48,7 @@
 		{
 			"character_name": "John",
 			"portrait_path": "res://Assets/guy.png",
-			"dialogue_text": "To undo a selection, click the last node you selected (the white circle)."
-		},
-		{
-			"character_name": "John",
-			"portrait_path": "res://Assets/guy.png",
-			"dialogue_text": "Good luck, see you soon."
+			"dialogue_text": "Let's get water to the cattle!"
 		}
 	]
 } 
