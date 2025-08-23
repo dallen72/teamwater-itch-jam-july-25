@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cer3v7arrf2tv"]
+[gd_scene load_steps=3 format=3 uid="uid://cer3v7arrf2tv"]
 
 [ext_resource type="Script" uid="uid://bau3blpebhe87" path="res://UI/win_popup_ui.gd" id="1_h2eqr"]
+[ext_resource type="Texture2D" uid="uid://1puxneny4qoh" path="res://Assets/ui/woodbox2.png" id="2_u3pdw"]
 
 [node name="WinPopupUI" type="Control"]
 visible = false
@@ -14,10 +15,10 @@ script = ExtResource("1_h2eqr")
 [node name="EndGameDisplay" type="RichTextLabel" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 318.0
-offset_top = 128.0
-offset_right = 1155.0
-offset_bottom = 678.0
+offset_left = 205.0
+offset_top = 55.0
+offset_right = 993.0
+offset_bottom = 328.0
 theme_override_font_sizes/normal_font_size = 100
 text = "YOU WON THE GAME !"
 horizontal_alignment = 1
@@ -27,24 +28,43 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Panel" type="Panel" parent="NextLevelPromptBox"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+offset_left = 410.0
+offset_top = 150.0
+offset_right = 775.0
+offset_bottom = 235.0
+
 [node name="TemporaryWinText" type="RichTextLabel" parent="NextLevelPromptBox"]
-layout_mode = 0
-offset_left = 159.0
-offset_top = 64.0
-offset_right = 996.0
-offset_bottom = 614.0
-theme_override_font_sizes/normal_font_size = 200
+layout_mode = 2
+offset_left = 295.0
+offset_top = 145.0
+offset_right = 914.0
+offset_bottom = 246.0
+theme_override_font_sizes/normal_font_size = 65
 text = "You Won!"
 horizontal_alignment = 1
 
+[node name="TextureRect" type="TextureRect" parent="NextLevelPromptBox"]
+layout_mode = 2
+offset_left = 544.0
+offset_top = 451.0
+offset_right = 1034.0
+offset_bottom = 575.0
+texture = ExtResource("2_u3pdw")
+expand_mode = 1
+
 [node name="TemporaryNextLevelButton" type="Button" parent="NextLevelPromptBox"]
 z_index = 50
-layout_mode = 0
-offset_left = 510.0
-offset_top = 439.0
-offset_right = 965.0
-offset_bottom = 554.0
+layout_mode = 2
+offset_left = 606.0
+offset_top = 472.0
+offset_right = 920.0
+offset_bottom = 549.0
 theme_override_font_sizes/font_size = 50
-text = "Go to Next Level"
+text = "Next Level"
+flat = true
 
 [connection signal="pressed" from="NextLevelPromptBox/TemporaryNextLevelButton" to="." method="_on_temporary_next_level_button_pressed"]

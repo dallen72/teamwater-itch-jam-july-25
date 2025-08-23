@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_vltsr"]
 [ext_resource type="Script" uid="uid://0hxpbyho137r" path="res://LinePuzzle/Path/path_manager.gd" id="2_path_manager"]
-[ext_resource type="PackedScene" uid="uid://cramxs3jtvr7n" path="res://Levels/BasicBackground.tscn" id="2_qeqk5"]
+[ext_resource type="PackedScene" uid="uid://rxg16ok3dg35" path="res://Levels/BasicBackground.tscn" id="2_qeqk5"]
 [ext_resource type="Script" uid="uid://bnkjabhcsq7w8" path="res://LinePuzzle/Path/checkpoint_manager.gd" id="3_checkpoint_manager"]
 [ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/Path/spawnpoint.tscn" id="4_syshm"]
 [ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/Path/checkpoint.tscn" id="5_0urlm"]
 [ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="6_rf6l5"]
-[ext_resource type="PackedScene" uid="uid://c11ywsb0iwsu5" path="res://UI/win_popup_ui.tscn" id="7_xoyoh"]
+[ext_resource type="PackedScene" uid="uid://cer3v7arrf2tv" path="res://UI/win_popup_ui.tscn" id="7_xoyoh"]
 [ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="8_rfktq"]
 [ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="9_77x7w"]
-[ext_resource type="PackedScene" path="res://Levels/nomad.tscn" id="12_1soli"]
+[ext_resource type="PackedScene" uid="uid://dxbx14gx4crye" path="res://Levels/nomad.tscn" id="12_1soli"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_vltsr")
