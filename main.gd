@@ -13,7 +13,7 @@ func _process(_delta):
 
 # on ready, call a function that shows a button in the ui that says "click to start game"
 func _ready():
-	$StartGame.connect("pressed", start_game)
+	$Menu/StartGame.connect("pressed", start_game)
 
 
 # when the "click to start game" button is confirmed, the scene is changed to the level_1 scene in the Levels directory
