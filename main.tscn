@@ -16,17 +16,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_0xm2m")
 
-[node name="StartGame" type="Button" parent="."]
-material = SubResource("ShaderMaterial_ig7tw")
-layout_mode = 2
-offset_left = 379.0
-offset_top = 311.0
-offset_right = 705.0
-offset_bottom = 402.0
-theme_override_font_sizes/font_size = 43
-text = "Start Game"
-flat = true
-
 [node name="Background" type="ColorRect" parent="."]
 z_index = -2
 layout_mode = 0
@@ -128,51 +117,6 @@ position = Vector2(-218, 612)
 scale = Vector2(1.77679, 0.0975448)
 texture = ExtResource("5_7mycd")
 
-[node name="Menu" type="Control" parent="Background"]
-anchors_preset = 0
-offset_left = 292.0
-offset_top = 274.0
-offset_right = 332.0
-offset_bottom = 314.0
-
-[node name="TextureRect" type="TextureRect" parent="Background/Menu"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 10.302
-anchor_bottom = 3.3
-offset_left = 47.0
-offset_top = 18.0
-offset_right = 117.92
-offset_bottom = 18.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_lquwl")
-expand_mode = 1
-
-[node name="TextureRect2" type="TextureRect" parent="Background/Menu"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 10.302
-anchor_bottom = 3.3
-offset_left = 46.0
-offset_top = 125.0
-offset_right = 116.92
-offset_bottom = 125.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_lquwl")
-expand_mode = 1
-
-[node name="Credits" type="Button" parent="Background/Menu"]
-layout_mode = 0
-offset_left = 102.0
-offset_top = 155.0
-offset_right = 428.0
-offset_bottom = 227.0
-theme_override_font_sizes/font_size = 46
-text = "Credits"
-flat = true
-
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -192,4 +136,60 @@ offset_right = 953.0
 offset_bottom = 285.0
 theme_override_font_sizes/font_size = 91
 text = "Nomad's Journey"
+flat = true
+
+[node name="Menu" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 276.0
+offset_top = 272.0
+offset_right = 316.0
+offset_bottom = 312.0
+
+[node name="TextureRect" type="TextureRect" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 10.302
+anchor_bottom = 3.3
+offset_left = 47.0
+offset_top = 18.0
+offset_right = 117.92
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_lquwl")
+expand_mode = 1
+
+[node name="StartGame" type="Button" parent="Menu"]
+material = SubResource("ShaderMaterial_ig7tw")
+layout_mode = 2
+offset_left = 103.0
+offset_top = 39.0
+offset_right = 429.0
+offset_bottom = 130.0
+theme_override_font_sizes/font_size = 43
+text = "Start Game"
+flat = true
+
+[node name="TextureRect2" type="TextureRect" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 10.302
+anchor_bottom = 3.3
+offset_left = 46.0
+offset_top = 132.0
+offset_right = 116.92
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_lquwl")
+expand_mode = 1
+
+[node name="Credits" type="Button" parent="Menu"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 155.0
+offset_right = 428.0
+offset_bottom = 227.0
+theme_override_font_sizes/font_size = 46
+text = "Credits"
 flat = true

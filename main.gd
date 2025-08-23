@@ -13,7 +13,7 @@ func _process(_delta):
 
 # on ready, call a function that shows a button in the ui that says "click to start game"
 func _ready():
-	$StartGame.connect("pressed", start_game)
+	$Menu/StartGame.connect("pressed", start_game)
 	# Connect to energy system and update UI
 	Global.energy_changed.connect(_on_energy_changed)
 	# Set initial energy display
