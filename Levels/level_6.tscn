@@ -1,0 +1,164 @@
+[gd_scene load_steps=14 format=3 uid="uid://c872a37yf5dfs"]
+
+[ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_5q244"]
+[ext_resource type="PackedScene" uid="uid://rxg16ok3dg35" path="res://Levels/BasicBackground.tscn" id="2_qrith"]
+[ext_resource type="Script" uid="uid://0hxpbyho137r" path="res://LinePuzzle/Path/path_manager.gd" id="3_ugxhc"]
+[ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/Path/spawnpoint.tscn" id="4_rolfb"]
+[ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/Path/checkpoint.tscn" id="5_sio2j"]
+[ext_resource type="Script" uid="uid://bnkjabhcsq7w8" path="res://LinePuzzle/Path/checkpoint_manager.gd" id="6_cc6nk"]
+[ext_resource type="PackedScene" uid="uid://cer3v7arrf2tv" path="res://UI/win_popup_ui.tscn" id="7_ce5na"]
+[ext_resource type="PackedScene" uid="uid://3yppwi2aecmh" path="res://LinePuzzle/Entities/Tree.tscn" id="8_gpb84"]
+[ext_resource type="PackedScene" uid="uid://dg7vw5egeisul" path="res://LinePuzzle/Entities/Cow.tscn" id="9_smkgk"]
+[ext_resource type="PackedScene" uid="uid://de8drvsfcoe3b" path="res://UI/UIScene.tscn" id="10_ksj5j"]
+[ext_resource type="PackedScene" uid="uid://dxbx14gx4crye" path="res://Levels/nomad.tscn" id="11_7s08o"]
+[ext_resource type="Texture2D" uid="uid://0d45rnuno2fk" path="res://Assets/water4.png" id="12_qrith"]
+[ext_resource type="Texture2D" uid="uid://bjrwwkbql1uvk" path="res://Assets/terrain/mountain2.png" id="13_ugxhc"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_5q244")
+level_number = 6
+starting_energy = 1990
+
+[node name="Background" parent="." instance=ExtResource("2_qrith")]
+
+[node name="Tree6" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(723, 450)
+
+[node name="Tree8" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(1621, 897)
+
+[node name="Tree7" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(901, 455)
+
+[node name="Tree4" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(300, 455)
+
+[node name="Tree3" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(225, 369)
+
+[node name="Tree5" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(478, 338)
+
+[node name="Tree2" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(239, 169)
+
+[node name="Tree11" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(632, 448)
+
+[node name="Tree10" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(712, 261)
+
+[node name="Tree9" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(711, 188)
+
+[node name="Tree12" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(497, 166)
+
+[node name="Tree" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(320, 168)
+
+[node name="Tree13" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(239, 169)
+
+[node name="Tree14" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(460, 368)
+
+[node name="Tree15" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(467, 290)
+
+[node name="Tree16" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(536, 450)
+
+[node name="Tree17" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(807, 452)
+
+[node name="Tree18" parent="Background" instance=ExtResource("8_gpb84")]
+position = Vector2(453, 456)
+
+[node name="Cow" parent="Background" instance=ExtResource("9_smkgk")]
+position = Vector2(1023, 355)
+
+[node name="Cow2" parent="Background" instance=ExtResource("9_smkgk")]
+position = Vector2(554, 354)
+
+[node name="Cow3" parent="Background" instance=ExtResource("9_smkgk")]
+position = Vector2(770, 58)
+
+[node name="Cow4" parent="Background" instance=ExtResource("9_smkgk")]
+position = Vector2(537, 564)
+
+[node name="Cow5" parent="Background" instance=ExtResource("9_smkgk")]
+position = Vector2(323, 368)
+
+[node name="Mountain4" type="Sprite2D" parent="Background"]
+position = Vector2(1139, 502)
+scale = Vector2(0.734346, 0.735265)
+texture = ExtResource("13_ugxhc")
+
+[node name="Mountain2" type="Sprite2D" parent="Background"]
+position = Vector2(5, 138)
+scale = Vector2(0.814159, 0.816027)
+texture = ExtResource("13_ugxhc")
+
+[node name="Mountain5" type="Sprite2D" parent="Background"]
+position = Vector2(25, 329)
+scale = Vector2(0.599127, 0.563198)
+texture = ExtResource("13_ugxhc")
+
+[node name="Mountain6" type="Sprite2D" parent="Background"]
+position = Vector2(1101, 13)
+scale = Vector2(0.662855, 0.6659)
+texture = ExtResource("13_ugxhc")
+
+[node name="Mountain7" type="Sprite2D" parent="Background"]
+position = Vector2(1133, 140)
+scale = Vector2(0.597875, 0.599996)
+texture = ExtResource("13_ugxhc")
+
+[node name="Mountain3" type="Sprite2D" parent="Background"]
+position = Vector2(18, 490)
+scale = Vector2(0.896018, 0.816027)
+texture = ExtResource("13_ugxhc")
+
+[node name="Water4" type="Sprite2D" parent="Background"]
+position = Vector2(632, 50)
+scale = Vector2(0.287946, 0.169643)
+texture = ExtResource("12_qrith")
+
+[node name="PathManager" type="Node2D" parent="."]
+script = ExtResource("3_ugxhc")
+
+[node name="PathLines" type="Node" parent="PathManager"]
+
+[node name="SpawnPoint" parent="PathManager" instance=ExtResource("4_rolfb")]
+position = Vector2(562, 105)
+
+[node name="CheckPoint" parent="PathManager" instance=ExtResource("5_sio2j")]
+position = Vector2(961, 358)
+
+[node name="CheckPoint2" parent="PathManager" instance=ExtResource("5_sio2j")]
+position = Vector2(614, 579)
+
+[node name="CheckPoint3" parent="PathManager" instance=ExtResource("5_sio2j")]
+position = Vector2(390, 384)
+
+[node name="CheckPoint4" parent="PathManager" instance=ExtResource("5_sio2j")]
+position = Vector2(625, 361)
+
+[node name="CheckPoint5" parent="PathManager" instance=ExtResource("5_sio2j")]
+position = Vector2(705, 110)
+
+[node name="CheckpointManager" type="Node2D" parent="."]
+script = ExtResource("6_cc6nk")
+
+[node name="WinPopupUI" parent="." instance=ExtResource("7_ce5na")]
+
+[node name="UI" parent="." instance=ExtResource("10_ksj5j")]
+visible = false
+offset_left = -6.0
+offset_top = -4.0
+offset_right = -6.0
+offset_bottom = -4.0
+
+[node name="Nomad" parent="." instance=ExtResource("11_7s08o")]
+position = Vector2(529, 45)
