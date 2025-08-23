@@ -1,8 +1,6 @@
 
 extends Node2D
 
-const PathNode = preload("res://LinePuzzle/Path/pathnode.gd")
-
 # Signal for checkpoint clicks
 signal checkpoint_clicked(checkpoint)
 

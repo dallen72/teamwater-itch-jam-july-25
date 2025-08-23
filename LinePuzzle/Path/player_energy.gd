@@ -38,4 +38,4 @@ func get_energy() -> int:
 # Function to reset energy (useful for restarting levels)
 func reset_energy():
 	player_energy = STARTING_ENERGY
-	Global.energy_changed.emit(player_energy) 
+	Global.energy_changed.emit() 

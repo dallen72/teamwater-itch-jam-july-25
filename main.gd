@@ -14,10 +14,6 @@ func _process(_delta):
 # on ready, call a function that shows a button in the ui that says "click to start game"
 func _ready():
 	$StartGame.connect("pressed", start_game)
-	# Connect to energy system and update UI
-	Global.energy_changed.connect(_on_energy_changed)
-	# Set initial energy display
-	update_energy_display()
 
 
 # when the "click to start game" button is confirmed, the scene is changed to the level_1 scene in the Levels directory
@@ -26,15 +22,3 @@ func start_game():
 	PlayerEnergy.reset_energy()
 	# not working, should be godot 4 syntax
 	Global.change_level(1)
-
-
-# Update energy display in the UI
-func update_energy_display():
-	var energy_label = $LineEnergyBackground/RichTextLabel
-	if energy_label:
-		energy_label.text = "Line Energy: " + str(PlayerEnergy.get_energy())
-
-# Called when energy changes
-func _on_energy_changed(new_energy: int):
-	update_energy_display()
-	

@@ -9,6 +9,7 @@
 	- Make sure the user cannot add a line path segment that Crosses the existing lines (David)  
 	- setup itch page
 	- set z-index for things in scene and guideline for each (a heirarchy)
+	- fix bug where the next level button can't be clicked unless the dialogue is completed
 	
 
 ## Feedback from playtest 8/13:  
