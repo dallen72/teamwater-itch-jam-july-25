@@ -10,7 +10,8 @@
 	- setup itch page
 	- set z-index for things in scene and guideline for each (a heirarchy)
 	- fix bug where the next level button can't be clicked unless the dialogue is completed
-	
+	- the buttons on the main menu show an outline when selected
+	- make sure the user can skip the tutorial if they want	
 
 ## Feedback from playtest 8/13:  
 	- The simple ui and tutorial is great. the interactive map on the phone could be bigger. consider doing away with the saure map, allowing the entire screen open to play.  
