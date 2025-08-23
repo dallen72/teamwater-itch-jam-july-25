@@ -23,3 +23,4 @@
 	- have a line show that previews the line that will be drawn  
 	- maybe have a circle that shows the radius of how far the line can be  drawn   
 	- do a better job of showing where the energy is  
+	- the buttons on the main menu show an outline when selected
