@@ -2,7 +2,7 @@ extends Node
 
 var level_num : int = 0
 var input_enabled : bool = true
-
+var is_within_context_of_game_popup : bool = false
 
 var Z_INDEX_DITCH : int = 1
 var Z_INDEX_RIVER : int = 2
@@ -39,9 +39,11 @@ func _input(event):
 	# Handle escape key directly here as a fallback
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
-			print("Escape key pressed in Global - exiting game")
-			get_tree().quit()
-			return
+			if (Global.is_within_context_of_game_popup == false):
+				print("Escape key pressed in Global - exiting game")
+				get_tree().quit()
+				return
+
 
 func handle_input(event):
 	if (not input_enabled):
