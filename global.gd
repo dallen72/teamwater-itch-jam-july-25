@@ -3,6 +3,7 @@ extends Node
 var level_num : int = 0
 var input_enabled : bool = true
 var is_within_context_of_game_popup : bool = false
+var SHOVEL_IMAGE_HEIGHT = 80
 
 var Z_INDEX_DITCH : int = 1
 var Z_INDEX_RIVER : int = 2
@@ -34,6 +35,9 @@ func _ready():
 	# Connect to input events to ensure escape key works
 	set_process_input(true)
 	print("Global autoload ready - input processing enabled")
+	
+	# Set custom mouse cursor to shovel image
+	_set_custom_cursor()
 
 func _input(event):
 	# Handle escape key directly here as a fallback
@@ -112,3 +116,13 @@ func change_level(_next_level):
 	level_num = _next_level
 	ui_areas = []
 	get_tree().change_scene_to_file("res://Levels/level_" + str(level_num) + ".tscn")
+
+# Set custom mouse cursor to shovel image
+func _set_custom_cursor():
+	# Load the shovel texture
+	var shovel_texture = load("res://Assets/nomad/shovel.png")
+	if shovel_texture:
+		# Set hotspot to bottom left of the image (0, image_height)
+		Input.set_custom_mouse_cursor(shovel_texture, Input.CURSOR_ARROW, Vector2(0, SHOVEL_IMAGE_HEIGHT))
+	else:
+		print("Warning: Could not load shovel.png for custom cursor")
