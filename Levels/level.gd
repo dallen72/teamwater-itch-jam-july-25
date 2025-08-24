@@ -88,4 +88,5 @@ func _on_level_completed():
 	# show win popup
 	var win_popup = get_node_or_null("WinPopupUI")
 	if win_popup:
+		Global.dialogue_finished.emit()
 		win_popup.show()

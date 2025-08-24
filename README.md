@@ -2,10 +2,8 @@
 
 # TODO:  
 	- show to the user where the user can click in the map
-	- make sure the user can skip the tutorial if they want	
 	- need to have an explanation for multiple cows (explained to the user)  
 	- setup itch page
-	- fix bug where the next level button can't be clicked unless the dialogue is completed
 	- refactor the nomad script
 	- do a better job of showing where the energy is  
 
