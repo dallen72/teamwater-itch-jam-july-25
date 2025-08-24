@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmjrl4sm5my2p"]
+[gd_scene load_steps=9 format=3 uid="uid://cmjrl4sm5my2p"]
 
 [ext_resource type="Script" uid="uid://besedv8383kmo" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://bjrwwkbql1uvk" path="res://Assets/terrain/mountain2.png" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://1puxneny4qoh" path="res://Assets/ui/woodbox2.png" id="3_lquwl"]
 [ext_resource type="Texture2D" uid="uid://bur2r7pavyqex" path="res://Assets/LevelEntities/cow.png" id="4_7mycd"]
 [ext_resource type="Texture2D" uid="uid://0d45rnuno2fk" path="res://Assets/water4.png" id="5_7mycd"]
-[ext_resource type="Texture2D" uid="uid://cpdga6ais4d24" path="res://Assets/nomad/nomadstanding.png" id="5_272bh"]
+[ext_resource type="Texture2D" uid="uid://dv3n0lb60kp1m" path="res://Assets/nomadbright.png" id="7_5vw27"]
+[ext_resource type="AudioStream" uid="uid://jt1uonaoisg" path="res://Assets/Audio/Rolemusic - The White Frame.mp3" id="7_272bh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ig7tw"]
 
@@ -63,12 +64,12 @@ scale = Vector2(0.445796, 0.47912)
 texture = ExtResource("3_1bvp3")
 
 [node name="Mountain9" type="Sprite2D" parent="Background/Scenary"]
-position = Vector2(-901, 29)
+position = Vector2(-897, 25)
 scale = Vector2(0.471239, 0.448081)
 texture = ExtResource("3_1bvp3")
 
 [node name="Mountain2" type="Sprite2D" parent="Background/Scenary/Mountain9"]
-position = Vector2(-63.6619, 220.942)
+position = Vector2(-137.934, 140.6)
 scale = Vector2(0.938967, 1.00378)
 texture = ExtResource("3_1bvp3")
 
@@ -83,9 +84,9 @@ scale = Vector2(0.471239, 0.448081)
 texture = ExtResource("3_1bvp3")
 
 [node name="Cow2" type="Sprite2D" parent="Background/Scenary"]
-position = Vector2(-899, 386)
+position = Vector2(-762, 434)
 rotation = 3.14159
-scale = Vector2(0.135204, -0.104769)
+scale = Vector2(0.114532, -0.127738)
 texture = ExtResource("4_7mycd")
 flip_h = true
 
@@ -94,15 +95,10 @@ position = Vector2(-632, 50)
 scale = Vector2(0.0758487, 0.0645161)
 texture = ExtResource("4_7mycd")
 
-[node name="Nomadstanding" type="Sprite2D" parent="Background/Scenary"]
-position = Vector2(-38, 447)
-scale = Vector2(0.228423, 0.28375)
-texture = ExtResource("5_272bh")
-
 [node name="Cow3" type="Sprite2D" parent="Background/Scenary"]
-position = Vector2(-687, 483)
+position = Vector2(47, 468)
 rotation = -3.14159
-scale = Vector2(0.135204, -0.104769)
+scale = Vector2(0.28818, -0.234119)
 texture = ExtResource("4_7mycd")
 
 [node name="Water5" type="Sprite2D" parent="Background/Scenary"]
@@ -193,3 +189,14 @@ offset_bottom = 227.0
 theme_override_font_sizes/font_size = 46
 text = "Credits"
 flat = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_272bh")
+volume_db = 4.133
+autoplay = true
+panning_strength = 0.49
+
+[node name="Nomadbright" type="Sprite2D" parent="."]
+position = Vector2(779, 427)
+scale = Vector2(0.285755, 0.314634)
+texture = ExtResource("7_5vw27")

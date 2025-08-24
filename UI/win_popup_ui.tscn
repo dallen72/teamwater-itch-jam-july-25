@@ -12,15 +12,33 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_h2eqr")
 
-[node name="EndGameDisplay" type="RichTextLabel" parent="."]
+[node name="EndGameDisplay" type="Control" parent="."]
 visible = false
+anchors_preset = 0
+offset_left = 304.0
+offset_top = 107.0
+offset_right = 1006.0
+offset_bottom = 628.0
+
+[node name="TextureRect" type="TextureRect" parent="EndGameDisplay"]
 layout_mode = 0
-offset_left = 205.0
-offset_top = 55.0
-offset_right = 993.0
-offset_bottom = 328.0
-theme_override_font_sizes/normal_font_size = 100
-text = "YOU WON THE GAME !"
+offset_left = -259.0
+offset_top = -166.0
+offset_right = 1036.0
+offset_bottom = 572.0
+texture = ExtResource("2_u3pdw")
+expand_mode = 1
+
+[node name="EndGameDisplay" type="RichTextLabel" parent="EndGameDisplay"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 42.0
+offset_right = 706.0
+offset_bottom = 366.0
+theme_override_font_sizes/normal_font_size = 42
+text = "Thank you for playing, you have finished Nomand's Journey.
+
+Comment your favorite part of the game below."
 horizontal_alignment = 1
 
 [node name="NextLevelPromptBox" type="Control" parent="."]

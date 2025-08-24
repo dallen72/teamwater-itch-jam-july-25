@@ -154,7 +154,6 @@ script = ExtResource("6_cc6nk")
 [node name="WinPopupUI" parent="." instance=ExtResource("7_ce5na")]
 
 [node name="UI" parent="." instance=ExtResource("10_ksj5j")]
-visible = false
 offset_left = -6.0
 offset_top = -4.0
 offset_right = -6.0
