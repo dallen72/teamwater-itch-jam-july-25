@@ -162,6 +162,7 @@ offset_left = 103.0
 offset_top = 39.0
 offset_right = 429.0
 offset_bottom = 130.0
+focus_mode = 0
 theme_override_font_sizes/font_size = 43
 text = "Start Game"
 flat = true
@@ -180,12 +181,13 @@ grow_vertical = 2
 texture = ExtResource("3_lquwl")
 expand_mode = 1
 
-[node name="Credits" type="Button" parent="Menu"]
+[node name="CreditsButton" type="Button" parent="Menu"]
 layout_mode = 0
 offset_left = 102.0
 offset_top = 155.0
 offset_right = 428.0
 offset_bottom = 227.0
+focus_mode = 0
 theme_override_font_sizes/font_size = 46
 text = "Credits"
 flat = true
@@ -200,3 +202,46 @@ panning_strength = 0.49
 position = Vector2(779, 427)
 scale = Vector2(0.285755, 0.314634)
 texture = ExtResource("7_5vw27")
+
+[node name="Credits" type="Control" parent="Menu"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CreditsBackground" type="ColorRect" parent="Menu/Credits"]
+layout_mode = 0
+offset_left = -126.0
+offset_top = -222.0
+offset_right = 674.0
+offset_bottom = 349.0
+color = Color(0, 0, 0, 0.756863)
+
+[node name="CloseCreditsButton" type="Button" parent="Menu/Credits"]
+layout_mode = 0
+offset_left = 331.0
+offset_top = 255.0
+offset_right = 642.0
+offset_bottom = 327.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 28
+text = "- Back to Menu -"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Menu/Credits"]
+layout_mode = 0
+offset_left = -23.0
+offset_top = -130.0
+offset_right = 597.0
+offset_bottom = 255.0
+theme_override_font_sizes/normal_font_size = 24
+text = "Shawn : Storyteller, 2D Artist, UI Designer
+David : Programmer, Animator, Artist
+
+AI tools were used to aid in programming this game.
+
+Art Assets created by Shawn Reuter, except those listed below:
+
+Mouse Image from Pixsector.com (https://pixsector.com/user/adminUser#google_vignette)"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Menu/Credits/CloseCreditsButton" to="." method="_on_close_credits_button_pressed"]

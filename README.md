@@ -1,16 +1,11 @@
  
 
 # TODO:  
-	- refactor the nomad script
 	- show to the user where the user can click in the map
-	- Show animations to the user what they should do to the map, click and such, to go along with the text explanation
 	- need to have an explanation for multiple cows (explained to the user)  
-	- add a character to the first node  
-	- Make sure the user cannot add a line path segment that Crosses the existing lines (David)  
 	- setup itch page
-	- set z-index for things in scene and guideline for each (a heirarchy)
-	- fix bug where the next level button can't be clicked unless the dialogue is completed
-	
+	- refactor the nomad script
+	- do a better job of showing where the energy is  
 
 ## Feedback from playtest 8/13:  
 	- The simple ui and tutorial is great. the interactive map on the phone could be bigger. consider doing away with the saure map, allowing the entire screen open to play.  
@@ -22,4 +17,4 @@
 	- the last puzzle is a little too tricky  
 	- have a line show that previews the line that will be drawn  
 	- maybe have a circle that shows the radius of how far the line can be  drawn   
-	- do a better job of showing where the energy is  
+	

@@ -12,6 +12,7 @@ texture = ExtResource("1_woodborder")
 script = ExtResource("2_dialogue_manager")
 
 [node name="LightBox" type="ColorRect" parent="."]
+layout_mode = 0
 offset_left = -157.0
 offset_top = -83.0
 offset_right = 1343.0
