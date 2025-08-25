@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cnoa1u5odc5em"]
+[gd_scene load_steps=13 format=3 uid="uid://cnoa1u5odc5em"]
 
 [ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_vltsr"]
 [ext_resource type="Script" uid="uid://0hxpbyho137r" path="res://LinePuzzle/Path/path_manager.gd" id="2_path_manager"]
 [ext_resource type="PackedScene" uid="uid://cramxs3jtvr7n" path="res://Levels/BasicBackground.tscn" id="2_qeqk5"]
+[ext_resource type="PackedScene" uid="uid://bc3u6cq68b4le" path="res://Levels/large_mountain.tscn" id="3_1soli"]
 [ext_resource type="Script" uid="uid://bnkjabhcsq7w8" path="res://LinePuzzle/Path/checkpoint_manager.gd" id="3_checkpoint_manager"]
 [ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/Path/spawnpoint.tscn" id="4_syshm"]
 [ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/Path/checkpoint.tscn" id="5_0urlm"]
@@ -15,9 +16,23 @@
 [node name="Level" type="Node2D"]
 script = ExtResource("1_vltsr")
 level_number = 2
-starting_energy = 700
+starting_energy = 560
 
-[node name="Background" parent="." instance=ExtResource("2_qeqk5")]
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Ground" parent="Background" instance=ExtResource("2_qeqk5")]
+
+[node name="Mountain" parent="Background" instance=ExtResource("3_1soli")]
+position = Vector2(62, -119)
+
+[node name="Mountain" parent="Background/Mountain" instance=ExtResource("3_1soli")]
+position = Vector2(-86, 326)
+
+[node name="Mountain2" parent="Background" instance=ExtResource("3_1soli")]
+position = Vector2(1177, 296)
+
+[node name="Mountain" parent="Background/Mountain2" instance=ExtResource("3_1soli")]
+position = Vector2(-86, 326)
 
 [node name="PathManager" type="Node2D" parent="."]
 script = ExtResource("2_path_manager")
@@ -31,7 +46,7 @@ position = Vector2(617, 211)
 position = Vector2(675, 520)
 
 [node name="CheckPoint2" parent="PathManager" groups=["CheckPoint"] instance=ExtResource("5_0urlm")]
-position = Vector2(407, 390)
+position = Vector2(491, 209)
 
 [node name="CheckpointManager" type="Node2D" parent="."]
 script = ExtResource("3_checkpoint_manager")
@@ -39,13 +54,16 @@ script = ExtResource("3_checkpoint_manager")
 [node name="WinPopupUI" parent="." instance=ExtResource("7_xoyoh")]
 
 [node name="Tree" parent="." instance=ExtResource("6_rf6l5")]
-position = Vector2(654, 321)
+position = Vector2(583, 340)
+
+[node name="Tree2" parent="." instance=ExtResource("6_rf6l5")]
+position = Vector2(660, 344)
 
 [node name="Cow" parent="." instance=ExtResource("8_rfktq")]
 position = Vector2(610, 532)
 
 [node name="Cow2" parent="." instance=ExtResource("8_rfktq")]
-position = Vector2(336, 396)
+position = Vector2(437, 189)
 
 [node name="UI" parent="." instance=ExtResource("9_77x7w")]
 

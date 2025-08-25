@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://c872a37yf5dfs"]
 
 [ext_resource type="Script" uid="uid://boocpsioif6rj" path="res://Levels/level.gd" id="1_5q244"]
-[ext_resource type="PackedScene" uid="uid://rxg16ok3dg35" path="res://Levels/BasicBackground.tscn" id="2_qrith"]
+[ext_resource type="PackedScene" uid="uid://cramxs3jtvr7n" path="res://Levels/BasicBackground.tscn" id="2_qrith"]
 [ext_resource type="Script" uid="uid://0hxpbyho137r" path="res://LinePuzzle/Path/path_manager.gd" id="3_ugxhc"]
 [ext_resource type="PackedScene" uid="uid://ckku0a8b72amn" path="res://LinePuzzle/Path/spawnpoint.tscn" id="4_rolfb"]
 [ext_resource type="PackedScene" uid="uid://bpnqsi6o5hlhf" path="res://LinePuzzle/Path/checkpoint.tscn" id="5_sio2j"]
@@ -133,19 +133,19 @@ script = ExtResource("3_ugxhc")
 [node name="SpawnPoint" parent="PathManager" instance=ExtResource("4_rolfb")]
 position = Vector2(562, 105)
 
-[node name="CheckPoint" parent="PathManager" instance=ExtResource("5_sio2j")]
+[node name="CheckPoint" parent="PathManager" groups=["CheckPoints"] instance=ExtResource("5_sio2j")]
 position = Vector2(961, 358)
 
-[node name="CheckPoint2" parent="PathManager" instance=ExtResource("5_sio2j")]
+[node name="CheckPoint2" parent="PathManager" groups=["CheckPoints"] instance=ExtResource("5_sio2j")]
 position = Vector2(614, 579)
 
-[node name="CheckPoint3" parent="PathManager" instance=ExtResource("5_sio2j")]
+[node name="CheckPoint3" parent="PathManager" groups=["CheckPoints"] instance=ExtResource("5_sio2j")]
 position = Vector2(390, 384)
 
-[node name="CheckPoint4" parent="PathManager" instance=ExtResource("5_sio2j")]
+[node name="CheckPoint4" parent="PathManager" groups=["CheckPoints"] instance=ExtResource("5_sio2j")]
 position = Vector2(625, 361)
 
-[node name="CheckPoint5" parent="PathManager" instance=ExtResource("5_sio2j")]
+[node name="CheckPoint5" parent="PathManager" groups=["CheckPoints"] instance=ExtResource("5_sio2j")]
 position = Vector2(705, 110)
 
 [node name="CheckpointManager" type="Node2D" parent="."]
