@@ -5,11 +5,18 @@ var input_enabled : bool = true
 var is_within_context_of_game_popup : bool = false
 var SHOVEL_IMAGE_HEIGHT = 80
 
+# Global variable to store the selected path
+var selected_path : Array = []
+
 var Z_INDEX_DITCH : int = 1
 var Z_INDEX_RIVER : int = 2
 var Z_INDEX_SCENERY_BEHIND : int = 3
 var Z_INDEX_SCENERY : int = 5
 var Z_INDEX_UI : int = 10
+
+# Cursor textures
+var shovel_cursor_texture : Texture2D
+var x_cursor_texture : Texture2D
 
 @warning_ignore("unused_signal")
 signal dialogue_finished
@@ -36,8 +43,78 @@ func _ready():
 	set_process_input(true)
 	print("Global autoload ready - input processing enabled")
 	
-	# Set custom mouse cursor to shovel image
-	_set_custom_cursor()
+	# Load cursor textures
+	_load_cursor_textures()
+	
+	# Start the cursor check timer
+	_start_cursor_check_timer()
+
+func _load_cursor_textures():
+	# Load the shovel texture
+	shovel_cursor_texture = load("res://Assets/nomad/shovel.png")
+	if not shovel_cursor_texture:
+		print("Warning: Could not load shovel.png for custom cursor")
+	
+	# Load the x cursor texture
+	x_cursor_texture = load("res://Assets/x_cursor.png")
+	if not x_cursor_texture:
+		print("Warning: Could not load x_cursor.png for custom cursor")
+
+func _start_cursor_check_timer():
+	# Create a timer to check cursor position periodically
+	var timer = Timer.new()
+	timer.name = "CursorCheckTimer"
+	timer.wait_time = 0.1  # Check every 100ms
+	timer.timeout.connect(_check_cursor_position)
+	add_child(timer)
+	timer.start()
+	print("Cursor check timer started")
+
+func _check_cursor_position():
+	# Get current mouse position
+	var mouse_pos = get_viewport().get_mouse_position()
+	
+	# Check if the position is valid for node placement
+	if _is_position_valid_for_placement(mouse_pos):
+		_set_shovel_cursor()
+	else:
+		_set_x_cursor()
+
+func _is_position_valid_for_placement(pos: Vector2) -> bool:
+	# Check if we have enough energy to place a node at this position
+	if selected_path.size() > 0:
+		var last_node_pos = selected_path[-1].position
+		
+		# Use the NodePlacementValidator to check if the connection is valid
+		if not NodePlacementValidator.is_connection_valid(last_node_pos, pos, PlayerEnergy.get_energy()):
+			return false
+	else:
+		# If no selected path, just check if the position itself is valid
+		if not NodePlacementValidator.can_place_node_at_position(pos):
+			return false
+	
+	return true
+
+
+
+func _set_shovel_cursor():
+	if shovel_cursor_texture:
+		Input.set_custom_mouse_cursor(shovel_cursor_texture, Input.CURSOR_ARROW, Vector2(0, SHOVEL_IMAGE_HEIGHT))
+
+func _set_x_cursor():
+	if x_cursor_texture:
+		Input.set_custom_mouse_cursor(x_cursor_texture, Input.CURSOR_ARROW, Vector2(16, 16))
+
+
+
+# Function to update the global selected path
+func update_selected_path(new_path: Array):
+	selected_path = new_path.duplicate()
+
+# Function to clear the global selected path
+func clear_selected_path():
+	selected_path.clear()
+
 
 func _input(event):
 	# Handle escape key directly here as a fallback
@@ -115,14 +192,9 @@ func unregister_ui_area(ui_area: Control):
 func change_level(_next_level):
 	level_num = _next_level
 	ui_areas = []
+	# Selected path mirror removed - no longer needed
+	# Clear the global selected path when changing levels
+	clear_selected_path()
+	# Clear the obstacle cache when changing levels
+	NodePlacementValidator.clear_obstacle_cache()
 	get_tree().change_scene_to_file("res://Levels/level_" + str(level_num) + ".tscn")
-
-# Set custom mouse cursor to shovel image
-func _set_custom_cursor():
-	# Load the shovel texture
-	var shovel_texture = load("res://Assets/nomad/shovel.png")
-	if shovel_texture:
-		# Set hotspot to bottom left of the image (0, image_height)
-		Input.set_custom_mouse_cursor(shovel_texture, Input.CURSOR_ARROW, Vector2(0, SHOVEL_IMAGE_HEIGHT))
-	else:
-		print("Warning: Could not load shovel.png for custom cursor")
