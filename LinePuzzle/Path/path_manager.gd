@@ -5,10 +5,8 @@ extends Node2D
 const PATHNODE_SCENE = preload("res://LinePuzzle/Path/pathnode.tscn")
 
 # Dynamic node management
-var placed_nodes = []
 var selected_node
-var selected_path = []
-var nodes_along_selected_path = []
+var placed_nodes = []
 
 # Reference to checkpoint manager
 @onready var checkpoint_manager: CheckpointManager = get_parent().get_node_or_null("CheckpointManager")
@@ -33,12 +31,11 @@ func init_spawn_point():
 		# Create a visual node at spawn point location
 		var spawn_node = create_node_at_position(spawn_point.position)
 		spawn_point.show_as_spawn_point(spawn_node)
-		selected_path.append(spawn_node)
-		selected_node = spawn_node
 		placed_nodes.append(spawn_node)
+		selected_node = spawn_node
 		
 		# Update global selected path
-		Global.update_selected_path(selected_path)
+		Global.update_placed_nodes(placed_nodes)
 		
 	else:
 		print("ERROR: No spawn point found")
@@ -67,7 +64,7 @@ func handle_level_click(click_position: Vector2):
 		print("Clicked on existing node")
 		# Clicked on existing node - handle selection
 		handle_node_placement(get_node_at_position(click_position))
-	elif (NodePlacementValidator.can_place_node_at_position(click_position)):
+	elif (NodePlacementValidator.can_place_node_at_position(click_position, placed_nodes)):
 		place_new_node(click_position)
 
 
@@ -75,7 +72,7 @@ func handle_level_click(click_position: Vector2):
 func handle_right_click(click_position: Vector2):
 	print("PathManager received right-click at: ", click_position)
 	# Right-click removes the last node from the path, except for the spawn point
-	if selected_path.size() > 1:
+	if placed_nodes.size() > 1:
 		remove_node_from_path()
 	else:
 		print("Right-click: cannot remove node - spawn point must remain in path")
@@ -113,7 +110,7 @@ func get_node_at_position(pos: Vector2) -> PathNode:
 # Handle checkpoint clicks
 func handle_checkpoint_click(checkpoint):
 	# Check if there's an obstacle at the checkpoint position
-	if not NodePlacementValidator.can_place_node_at_position(checkpoint.position):
+	if not NodePlacementValidator.can_place_node_at_position(checkpoint.position, placed_nodes):
 		print("Cannot place node at checkpoint - obstacle detected!")
 		return
 	
@@ -127,11 +124,10 @@ func handle_checkpoint_click(checkpoint):
 	
 	var checkpoint_name = "checkpoint_" + str(checkpoint_index)
 	
-
-	# Check if we have enough energy to connect
-	var distance = selected_node.position.distance_to(checkpoint.position)
-	if PlayerEnergy.get_energy() < distance:
-		print("Not enough energy! Need ", distance, " but only have ", PlayerEnergy.get_energy())
+	# Validate the connection using NodePlacementValidator
+	var validation = NodePlacementValidator.validate_node_connection(selected_node.position, checkpoint.position, PlayerEnergy.get_energy())
+	if not validation.valid:
+		print("Cannot connect to checkpoint: ", validation.reason)
 		return
 	
 	# Create a visual node at checkpoint location and connect
@@ -149,7 +145,7 @@ func place_new_node(pos: Vector2):
 	
 	# Create and place the node
 	var new_node = create_node_at_position(pos)
-	placed_nodes.append(new_node)
+	print("debug, placed new node: " + new_node.name)
 	
 	print("Node placed! No energy cost.")
 	
@@ -161,43 +157,36 @@ func place_new_node(pos: Vector2):
 		print("Starting new path with this node")
 		# Start new path with this node
 		selected_node = new_node
-		selected_path = [new_node]
+		placed_nodes = [new_node]
 		new_node.make_visible()
 		new_node.toggle_selection()
 		
 		# Update global selected path
-		Global.update_selected_path(selected_path)
+		Global.update_placed_nodes(placed_nodes)
 		
 		draw_node_path()
-		calculate_nodes_along_selected_path()
 
 
 # Connect two nodes with a path
 func connect_nodes(node1: PathNode, node2: PathNode):
-	var distance = node1.position.distance_to(node2.position)
-	var energy_cost = distance
-	
-	if PlayerEnergy.get_energy() < energy_cost:
-		print("Not enough energy to connect nodes! Need ", energy_cost, " but only have ", PlayerEnergy.get_energy())
-		return
-	
-	# Check if the path goes through any obstacles using the NodePlacementValidator
-	if not NodePlacementValidator.is_connection_valid(node1.position, node2.position, PlayerEnergy.get_energy()):
-		print("Cannot connect nodes - connection validation failed!")
+	# Validate the connection using NodePlacementValidator
+	var validation = NodePlacementValidator.validate_node_connection(node1.position, node2.position, PlayerEnergy.get_energy())
+	if not validation.valid:
+		print("Cannot connect nodes: ", validation.reason)
 		return
 	
 	# Add to path
-	selected_path.append(node2)
+	placed_nodes.append(node2)
 	selected_node = node2
 	node2.make_visible()
 	node2.toggle_selection()
 		
-		# Update global selected path
-	Global.update_selected_path(selected_path)
+	# Update global selected path
+	Global.update_placed_nodes(placed_nodes)
 		
-		# Decrease energy
-	PlayerEnergy.decrease_energy(energy_cost)
-	print("Nodes connected! Energy decreased by ", energy_cost, ". Remaining energy: ", PlayerEnergy.get_energy())
+	# Decrease energy
+	PlayerEnergy.decrease_energy(validation.energy_cost)
+	print("Nodes connected! Energy decreased by ", validation.energy_cost, ". Remaining energy: ", PlayerEnergy.get_energy())
 	
 	# Check if the added node is a checkpoint and emit signal
 	if checkpoint_manager and checkpoint_manager.is_checkpoint(node2):
@@ -205,7 +194,6 @@ func connect_nodes(node1: PathNode, node2: PathNode):
 	
 	# Draw the path
 	draw_node_path()
-	calculate_nodes_along_selected_path()
 
 
 # Handle selection of existing nodes
@@ -214,19 +202,19 @@ func handle_node_placement(node: PathNode):
 # the line being drawn. Or at least, try to put those two checks together.
 
 	# Check if the node is on an obstacle
-	if not NodePlacementValidator.can_place_node_at_position(node.position):
+	if not NodePlacementValidator.can_place_node_at_position(node.position, placed_nodes):
 		print("Cannot select node - it's on an obstacle!")
 		return
 	
 	if selected_node == null:
 		# Start new path
 		selected_node = node
-		selected_path = [node]
+		placed_nodes = [node]
 		node.make_visible()
 		node.toggle_selection()
 		
 		# Update global selected path
-		Global.update_selected_path(selected_path)
+		Global.update_placed_nodes(placed_nodes)
 		
 		# Check if the selected node is a checkpoint and emit signal
 		if checkpoint_manager and checkpoint_manager.is_checkpoint(node):
@@ -234,23 +222,13 @@ func handle_node_placement(node: PathNode):
 		
 		# Draw the path (single node, no lines)
 		draw_node_path()
-		calculate_nodes_along_selected_path()
 	else:
-		# Check if we have enough energy to connect
-		var distance = selected_node.position.distance_to(node.position)
-		if PlayerEnergy.get_energy() < distance:
-			print("Not enough energy! Need ", distance, " but only have ", PlayerEnergy.get_energy())
+		# Validate the connection using NodePlacementValidator
+		var validation = NodePlacementValidator.validate_node_connection(selected_node.position, node.position, PlayerEnergy.get_energy())
+		if not validation.valid:
+			print("Cannot connect to node: ", validation.reason)
 			return
 		connect_nodes(selected_node, node)
-
-
-# Calculate nodes along the selected path
-func calculate_nodes_along_selected_path():
-	nodes_along_selected_path.clear()
-	
-	# Add all nodes in the path
-	for node in selected_path:
-		nodes_along_selected_path.append(node)
 
 
 # TODO: there is a lot of redundant code here. remove the unnecessary branches.
@@ -261,7 +239,7 @@ func remove_node_from_path():
 
 	# Calculate the distance of the line segment being removed
 	var removed_node = selected_node
-	var previous_node = selected_path[selected_path.size() - 2]
+	var previous_node = placed_nodes[placed_nodes.size() - 2]
 		
 	# For checkpoint nodes, we need to handle them specially
 	# The PathNode gets removed, but the actual checkpoint remains
@@ -271,29 +249,28 @@ func remove_node_from_path():
 
 	_update_energy_for_node_removal(previous_node, removed_node)	
 	
-	# Remove the nodes from the scene
-	selected_path.remove_at(selected_path.size() - 1)
-	placed_nodes.erase(removed_node)
-	removed_node.queue_free()
-	
+
+	placed_nodes.pop_back()
+
+	removed_node.queue_free()		
+
 	#select previous node
-	selected_node = selected_path[selected_path.size() - 1]
+	selected_node = placed_nodes[placed_nodes.size() - 1]
 	selected_node.make_visible()
 	selected_node.toggle_selection()
-	
+
 	# Update global selected path
-	Global.update_selected_path(selected_path)
+	Global.update_placed_nodes(placed_nodes)
 	
 	print("New selected node: ", selected_node.name, " at position: ", selected_node.position)
 	
 	# Redraw the path after removing the node
 	draw_node_path()
-	calculate_nodes_along_selected_path()
 
 
 # Increase energy based on the distance of the removed line segment (if there was a previous node)
 func _update_energy_for_node_removal(previous_node, removed_node):
-	var distance = previous_node.position.distance_to(removed_node.position)
+	var distance = NodePlacementValidator.get_connection_energy_cost(previous_node.position, removed_node.position)
 	PlayerEnergy.increase_energy(distance)
 	print("Energy increased by ", distance, ". Current energy: ", PlayerEnergy.get_energy())
 
@@ -306,10 +283,10 @@ func draw_node_path():
 			child.queue_free()
 	
 	# Only draw lines if we have more than one node in the path
-	if selected_path.size() > 1:
-		for i in range(selected_path.size() - 1):
+	if placed_nodes.size() > 1:
+		for i in range(placed_nodes.size() - 1):
 			var line = Line2D.new()
-			line.points = [selected_path[i].position, selected_path[i + 1].position]
+			line.points = [placed_nodes[i].position, placed_nodes[i + 1].position]
 			line.width = 3.0
 			line.default_color = Color.WHITE
 			add_child(line)

@@ -15,16 +15,16 @@ func _ready():
 		animation_player.animation_finished.connect(_on_animation_finished)
 
 # Start moving along the selected path (like river/ditch system)
-func start_path_traversal(selected_path: Array):
-	if selected_path.size() < 2:
+func start_path_traversal(placed_nodes: Array):
+	if placed_nodes.size() < 2:
 		print("Nomad: Path too short to traverse")
 		nomad_movement_completed.emit()
 		return
 	
-	print("Nomad: Starting path traversal with ", selected_path.size(), " nodes")
+	print("Nomad: Starting path traversal with ", placed_nodes.size(), " nodes")
 	
 	# Store the path nodes
-	path_nodes = selected_path.duplicate()
+	path_nodes = placed_nodes.duplicate()
 	
 	# Start at the first node
 	if path_nodes.size() > 0:

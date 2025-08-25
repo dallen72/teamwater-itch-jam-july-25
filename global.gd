@@ -6,13 +6,14 @@ var is_within_context_of_game_popup : bool = false
 var SHOVEL_IMAGE_HEIGHT = 80
 
 # Global variable to store the selected path
-var selected_path : Array = []
+var placed_nodes : Array = []
 
 var Z_INDEX_DITCH : int = 1
 var Z_INDEX_RIVER : int = 2
 var Z_INDEX_SCENERY_BEHIND : int = 3
 var Z_INDEX_SCENERY : int = 5
 var Z_INDEX_UI : int = 10
+var NODE_COLLISION_RADIUS : int = 10
 
 # Cursor textures
 var shovel_cursor_texture : Texture2D
@@ -82,15 +83,17 @@ func _check_cursor_position():
 
 func _is_position_valid_for_placement(pos: Vector2) -> bool:
 	# Check if we have enough energy to place a node at this position
-	if selected_path.size() > 0:
-		var last_node_pos = selected_path[-1].position
+	if placed_nodes.size() > 0:
+		var last_node_pos = placed_nodes[-1].position
 		
 		# Use the NodePlacementValidator to check if the connection is valid
-		if not NodePlacementValidator.is_connection_valid(last_node_pos, pos, PlayerEnergy.get_energy()):
+		var validation = NodePlacementValidator.validate_node_connection(last_node_pos, pos, PlayerEnergy.get_energy())
+		if not validation.valid:
 			return false
 	else:
-		# If no selected path, just check if the position itself is valid
-		if not NodePlacementValidator.can_place_node_at_position(pos):
+		# If no selected path, just check if the position itself is valid (obstacles only)
+		# Note: We can't check distance from existing nodes here since we don't have access to placed_nodes
+		if not NodePlacementValidator.can_place_node_at_position(pos, []):
 			return false
 	
 	return true
@@ -108,23 +111,17 @@ func _set_x_cursor():
 
 
 # Function to update the global selected path
-func update_selected_path(new_path: Array):
-	selected_path = new_path.duplicate()
+func update_placed_nodes(new_path: Array):
+	placed_nodes = new_path.duplicate()
 
 # Function to clear the global selected path
-func clear_selected_path():
-	selected_path.clear()
+func clear_placed_nodes():
+	placed_nodes.clear()
 
 
 func _input(event):
-	# Handle escape key directly here as a fallback
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_ESCAPE:
-			if (Global.is_within_context_of_game_popup == false):
-				print("Escape key pressed in Global - exiting game")
-				get_tree().quit()
-				return
-
+	handle_input(event)
+	
 
 func handle_input(event):
 	if (not input_enabled):
@@ -132,8 +129,10 @@ func handle_input(event):
 		
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
-			print("Escape key pressed - exiting game")
-			get_tree().quit()
+			if (Global.is_within_context_of_game_popup == false):
+				print("Escape key pressed in Global - exiting game")
+				get_tree().quit()
+				return
 	elif event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			print("Mouse left-click detected at: ", event.position)
@@ -194,7 +193,7 @@ func change_level(_next_level):
 	ui_areas = []
 	# Selected path mirror removed - no longer needed
 	# Clear the global selected path when changing levels
-	clear_selected_path()
+	clear_placed_nodes()
 	# Clear the obstacle cache when changing levels
 	NodePlacementValidator.clear_obstacle_cache()
 	get_tree().change_scene_to_file("res://Levels/level_" + str(level_num) + ".tscn")

@@ -40,11 +40,6 @@ func init_ui():
 		if ui:
 			ui.show_dialogue()
 			
-			
-func _input(event):
-	print("Level _input called with event: ", event)
-	Global.handle_input(event)
-
 
 # play the animations, and when they are done, show the win popup
 func _on_level_completed():
@@ -69,7 +64,7 @@ func _on_level_completed():
 	# Start nomad moving along the selected path
 	var nomad = $Nomad
 	if nomad and nomad.has_method("start_path_traversal"):
-		nomad.start_path_traversal($PathManager.selected_path)
+		nomad.start_path_traversal($PathManager.placed_nodes)
 		# Wait for nomad movement to complete
 		await nomad.nomad_movement_completed
 
@@ -79,7 +74,7 @@ func _on_level_completed():
 
 	# play river animation
 	$Nomad/River.visible = true
-	$Nomad/River.draw_river($PathManager.selected_path)
+	$Nomad/River.draw_river($PathManager.placed_nodes)
 	await Global.level_win_animation_finished
 	$Nomad/Ditch/Hole.hide()
 	$Nomad/River/Splash.hide()
