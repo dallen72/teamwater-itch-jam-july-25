@@ -30,6 +30,31 @@ func _ready():
 	# for every child node that is in the group Scenery, set the z_index to 5
 	for child in get_tree().get_nodes_in_group("Scenery"):
 		child.z_index = Global.Z_INDEX_SCENERY
+	
+	# Start the cursor check timer
+	_start_cursor_check_timer()
+
+
+
+func _start_cursor_check_timer():
+	# Create a timer to check cursor position periodically
+	var timer = Timer.new()
+	timer.name = "CursorCheckTimer"
+	timer.wait_time = 0.1  # Check every 100ms
+	timer.timeout.connect(_check_cursor_position)
+	add_child(timer)
+	timer.start()
+	print("Cursor check timer started")
+
+func _check_cursor_position():
+	# Get current mouse position
+	var mouse_pos = get_viewport().get_mouse_position()
+	
+	# Use CursorManager to check and update cursor
+	CursorManager.check_cursor_position(mouse_pos)
+
+
+
 
 
 func init_ui():

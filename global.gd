@@ -15,9 +15,7 @@ var Z_INDEX_SCENERY : int = 5
 var Z_INDEX_UI : int = 10
 var NODE_COLLISION_RADIUS : int = 10
 
-# Cursor textures
-var shovel_cursor_texture : Texture2D
-var x_cursor_texture : Texture2D
+
 
 @warning_ignore("unused_signal")
 signal dialogue_finished
@@ -44,69 +42,7 @@ func _ready():
 	set_process_input(true)
 	print("Global autoload ready - input processing enabled")
 	
-	# Load cursor textures
-	_load_cursor_textures()
-	
-	# Start the cursor check timer
-	_start_cursor_check_timer()
 
-func _load_cursor_textures():
-	# Load the shovel texture
-	shovel_cursor_texture = load("res://Assets/nomad/shovel.png")
-	if not shovel_cursor_texture:
-		print("Warning: Could not load shovel.png for custom cursor")
-	
-	# Load the x cursor texture
-	x_cursor_texture = load("res://Assets/x_cursor.png")
-	if not x_cursor_texture:
-		print("Warning: Could not load x_cursor.png for custom cursor")
-
-func _start_cursor_check_timer():
-	# Create a timer to check cursor position periodically
-	var timer = Timer.new()
-	timer.name = "CursorCheckTimer"
-	timer.wait_time = 0.1  # Check every 100ms
-	timer.timeout.connect(_check_cursor_position)
-	add_child(timer)
-	timer.start()
-	print("Cursor check timer started")
-
-func _check_cursor_position():
-	# Get current mouse position
-	var mouse_pos = get_viewport().get_mouse_position()
-	
-	# Check if the position is valid for node placement
-	if _is_position_valid_for_placement(mouse_pos):
-		_set_shovel_cursor()
-	else:
-		_set_x_cursor()
-
-func _is_position_valid_for_placement(pos: Vector2) -> bool:
-	# Check if we have enough energy to place a node at this position
-	if placed_nodes.size() > 0:
-		var last_node_pos = placed_nodes[-1].position
-		
-		# Use the NodePlacementValidator to check if the connection is valid
-		var validation = NodePlacementValidator.validate_node_connection(last_node_pos, pos, PlayerEnergy.get_energy())
-		if not validation.valid:
-			return false
-	else:
-		# If no selected path, just check if the position itself is valid (obstacles only)
-		# Note: We can't check distance from existing nodes here since we don't have access to placed_nodes
-		if not NodePlacementValidator.can_place_node_at_position(pos, []):
-			return false
-	
-	return true
-
-
-
-func _set_shovel_cursor():
-	if shovel_cursor_texture:
-		Input.set_custom_mouse_cursor(shovel_cursor_texture, Input.CURSOR_ARROW, Vector2(0, SHOVEL_IMAGE_HEIGHT))
-
-func _set_x_cursor():
-	if x_cursor_texture:
-		Input.set_custom_mouse_cursor(x_cursor_texture, Input.CURSOR_ARROW, Vector2(16, 16))
 
 
 

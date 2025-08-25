@@ -21,13 +21,20 @@ func can_place_node_at_position(pos: Vector2, existing_nodes: Array = []) -> boo
 	# Check for obstacles at the position
 	if is_obstacle_at_position(pos):
 		return false
-	
 	# Check if position is far enough from existing nodes
-	for node in existing_nodes:
-		if node.position.distance_to(pos) < Global.NODE_COLLISION_RADIUS:
-			return false
-	
-	return true
+	elif (node_is_at_position(pos, existing_nodes)):
+		return false
+	else:
+		return true
+
+
+# Check if there's a node at the given position
+func node_is_at_position(pos: Vector2, placed_nodes: Array) -> bool:
+	for node in placed_nodes:
+		if node.position.distance_to(pos) < 20:  # Click tolerance
+			return true
+	return false
+
 
 # Check if there's an obstacle at the given position
 func is_obstacle_at_position(pos: Vector2) -> bool:

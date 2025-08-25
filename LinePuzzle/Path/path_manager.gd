@@ -60,10 +60,6 @@ func handle_level_click(click_position: Vector2):
 		handle_checkpoint_click(clicked_checkpoint)
 		return
 	
-	if node_is_at_position(click_position):
-		print("Clicked on existing node")
-		# Clicked on existing node - handle selection
-		handle_node_placement(get_node_at_position(click_position))
 	elif (NodePlacementValidator.can_place_node_at_position(click_position, placed_nodes)):
 		place_new_node(click_position)
 
@@ -88,23 +84,6 @@ func get_checkpoint_at_position(pos: Vector2):
 		if checkpoint.position.distance_to(pos) < 20:  # Click tolerance
 			return checkpoint
 	return null
-
-# Check if there's a node at the given position
-func node_is_at_position(pos: Vector2) -> bool:
-	for node in placed_nodes:
-		if node.position.distance_to(pos) < 20:  # Click tolerance
-			return true
-	return false
-
-
-# Get the node at the given position
-func get_node_at_position(pos: Vector2) -> PathNode:
-	for node in placed_nodes:
-		if node.position.distance_to(pos) < 20:  # Click tolerance
-			return node
-	return null
-
-
 
 
 # Handle checkpoint clicks
