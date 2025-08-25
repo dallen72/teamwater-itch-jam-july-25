@@ -66,9 +66,7 @@ func _check_cursor_position():
 func set_cursor_for_position_validity(is_valid: bool):
 	# Set cursor based on whether the position is valid for node placement.	
 	# also, if the winpopup ui is visible, set the cursor to the shovel
-	if (get_node_or_null("Level/WinPopupUI") == null):
-		set_shovel_cursor()
-	elif is_valid or (get_tree().get_root().get_node("Level/WinPopupUI").visible == true):
+	if is_valid or (Global.win_popup_ui_showing == true):
 		set_shovel_cursor()
 	else:
 		set_x_cursor()

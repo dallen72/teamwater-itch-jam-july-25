@@ -3,7 +3,8 @@ extends Node
 var level_num : int = 0
 var input_enabled : bool = true
 var is_within_context_of_game_popup : bool = false
-var SHOVEL_IMAGE_HEIGHT = 80
+# needed to check if UI is showing at the end of a level
+var win_popup_ui_showing : bool = true
 
 # Global variable to store the selected path
 var placed_nodes : Array = []
@@ -14,7 +15,7 @@ var Z_INDEX_SCENERY_BEHIND : int = 3
 var Z_INDEX_SCENERY : int = 5
 var Z_INDEX_UI : int = 10
 var NODE_COLLISION_RADIUS : int = 10
-
+var SHOVEL_IMAGE_HEIGHT = 80
 
 
 @warning_ignore("unused_signal")

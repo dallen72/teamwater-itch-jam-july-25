@@ -17,6 +17,7 @@ func _ready():
 	# Set global level number for other systems to use (keeping for backward compatibility)
 	Global.level_num = level_number
 	Global.level_completed.connect(_on_level_completed)
+	Global.win_popup_ui_showing = false
 	
 	# Set starting energy for current level
 	PlayerEnergy.player_energy = starting_energy
@@ -33,7 +34,7 @@ func _ready():
 	
 	# Start the cursor check timer
 	CursorManager.start_cursor_check_timer()
-
+	
 
 
 func init_ui():
@@ -88,4 +89,5 @@ func _on_level_completed():
 	var win_popup = get_node_or_null("WinPopupUI")
 	if win_popup:
 		Global.dialogue_finished.emit()
+		Global.win_popup_ui_showing = true
 		win_popup.show()
