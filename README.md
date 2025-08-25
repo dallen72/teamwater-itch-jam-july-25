@@ -5,7 +5,8 @@
 	- need to have an explanation for multiple cows (explained to the user)  
 	- setup itch page
 	- refactor the nomad script
-	- do a better job of showing where the energy is  
+	- do a better job of showing where the energy is 
+	- bug: the user can't escape when the "you won" is shown
 
 ## Feedback from playtest 8/13:  
 	- The simple ui and tutorial is great. the interactive map on the phone could be bigger. consider doing away with the saure map, allowing the entire screen open to play.  

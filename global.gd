@@ -44,8 +44,6 @@ func _ready():
 	
 
 
-
-
 # Function to update the global selected path
 func update_placed_nodes(new_path: Array):
 	placed_nodes = new_path.duplicate()
@@ -130,6 +128,5 @@ func change_level(_next_level):
 	# Selected path mirror removed - no longer needed
 	# Clear the global selected path when changing levels
 	clear_placed_nodes()
-	# Clear the obstacle cache when changing levels
-	NodePlacementValidator.clear_obstacle_cache()
+	# Obstacle cache removed - no longer needed
 	get_tree().change_scene_to_file("res://Levels/level_" + str(level_num) + ".tscn")

@@ -27,10 +27,10 @@ script = ExtResource("2_path_manager")
 [node name="SpawnPoint" parent="PathManager" instance=ExtResource("4_syshm")]
 position = Vector2(617, 211)
 
-[node name="CheckPoint1" parent="PathManager" instance=ExtResource("5_0urlm")]
+[node name="CheckPoint1" parent="PathManager" groups=["CheckPoint"] instance=ExtResource("5_0urlm")]
 position = Vector2(675, 520)
 
-[node name="CheckPoint2" parent="PathManager" instance=ExtResource("5_0urlm")]
+[node name="CheckPoint2" parent="PathManager" groups=["CheckPoint"] instance=ExtResource("5_0urlm")]
 position = Vector2(407, 390)
 
 [node name="CheckpointManager" type="Node2D" parent="."]
